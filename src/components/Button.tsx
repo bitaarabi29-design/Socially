@@ -6,9 +6,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "pure" | "teritiary";
   children?: React.ReactNode;
   disabled?: boolean;
-  state?: ButtonState;
 };
-type ButtonState = "normal" | "hover" | "disable";
 
 const ButtonVariants = {
   variant: {
@@ -18,15 +16,9 @@ const ButtonVariants = {
     teritiary: "bg-social-bg text-h",
   },
   size: {
-    sm: "w-fit rounded-[6px] py-2 px-3 items-center text-sm",
-    md: "w-fit px-4 py-2 rounded-[6px] items-center text-base",
+    sm: "w-fit rounded-[6px] py-2 px-3 items-center text-sm hover:bg-social-bg hover:text-text-h disabled:bg-accent-bg disabled:text-text  ",
+    md: "w-fit px-4 py-2 rounded-[6px] items-center text-base  hover:bg-social-bg hover:text-text-h disabled:bg-accent-bg disabled:text-text ",
   },
-};
-
-const ButtonStates = {
-  normal: "bg-bg text-h ",
-  hover: "bg-social-bg text-text-h",
-  disable: "bg-accent-bg text-text ",
 };
 
 function Button({
@@ -34,22 +26,18 @@ function Button({
   loading = false,
   variant = "primary",
   disabled = false,
-  state = "normal",
   children,
 }: ButtonProps) {
-  const baseStyles = "inline-flex justify-center gap-2 rounded-[6px] text-base font-sans";
+  const baseStyles =
+    "inline-flex justify-center gap-2 rounded-[6px] text-base font-sans";
   const variantStyles = ButtonVariants.variant[variant];
   const sizeStyles = ButtonVariants.size[size];
-  const stateStyles = ButtonStates[state];
   return (
     <button
-      className={`${baseStyles} ${variantStyles} ${sizeStyles} ${stateStyles}`}
-    disabled={disabled}>
-      {loading ? (
-        <span>Loading...</span>
-      ) : (
-          children && <span>{children}</span>
-      )}
+      className={`${baseStyles} ${variantStyles} ${sizeStyles}`}
+      disabled={disabled}
+    >
+      {loading ? <span>Loading...</span> : children && <span>{children}</span>}
     </button>
   );
 }
