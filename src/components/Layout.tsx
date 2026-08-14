@@ -4,9 +4,11 @@ function Layout() {
   return (
     <div>
       <header>Header</header>
-      <aside>Left Sidebar</aside>
       <main>
-        <Outlet />
+        <aside>Left Sidebar</aside>
+        <section>
+          <Outlet />
+        </section>
       </main>
     </div>
   );
