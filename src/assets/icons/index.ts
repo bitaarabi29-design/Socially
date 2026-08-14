@@ -1,0 +1,15 @@
+export { default as CalendarIcon } from "./calendar.svg?react";
+export { default as ChatIcon } from "./chat.svg?react";
+export { default as DarkModeIcon } from "./dark-mode.svg?react";
+export { default as EditIcon } from "./edit.svg?react";
+export { default as HeartIcon } from "./heart.svg?react";
+export { default as HomeIcon } from "./home.svg?react";
+export { default as ImageIcon } from "./image.svg?react";
+export { default as LightModeIcon } from "./light-mode.svg?react";
+export { default as LinkIcon } from "./link.svg?react";
+export { default as LocationIcon } from "./location.svg?react";
+export { default as NotificationIcon } from "./notification.svg?react";
+export { default as PersonIcon } from "./person.svg?react";
+export { default as PostIcon } from "./post.svg?react";
+export { default as SendIcon } from "./send.svg?react";
+export { default as TrashIcon } from "./trash.svg?react";
