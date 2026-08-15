@@ -1,5 +1,3 @@
-function App() {
-  return <div>socially</div>;
-}
+function App() {}
 
 export default App;
