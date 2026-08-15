@@ -13,6 +13,9 @@
   --color-base-200: #fafafa;
   --color-base-300: #e5e5e5;
   --color-base-content: #171717;
+  --color-base-content-tertiary: #a6a6a6;
+  --color-base-content-secondary: #737373;
+  --color-base-content-opposite: #171717;
 
   --color-primary: #3b82f6;
   --color-primary-content: #ffffff;
@@ -44,6 +47,9 @@
   --color-base-200: #171717;
   --color-base-300: #262626;
   --color-base-content: #fafafa;
+  --color-base-content-tertiary: #575757;
+  --color-base-content-secondary: #a3a3a3;
+  --color-base-content-opposite: #fafafa;
 
   --color-primary: #3b82f6;
   --color-primary-content: #ffffff;
