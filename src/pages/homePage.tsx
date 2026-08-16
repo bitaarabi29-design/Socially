@@ -1,3 +1,4 @@
+
 // import PostCard from "../../src/Components/PostCard";
 import AddPostCard from "../components/AddPostCard";
 import RecommendedUserCard from "../components/card/RecommendedUserCard";
@@ -19,6 +20,7 @@ function Home() {
       </div>
     </>
   );
+
 }
 
 export default Home;
