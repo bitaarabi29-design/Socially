@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Layout from "./layout/Layout";
-import Login from "./pages/loginPage";
-import Register from "./pages/registerPage";
-import Home from "./pages/homePage";
+import Layout from "./components/layouts/Layout";
+import Login from "./pages/LoginPage";
+import Register from "./pages/RegisterPage";
+import Home from "./pages/HomePage";
 import Profile from "./pages/ProfilePage";
-import Notification from "./pages/notificationPage";
+import Notification from "./pages/NotificationPage";
 
 const router = createBrowserRouter([
   {
