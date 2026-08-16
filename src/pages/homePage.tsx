@@ -1,7 +1,7 @@
 
-// import PostCard from "../../src/Components/PostCard";
-import AddPostCard from "../components/AddPostCard";
-import RecommendedUserCard from "../components/card/RecommendedUserCard";
+import AddPostCard from "../components/cards/AddPostCard";
+import PostCard from "../components/cards/PostCard";
+import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 
 function Home() {
   return (
@@ -11,7 +11,7 @@ function Home() {
       <div className="mx-auto flex w-full max-w-6xl gap-6 px-4 flex-row">
         <main className="flex flex-col w-full ">
           <AddPostCard />
-          {/* <PostCard/> */}
+          <PostCard/>
         </main>
 
         <aside className="w-96 md:shrink-0">

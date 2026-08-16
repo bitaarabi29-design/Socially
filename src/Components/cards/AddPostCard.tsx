@@ -1,5 +1,4 @@
-import { SendIcon } from "../assets/icons";
-
+import { SendIcon } from "../../assets/icons";
 
 function AddPostCard () {
     return(
