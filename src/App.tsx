@@ -2,10 +2,10 @@ import { HeartIcon, HomeIcon, SendIcon } from "./assets/icons";
 
 function App() {
   return (
-    <div className="p-8 flex gap-4">
-      <HeartIcon className="w-8 h-8 text-primary" />
-      <HomeIcon className="w-8 h-8 text-secondary" />
-      <SendIcon className="w-8 h-8 text-accent" />
+    <div className="flex gap-4 p-8">
+      <HeartIcon className="text-primary h-8 w-8" />
+      <HomeIcon className="text-secondary h-8 w-8" />
+      <SendIcon className="text-accent h-8 w-8" />
     </div>
   );
 }
