@@ -1,8 +1,9 @@
 import { SendIcon } from "../assets/icons";
 
+
 function AddPostCard () {
     return(
-        <div className="w-full max-w-2xl rounded-xl border border-base-300 bg-base-100 p-4 md:p-3">
+        <div className="w-full rounded-xl border border-base-300 bg-base-100 p-4 md:p-3">
                <div className=" flex flex-col md:flex-row gap-8 md:gap-8">
                 <img />
                  <textarea
