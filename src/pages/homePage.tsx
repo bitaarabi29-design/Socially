@@ -1,6 +1,6 @@
 // import PostCard from "../../src/Components/PostCard";
-import AddPostCard from "../Components/AddPostCard";
-import RecommendedUserCard from "../Components/RecommendedUserCard";
+import AddPostCard from "../components/AddPostCard";
+import RecommendedUserCard from "../components/card/RecommendedUserCard";
 
 function Home() {
   return (

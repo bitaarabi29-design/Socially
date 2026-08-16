@@ -1,5 +1,5 @@
-import { HeartIcon, ChatIcon, SendIcon } from "../assets/icons";
-import Button from "./Ui/Button";
+import { HeartIcon, ChatIcon, SendIcon } from "../../assets/icons";
+import Button from "../Ui/Button";
 
 function PostCard() {
   return (
