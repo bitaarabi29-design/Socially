@@ -11,7 +11,7 @@ function Layout() {
     <div>
        <Header />
      <MobileSidebar />
-      <main className="mx-auto grid grid-cols-5 gap-3 max-w-7xl ph-4">
+      <main className="mx-auto grid grid-cols-5 gap-3 max-w-7xl p-4">
          <aside className=" md:shrink-0 col-span-1">
           <SideSignInCard />
           <SideProfileCard />
