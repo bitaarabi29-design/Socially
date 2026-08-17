@@ -1,26 +1,23 @@
-
 import AddPostCard from "../components/cards/AddPostCard";
 import PostCard from "../components/cards/PostCard";
 import RecommendedUserCard from "../components/cards/RecommendedUserCard";
+import Container from "../components/Ui/Container";
+
 
 function Home() {
   return (
-    <>
-      <div>home page</div>
-
-      <div className="mx-auto flex w-full max-w-6xl gap-6 px-4 flex-row">
-        <main className="flex flex-col w-full ">
-          <AddPostCard />
-          <PostCard/>
-        </main>
-
-        <aside className="w-96 md:shrink-0">
+    <Container>
+        <div className="col-span-3 flex flex-col gap-6">
+            <AddPostCard  />
+            <PostCard />
+        </div>
+         
+        <div className="col-span-2 flex flex-col gap-6">
           <RecommendedUserCard />
-        </aside>
-      </div>
-    </>
+        </div>
+    
+    </Container>
   );
-
 }
 
 export default Home;
