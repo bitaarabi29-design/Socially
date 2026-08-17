@@ -23,6 +23,7 @@ function Button({
   disabled = false,
   children,
   icon,
+  onClick,
 }: ButtonProps) {
   const baseStyles =
     "flex flex-row justify-center gap-2 rounded-[var(--radius-field)] text-base font-family";
@@ -32,6 +33,7 @@ function Button({
     <button
       className={`${baseStyles} ${variantStyles} ${sizeStyles}`}
       disabled={disabled}
+      onClick={onClick}
     >
       {loading ? (
         <span>Loading...</span>
