@@ -1,7 +1,7 @@
-import React from 'react';
+
 import NotificationCard from '../components/cards/notificationCard';
 
-const NotificationPage: React.FC = () => {
+const NotificationPage = () => {
   const notifications = [
     {
       id: 1,
@@ -38,7 +38,7 @@ const NotificationPage: React.FC = () => {
     <div className="bg-base-100 min-h-screen">
       <div className="container mx-auto max-w-3xl px-4 py-8">
         
-        {/* هدر */}
+        
         <div className="mb-6  flex justify-between ">
           <h2 className="text-2xl font-bold text-base-content">
             Notifications
@@ -48,7 +48,7 @@ const NotificationPage: React.FC = () => {
           </p>
         </div>
 
-        {/* لیست نوتیفیکیشن‌ها */}
+      
         <div className="    bg-base-100 rounded-lg border border-base-300 overflow-hidden">
           {notifications.map((notif) => (
             <NotificationCard
