@@ -1,9 +1,12 @@
 import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import MobileSidebar from "./MobileSidebar";
 
 function Layout() {
   return (
     <div>
-      <header>Header</header>
+     <Header />
+     <MobileSidebar />
       <main>
         <aside>Left Sidebar</aside>
         <section>
