@@ -53,7 +53,7 @@ function UserProfileCard({
           <span className="text-base-content-secondary">Following</span>
         </span>
         <span className="text-base-content">
-          <strong>{user.followersCount}</strong>{" "}
+          <strong>{user.followerCount}</strong>{" "}
           <span className="text-base-content-secondary">Followers</span>
         </span>
       </div>
