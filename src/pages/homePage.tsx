@@ -1,6 +1,7 @@
 import AddPostCard from "../components/cards/AddPostCard";
 import PostCard from "../components/cards/PostCard";
 import RecommendedUserCard from "../components/cards/RecommendedUserCard";
+import SideProfileCard from "../components/cards/SideProfileCard";
 import SideSignInCard from "../components/cards/SideSignInCard";
 
 function Home() {
@@ -17,6 +18,7 @@ function Home() {
         <aside className="w-96 md:shrink-0">
           <RecommendedUserCard />
           <SideSignInCard />
+          <SideProfileCard />
         </aside>
       </div>
     </>
