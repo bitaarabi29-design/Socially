@@ -4,6 +4,7 @@ import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 import Container from "../components/Ui/Container";
 
 
+
 function Home() {
   return (
     <Container>
@@ -14,9 +15,14 @@ function Home() {
          
         <div className="col-span-2 flex flex-col gap-6">
           <RecommendedUserCard />
-        </div>
+
+      </div>
+   
+
+       
     
     </Container>
+
   );
 }
 
