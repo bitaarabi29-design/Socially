@@ -1,5 +1,5 @@
 
-import NotificationCard from '../components/cards/notificationCard';
+import NotificationCard from '../components/cards/NotificationCard';
 
 const NotificationPage = () => {
   const notifications = [
