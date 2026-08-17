@@ -4,7 +4,7 @@ function RecommendedUserCard() {
       <h3 className="text-base-content mb-4 p-8 font-semibold text-base">
         Who to Follow
       </h3>
-      <div className="flex items-center  gap-16">
+      <div className="flex items-center gap-4 md:gap-16">
         <div className="flex items-center gap-3">
           <img />
           <div className="flex flex-col gap-3 ml-4">
