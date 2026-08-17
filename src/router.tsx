@@ -2,10 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./components/layouts/Layout";
 import Home from "./pages/homePage";
 import Profile from "./pages/ProfilePage";
-import Login from "./pages/loginPage";
-import Register from "./pages/registerPage";
-import Notification from "./pages/notificationPage";
-
+import Login from "./pages/LoginPage";
+import Register from "./pages/RegisterPage";
+import Notification from "./pages/NotificationPage";
 
 const router = createBrowserRouter([
   {
