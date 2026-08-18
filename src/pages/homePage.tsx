@@ -6,13 +6,14 @@ import Container from "../components/Ui/Container";
 
 
 
+
 function Home() {
   return (
     <Container>
         <div className="col-span-3 flex flex-col gap-6">
             <AddPostCard  />
             <PostCard />
-            {/* <DeletePostModal /> */}
+            
         </div>
          
         <div className="col-span-2 flex flex-col gap-6">
