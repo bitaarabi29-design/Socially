@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   CloseIcon,
@@ -11,19 +11,15 @@ import {
   PersonIcon,
 } from "../../assets/icons";
 
-function MobileSidebar() {
-  const [theme, setTheme] = useState("sociallydark");
+type MobileSidebarProps = {
+  theme: string;
+  toggleTheme: () => void;
+};
+
+function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
   const drawerRef = useRef<HTMLInputElement>(null);
 
   const isLoggedIn = true;
-
-  function toggleTheme() {
-    const newTheme =
-      theme === "sociallydark" ? "sociallylight" : "sociallydark";
-
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  }
 
   function closeDrawer() {
     if (drawerRef.current) {
@@ -82,7 +78,6 @@ function MobileSidebar() {
         />
 
         <aside className="bg-base-100 text-base-content flex min-h-full w-72 flex-col p-4">
-          {/* Drawer Header */}
           <div className="flex items-center justify-between">
             <span className="text-[16px] leading-6 font-medium">Menu</span>
 
@@ -127,6 +122,7 @@ function MobileSidebar() {
 
                 <button
                   type="button"
+                  onClick={closeDrawer}
                   className="flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4"
                   aria-label="Sign out"
                 >
