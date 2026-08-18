@@ -1,4 +1,5 @@
-import React from 'react'
+
+import Button from "../Ui/Button";
 
 const DeletePostModal = () => {
   return (
