@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   DarkModeIcon,
@@ -9,18 +8,13 @@ import {
   PersonIcon,
 } from "../../assets/icons";
 
-function Header() {
-  const [theme, setTheme] = useState("sociallydark");
+type HeaderProps = {
+  theme: string;
+  toggleTheme: () => void;
+};
 
+function Header({ theme, toggleTheme }: HeaderProps) {
   const isLoggedIn = true;
-
-  function toggleTheme() {
-    const newTheme =
-      theme === "sociallydark" ? "sociallylight" : "sociallydark";
-
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  }
 
   return (
     <header className="border-base-300 bg-base-100 hidden border-b md:block">
