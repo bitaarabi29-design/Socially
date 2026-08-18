@@ -12,7 +12,7 @@ function Home() {
         <PostCard />
       </div>
 
-      <div className="col-span-2 flex flex-col gap-6">
+      <div className="col-span-2 hidden flex-col gap-6 md:flex">
         <RecommendedUserCard />
       </div>
     </Container>
