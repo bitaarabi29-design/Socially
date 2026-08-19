@@ -8,7 +8,10 @@ function Home() {
   return (
     <Container>
       <div className="col-span-3 flex flex-col gap-6">
-        <AddPostCard />
+        <AddPostCard
+          username="Seyed Ali Mousavi"
+          avatarUrl="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
+        />
         <PostCard />
       </div>
 
