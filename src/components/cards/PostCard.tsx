@@ -1,7 +1,8 @@
 import { HeartIcon, ChatIcon, SendIcon } from "../../assets/icons";
-import Button from "../Ui/Button";
+import Button from "../Ui/Button"
+import type {PostCardProps} from "../types/post.types"
 
-function PostCard() {
+function PostCard({ post , like  }: PostCardProps) {
   return (
     <div className=" w-full max-w-2xl rounded-2xl border border-base-300 bg-secondary-content p-4">
       <div className="flex items-center gap-3">
