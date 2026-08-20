@@ -1,47 +1,72 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useLogin } from "../hooks/useLogin";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const loginMutation = useLogin();
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    loginMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => {
+          navigate("/");
+        },
+      },
+    );
+  };
+
   return (
-    <div className="bg-white dark:bg-black min-h-screen flex flex-col items-center justify-center">
-      <div className="dark:bg-white/10 backdrop-blur-3xl border dark:border-white/20 rounded-2xl w-100 h-110 md:w-120 md:h-120 flex flex-col gap-2 lg:w-140 bg-black/10 border-black/40">
-        <h3 className="dark:text-white text-[24px] md:text-[28px] lg:text-[32px] font-bold text-center pt-8">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-white dark:bg-black">
+      <div className="flex h-110 w-100 flex-col gap-2 rounded-2xl border border-black/40 bg-black/10 backdrop-blur-3xl md:h-120 md:w-120 lg:w-140 dark:border-white/20 dark:bg-white/10">
+        <h3 className="pt-8 text-center text-[24px] font-bold md:text-[28px] lg:text-[32px] dark:text-white">
           Welcome back
         </h3>
-        <span className="dark:text-white/70 text-black/60 text-[14px] text-center">
+        <span className="text-center text-[14px] text-black/60 dark:text-white/70">
           Login to your Socially account
         </span>
-        <label className="dark:text-white text-[14px] pl-4 md:pl-6 pt-4 lg:text-[16px]">
+        <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
           Email
         </label>
         <input
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="m@example.com"
-          className="border outline-none dark:focus:border-white/40 focus:border-black/40 focus:ring-2 dark:focus:ring-white/10 focus:ring-black/10 transition-all duration-200 dark:border-white/20 border-black/20 w-90 md:w-110 ml-4 md:ml-5 rounded-lg h-10 md:h-12 pl-4 dark:bg-white/7 bg-white/40 text-[12px] md:text-[14px] lg:w-130 lg:rounded-xl"
-        ></input>
-        <label className="dark:text-white text-[14px] pl-4 md:pl-6 pt-4 lg:text-[16px]">
+          className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 text-[12px] transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 md:text-[14px] lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
+        />
+        <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
           Password
         </label>
         <input
-          type="text"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder=""
-          className="border outline-none dark:focus:border-white/40 focus:border-black/40 focus:ring-2 dark:focus:ring-white/10 focus:ring-black/10 transition-all duration-200 dark:border-white/20 border-black/20 w-90 md:w-110 ml-4 md:ml-5 rounded-lg h-10 md:h-12 pl-4 dark:bg-white/7 bg-white/40 lg:w-130 lg:rounded-xl"
-        ></input>
-        <button className="border rounded-lg dark:bg-white/90 dark:text-black text-white text-[14px] w-90 md:w-110 md:ml-5 h-10 ml-4 mt-6 font-semibold cursor-pointer dark:hover:bg-white/70 bg-black hover:bg-black/80 md:h-12 lg:w-130 lg:rounded-xl lg:text-[16px] transition duration-300">
+          className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
+        />
+        <button
+          onClick={handleLogin}
+          className="mt-6 ml-4 h-10 w-90 cursor-pointer rounded-lg border bg-black text-[14px] font-semibold text-white transition duration-300 hover:bg-black/80 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl lg:text-[16px] dark:bg-white/90 dark:text-black dark:hover:bg-white/70"
+        >
           Login
         </button>
-        <div className="flex justify-center items-center gap-1 pt-4">
-          <span className="text-[12px] md:text-[14px] dark:text-white/70 text-black/70">
+        <div className="flex items-center justify-center gap-1 pt-4">
+          <span className="text-[12px] text-black/70 md:text-[14px] dark:text-white/70">
             Don't have an account?
           </span>
           <Link
             to="/register"
-            className="dark:text-white/70 text-black/70 text-[12px] md:text-[14px] underline hover:text-black dark:hover:text-white"
+            className="text-[12px] text-black/70 underline hover:text-black md:text-[14px] dark:text-white/70 dark:hover:text-white"
           >
             Sign up
           </Link>
         </div>
       </div>
-      <span className="text-[14px] dark:text-white/70 text-black/70 pt-4 w-80 text-center">
+      <span className="w-80 pt-4 text-center text-[14px] text-black/70 dark:text-white/70">
         By clicking continue, you agree to our{" "}
         <span className="underline hover:text-black dark:hover:text-white">
           Terms of Service
