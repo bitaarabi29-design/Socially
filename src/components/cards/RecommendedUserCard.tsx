@@ -1,4 +1,10 @@
+import { useRecommendedUser } from "../../hooks/useRecommendedUser";
+
+
 function RecommendedUserCard() {
+  const {data:recommendedUsers , error , isLoading } =useRecommendedUser() 
+   console.log(recommendedUsers)
+
   return (     <div className="rounded-xl border border-base-300 bg-base-100 p-6 md:p-4 shadow-sm">
       <h3 className="mb-6 text-xs md:text-base font-semibold text-base-content md:whitespace-nowrap truncate">
         Who to Follow
