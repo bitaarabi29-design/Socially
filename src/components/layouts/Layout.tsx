@@ -28,13 +28,13 @@ function Layout() {
 
       <MobileSidebar theme={theme} toggleTheme={toggleTheme} />
 
-      <main className="mx-auto grid max-w-7xl grid-cols-5 gap-3 p-4">
-        <aside className="col-span-1 md:shrink-0">
+      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-3 p-4 md:grid-cols-5">
+        <aside className="hidden md:col-span-1 md:flex md:shrink-0 md:flex-col md:gap-6">
           <SideSignInCard />
           <SideProfileCard />
         </aside>
 
-        <section className="col-span-4">
+        <section className="col-span-1 md:col-span-4">
           <Outlet />
         </section>
       </main>

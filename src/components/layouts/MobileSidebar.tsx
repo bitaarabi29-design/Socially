@@ -28,120 +28,125 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
   }
 
   return (
-    <div className="drawer drawer-end md:hidden">
-      <input
-        ref={drawerRef}
-        id="mobile-sidebar"
-        type="checkbox"
-        className="drawer-toggle"
-      />
+    <div className="md:hidden">
+      {/* Mobile Header */}
+      <header className="border-base-300/50 bg-base-100/70 fixed top-0 right-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b px-4 backdrop-blur-xl">
+        <Link
+          to="/"
+          className="text-[20px] leading-[28px] font-bold tracking-[1px]"
+        >
+          Socially
+        </Link>
 
-      <div className="drawer-content">
-        <header className="border-base-300 bg-base-100 flex h-16 w-full items-center justify-between border-b px-4">
-          <Link
-            to="/"
-            className="text-[20px] leading-[28px] font-bold tracking-[1px]"
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="border-base-300 bg-base-100 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] border"
+            aria-label="Toggle theme"
           >
-            Socially
-          </Link>
+            {theme === "sociallydark" ? (
+              <DarkModeIcon className="text-base-content h-4 w-4" />
+            ) : (
+              <LightModeIcon className="text-base-content h-4 w-4" />
+            )}
+          </button>
 
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="border-base-300 bg-base-100 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] border shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A]"
-              aria-label="Toggle theme"
-            >
-              {theme === "sociallydark" ? (
-                <DarkModeIcon className="text-base-content h-4 w-4" />
-              ) : (
-                <LightModeIcon className="text-base-content h-4 w-4" />
-              )}
-            </button>
+          <label
+            htmlFor="mobile-sidebar"
+            className="bg-neutral text-neutral-content flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px]"
+            aria-label="Open menu"
+          >
+            <MenuIcon className="h-5 w-5" />
+          </label>
+        </div>
+      </header>
 
-            <label
-              htmlFor="mobile-sidebar"
-              className="bg-neutral text-neutral-content flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px]"
-              aria-label="Open menu"
-            >
-              <MenuIcon className="h-5 w-5" />
-            </label>
-          </div>
-        </header>
-      </div>
+      <div className="h-16" />
 
-      <div className="drawer-side z-50">
-        <label
-          htmlFor="mobile-sidebar"
-          aria-label="Close sidebar"
-          className="drawer-overlay"
+      <div className="drawer drawer-end">
+        <input
+          ref={drawerRef}
+          id="mobile-sidebar"
+          type="checkbox"
+          className="drawer-toggle"
         />
 
-        <aside className="bg-base-100 text-base-content flex min-h-full w-72 flex-col p-4">
-          <div className="flex items-center justify-between">
-            <span className="text-[16px] leading-6 font-medium">Menu</span>
+        <div className="drawer-content" />
 
-            <label
-              htmlFor="mobile-sidebar"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center"
-              aria-label="Close menu"
-            >
-              <CloseIcon className="text-base-content h-5 w-5" />
-            </label>
-          </div>
+        <div className="drawer-side z-[60]">
+          <label
+            htmlFor="mobile-sidebar"
+            aria-label="Close sidebar"
+            className="drawer-overlay"
+          />
 
-          <nav className="mt-6 flex flex-col gap-2">
-            <Link
-              to="/"
-              onClick={closeDrawer}
-              className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
-            >
-              <HomeIcon className="text-base-content h-4 w-4" />
-              <span>Home</span>
-            </Link>
+          <aside className="bg-base-100 text-base-content flex min-h-full w-72 flex-col p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-[16px] leading-6 font-medium">Menu</span>
 
-            {isLoggedIn && (
-              <>
-                <Link
-                  to="/notification"
-                  onClick={closeDrawer}
-                  className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
-                >
-                  <NotificationIcon className="text-base-content h-4 w-4" />
-                  <span>Notifications</span>
-                </Link>
+              <label
+                htmlFor="mobile-sidebar"
+                className="flex h-9 w-9 cursor-pointer items-center justify-center"
+                aria-label="Close menu"
+              >
+                <CloseIcon className="text-base-content h-5 w-5" />
+              </label>
+            </div>
 
-                <Link
-                  to="/profile"
-                  onClick={closeDrawer}
-                  className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
-                >
-                  <PersonIcon className="text-base-content h-4 w-4" />
-                  <span>Profile</span>
-                </Link>
+            <nav className="mt-6 flex flex-col gap-2">
+              <Link
+                to="/"
+                onClick={closeDrawer}
+                className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+              >
+                <HomeIcon className="text-base-content h-4 w-4" />
+                <span>Home</span>
+              </Link>
 
-                <button
-                  type="button"
-                  onClick={closeDrawer}
-                  className="flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4"
-                  aria-label="Sign out"
-                >
-                  <LogoutIcon className="text-base-content h-4 w-4" />
-                </button>
-              </>
+              {isLoggedIn && (
+                <>
+                  <Link
+                    to="/notification"
+                    onClick={closeDrawer}
+                    className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                  >
+                    <NotificationIcon className="text-base-content h-4 w-4" />
+                    <span>Notifications</span>
+                  </Link>
+
+                  <Link
+                    to="/profile"
+                    onClick={closeDrawer}
+                    className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                  >
+                    <PersonIcon className="text-base-content h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={closeDrawer}
+                    className="flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4"
+                    aria-label="Sign out"
+                  >
+                    <LogoutIcon className="text-base-content h-4 w-4" />
+                  </button>
+                </>
+              )}
+            </nav>
+
+            {!isLoggedIn && (
+              <Link
+                to="/login"
+                onClick={closeDrawer}
+                className="bg-neutral text-neutral-content mt-auto flex h-9 items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+              >
+                Sign In
+              </Link>
             )}
-          </nav>
-
-          {!isLoggedIn && (
-            <Link
-              to="/login"
-              onClick={closeDrawer}
-              className="bg-neutral text-neutral-content mt-auto flex h-9 items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A]"
-            >
-              Sign In
-            </Link>
-          )}
-        </aside>
+          </aside>
+        </div>
       </div>
     </div>
   );

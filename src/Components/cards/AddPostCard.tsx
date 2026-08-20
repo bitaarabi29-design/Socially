@@ -1,26 +1,38 @@
+import { useState } from "react";
 import { SendIcon } from "../../assets/icons";
+import Button from "../Ui/Button";
 
-function AddPostCard () {
-    return(
-        <div className="w-full rounded-xl border border-base-300 bg-base-100 p-4 md:p-3">
-               <div className=" flex flex-col md:flex-row gap-8 md:gap-8">
-                <img />
-                 <textarea
-                    placeholder="What's on your mind?"
-                    className="text-neutral-6 resize-none outline-none focus:outline-none focus:border-0 focus:ring-0 border-none bg-transparent h-20 md:h-24 w-full overflow-y-auto p-3"
-                  ></textarea>
-                  </div>
-                <div
-                  className="border-t border-base-300 p-6 flex justify-end gap-2 mt-12 mx-4 md:mx-2"
-                >
-                  <button className="flex bg-base-content/50 px-6 py-2 rounded-lg gap-2 ">
-                 <SendIcon/>
-                   <p className="text-sm text-base-200"> Post</p>
-                  </button>
-                  </div>
-         </div>
-       
-    )
-    
+function AddPostCard() {
+  const [content, setContent] = useState("");
+
+  const isPostDisabled = content.trim().length === 0;
+
+  return (
+    <div className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
+      <div className="flex h-[100px] items-start gap-4">
+        <img
+          src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
+          alt="Current user"
+          className="h-10 w-10 shrink-0 rounded-full object-cover"
+        />
+
+        <textarea
+          value={content}
+          onChange={(event) => setContent(event.target.value)}
+          placeholder="What's on your mind?"
+          className="text-base-content placeholder:text-base-content/50 h-full min-w-0 flex-1 resize-none border-none bg-transparent p-0 text-sm outline-none focus:outline-none"
+        />
+      </div>
+
+      <div className="border-base-300 mt-4 border-t pt-4">
+        <div className="flex justify-end">
+          <Button icon={<SendIcon />} disabled={isPostDisabled}>
+            Post
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 export default AddPostCard;
