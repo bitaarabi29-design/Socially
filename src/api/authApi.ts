@@ -10,7 +10,7 @@ export const registerRequest = (data: registerTypes) => {
 };
 
 export const getSessionRequest = async () => {
-  const response = await api.post("api/authentication/session");
+  const response = await api.get("api/authentication/session");
   return response.data;
 };
 
