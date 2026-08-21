@@ -13,9 +13,9 @@ function UserProfileCard({
   onFollowClick,
 }: UserProfileCardProps) {
   return (
-    <div className="w-full max-w-2xl rounded-2xl border border-base-300 bg-base-100 p-6">
+    <div className="border-base-300 bg-base-100 w-full max-w-2xl rounded-2xl border p-6">
       <div className="flex items-start justify-between">
-        <div className="h-20 w-20 rounded-full bg-base-300"></div>
+        <div className="bg-base-300 h-20 w-20 rounded-full"></div>
 
         {user.isCurrentUser ? (
           <Button variant="secondary" size="sm" onClick={onEditClick}>
@@ -29,20 +29,14 @@ function UserProfileCard({
       </div>
 
       <div className="mt-4">
-        <h2 className="text-lg font-semibold text-base-content">
-          {user.name}
-        </h2>
-        <p className="text-sm text-base-content-secondary">
-          @{user.username}
-        </p>
+        <h2 className="text-base-content text-lg font-semibold">{user.name}</h2>
+        <p className="text-base-content-secondary text-sm">@{user.username}</p>
       </div>
 
-      {user.bio && (
-        <p className="mt-3 text-sm text-base-content">{user.bio}</p>
-      )}
+      {user.bio && <p className="text-base-content mt-3 text-sm">{user.bio}</p>}
 
       {user.location && (
-        <p className="mt-2 text-sm text-base-content-secondary">
+        <p className="text-base-content-secondary mt-2 text-sm">
           {user.location}
         </p>
       )}
