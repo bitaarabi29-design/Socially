@@ -4,18 +4,16 @@ import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
 import UserProfileCard from "../Components/cards/UserProfileCard";
 import Container from "../Components/Ui/Container";
 import { useSession } from "../hooks/useSession";
+import { HeartIcon, PostIcon } from "../assets/icons";
 import usePosts from "../hooks/usePost";
 
 function Profile() {
   const { data: session } = useSession();
 
   const [section, setSection] = useState("");
-
-  const userId = "f8o62nxp9o853e5TZVIqGKHYwQZncNT0";
+  const userId = session?.data?.user?.id;
 
   const { data: posts } = usePosts(userId);
-
-  console.log("posts:", posts);
 
   return (
     <Container>
@@ -32,10 +30,20 @@ function Profile() {
             isCurrentUser: true,
           }}
         />
-        <div className="flex gap-4">
-          <button onClick={() => setSection("posts")}>Posts</button>
+        <div className="border-base-300 flex gap-4 border-b px-6 py-3">
+          <button
+            onClick={() => setSection("posts")}
+            className="text-base-content-secondary flex items-center gap-2"
+          >
+            <PostIcon /> Posts
+          </button>
 
-          <button onClick={() => setSection("likes")}>Likes</button>
+          <button
+            onClick={() => setSection("likes")}
+            className="text-base-content-secondary flex items-center gap-2"
+          >
+            <HeartIcon /> Likes
+          </button>
         </div>
         {section === "posts" && (
           <div>
@@ -56,3 +64,5 @@ function Profile() {
 }
 
 export default Profile;
+
+

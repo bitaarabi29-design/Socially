@@ -7,11 +7,10 @@ export const getRecommendedUser =
     return response.data;
   };
 
-export const getUserPosts = async () => {
+export const getUserPosts = async (userId: string) => {
   const res = await api.get(`/api/users/${userId}/posts`);
-  console.log("API response:", res.data);
 
-  return res.data;
+  return res.data.data;
 };
 
 export const getUserLikes = async () => {
