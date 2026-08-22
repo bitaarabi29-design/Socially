@@ -2,8 +2,10 @@ import PostCard from "../Components/cards/PostCard";
 import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
 import UserProfileCard from "../Components/cards/UserProfileCard";
 import Container from "../Components/Ui/Container";
+import { useSession } from "../hooks/useSession";
 
 function Profile() {
+  const { data: session } = useSession();
   return (
     <Container>
       <div className="col-span-5 flex flex-col gap-6 md:col-span-3">
@@ -21,10 +23,12 @@ function Profile() {
         />
         <PostCard />
       </div>
-
-      <div className="hidden md:col-span-2 md:flex md:flex-col md:gap-6">
+      {session && (
+         <div className="hidden md:col-span-2 md:flex md:flex-col md:gap-6">
         <RecommendedUserCard />
       </div>
+      )}
+     
     </Container>
   );
 }
