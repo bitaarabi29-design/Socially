@@ -19,7 +19,7 @@ function PostCard() {
         <div className="min-w-0 flex-1">
           <div className="flex h-6 items-center">
             <h3 className="text-base-content text-base font-semibold">
-              Farshad Hosseini
+               {post.author.name}
             </h3>
 
             <span className="text-base-content/50 ml-3 text-xs">
@@ -31,7 +31,7 @@ function PostCard() {
             <span className="text-base-content/50 text-xs">8 days ago</span>
           </div>
 
-          <p className="text-base-content mt-1 text-sm">image</p>
+          <p className="text-base-content mt-1 text-sm">  {post.content}</p>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ function PostCard() {
           aria-label="Like post"
         >
           <HeartIcon className="h-4 w-4" />
-          <span className="text-sm">1</span>
+          <span className="text-sm">{post._count.likes}</span>
         </button>
 
         <button
@@ -51,7 +51,7 @@ function PostCard() {
           aria-label="Comment on post"
         >
           <ChatIcon className="h-4 w-4" />
-          <span className="text-sm">1</span>
+          <span className="text-sm">{post._count.comments}</span>
         </button>
       </div>
 

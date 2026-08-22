@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUserLikes } from "../api/userApi";
+import { getUserLikes } from "../api/socialApi";
 
 function useLikes() {
   return useQuery({
     queryKey: ["likes"],
-    queryFn: getUserLikes
-     
- })
+    queryFn: getUserLikes,
+  });
 }
 
 export default useLikes;

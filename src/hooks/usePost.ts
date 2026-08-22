@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUserPosts } from "../api/userApi";
+import { getUserPosts } from "../api/socialApi";
 
-  function usePosts() {
+function usePosts(userId: string) {
   return useQuery({
-    queryKey: ["posts"],
-    queryFn: getUserPosts
-     
-})
+    queryKey: ["posts", userId],
+    queryFn: () => getUserPosts(userId),
+  });
 }
 
 export default usePosts;
