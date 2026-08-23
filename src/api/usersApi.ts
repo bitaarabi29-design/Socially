@@ -3,7 +3,7 @@ import type { user } from "../types/user.types";
 
 export const getUserProfile = async (id: string) => {
   const response = await api.get(`/api/users/${id}`);
-  return response.data;
+  return response.data.data;
 };
 
 export const getUserProfileByUsername = async (username: string) => {
