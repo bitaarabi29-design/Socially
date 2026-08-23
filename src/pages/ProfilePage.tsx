@@ -1,12 +1,13 @@
 import { useState } from "react";
 import PostCard from "../Components/cards/PostCard";
 import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
-import UserProfileCard from "../Components/cards/UserProfileCard";
+import UserProfileCard from "../components/cards/UserProfileCard";
 import Container from "../Components/Ui/Container";
 import { useSession } from "../hooks/useSession";
 import { HeartIcon, PostIcon } from "../assets/icons";
-import usePosts from "../hooks/usePost";
-import useLikes from "../hooks/useLike";
+import { useUserPosts } from "../hooks/usePost";
+import type { Post } from "../types/post.types";
+
 
 function Profile() {
   const { data: session } = useSession();
@@ -14,9 +15,7 @@ function Profile() {
   const [section, setSection] = useState("");
   const userId = session?.data?.user?.id;
 
-  const { data: posts, isLoading: postsLoading, postsError } = usePosts(userId);
-  const { data: likes, isLoading: likesLoading, likesError } = useLikes(userId);
-  const isLoading = postsLoading || likesLoading;
+  const { data: posts } = useUserPosts(userId);
 
   return (
     <Container>
@@ -58,28 +57,9 @@ function Profile() {
         </div>
         {section === "posts" && (
           <div>
-            {isLoading && (
-              <p className="text-base-content/60 text-center">Loading...</p>
-            )}
-            {postsError && (
-              <p className="text-center text-red-500">Failed to load posts</p>
-            )}
-            {!isLoading &&
-              !likesError &&
-              posts?.map((post) => <PostCard key={post.id} post={post} />)}
-          </div>
-        )}
-        {section === "likes" && (
-          <div>
-            {isLoading && (
-              <p className="text-base-content/60 text-center">Loading...</p>
-            )}
-            {likesError && (
-              <p className="text-center text-red-500">Failed to load likes</p>
-            )}
-            {!isLoading &&
-              !likesError &&
-              likes?.map((post) => <PostCard key={post.id} post={post} />)}
+            {posts?.map((post:Post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
           </div>
         )}
       </div>
