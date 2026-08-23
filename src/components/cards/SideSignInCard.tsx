@@ -1,8 +1,10 @@
 function SideSignInCard() {
   return (
-    <div className="card bg-base-100 border-base-300 border px-6 shadow-sm">
-      <div className="card-body items-center gap-4 text-center">
-        <h2 className="card-title text-lg font-bold">Welcome Back!</h2>
+    <div className="card bg-base-100 border-base-300 hidden border px-6 shadow-sm lg:block">
+      <div className="card-body items-center gap-2 text-center">
+        <h2 className="card-title text-lg font-extrabold whitespace-nowrap">
+          Welcome Back!
+        </h2>
         <p className="text-base-content/50 max-w-sm">
           Sign in to access your profile and connect with others.
         </p>

@@ -1,7 +1,7 @@
-import AddPostCard from "../Components/cards/AddPostCard";
-import PostCard from "../Components/cards/PostCard";
-import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
-import Container from "../Components/Ui/Container";
+import AddPostCard from "../components/cards/AddPostCard";
+import PostCard from "../components/cards/PostCard";
+import RecommendedUserCard from "../components/cards/RecommendedUserCard";
+import Container from "../components/ui/Container";
 // import DeletePostModal  from "../Components/cards/DeletePostModal";
 
 function Home() {

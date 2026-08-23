@@ -18,11 +18,11 @@ function Header({ theme, toggleTheme }: HeaderProps) {
 
   return (
     <>
-      <header className="border-base-300/50 bg-base-100/70 fixed top-0 right-0 left-0 z-50 hidden h-16 border-b backdrop-blur-xl md:block">
-        <div className="mx-auto flex h-16 w-full max-w-[1248px] items-center justify-between">
+      <header className="border-base-300/50 bg-base-100/10 fixed top-0 right-0 left-0 z-50 hidden h-16 border-b backdrop-blur-xl md:block">
+        <div className="mx-auto flex h-16 w-full max-w-[1248px] items-center justify-between px-2 md:px-4 lg:px-6">
           <Link
             to="/"
-            className="text-[20px] leading-[28px] font-bold tracking-[1px]"
+            className="font-mono text-[20px] leading-[28px] font-bold tracking-[1px]"
           >
             Socially
           </Link>
@@ -31,7 +31,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
             <button
               type="button"
               onClick={toggleTheme}
-              className="border-base-300 bg-base-100 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] border shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A]"
+              className="border-base-300 bg-base-100/10 hover:bg-base-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] border transition duration-300 ease-in-out"
               aria-label="Toggle theme"
             >
               {theme === "sociallydark" ? (
@@ -43,7 +43,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
 
             <Link
               to="/"
-              className="text-base-content flex h-9 items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+              className="text-base-content hover:bg-base-300 flex h-9 cursor-pointer items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
             >
               <HomeIcon className="text-base-content h-4 w-4" />
               <span>Home</span>
@@ -53,7 +53,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
               <>
                 <Link
                   to="/notification"
-                  className="text-base-content flex h-9 items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                  className="text-base-content hover:bg-base-300 flex h-9 cursor-pointer items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                 >
                   <NotificationIcon className="text-base-content h-4 w-4" />
                   <span>Notifications</span>
@@ -61,7 +61,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
 
                 <Link
                   to="/profile"
-                  className="text-base-content flex h-9 items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                  className="text-base-content hover:bg-base-300 flex h-9 cursor-pointer items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                 >
                   <PersonIcon className="text-base-content h-4 w-4" />
                   <span>Profile</span>
@@ -69,7 +69,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
 
                 <button
                   type="button"
-                  className="text-base-content flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px]"
+                  className="text-base-content hover:bg-base-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] transition duration-300 ease-in-out"
                   aria-label="Sign out"
                 >
                   <LogoutIcon className="text-base-content h-4 w-4" />
@@ -78,7 +78,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
             ) : (
               <Link
                 to="/login"
-                className="bg-neutral text-neutral-content flex h-9 items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A]"
+                className="bg-neutral text-neutral-content hover:bg-base-300 hover:text-base-content flex h-9 cursor-pointer items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A] transition duration-300 ease-in-out"
               >
                 Sign In
               </Link>

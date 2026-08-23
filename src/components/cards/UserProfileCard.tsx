@@ -1,5 +1,5 @@
 import type { UserProfile } from "../../types";
-import Button from "../Ui/Button";
+import Button from "../ui/Button";
 
 type UserProfileCardProps = {
   user: UserProfile;

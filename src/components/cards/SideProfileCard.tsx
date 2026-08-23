@@ -2,7 +2,7 @@ import { LinkIcon, LocationIcon } from "../../assets/icons";
 
 function SideProfileCard() {
   return (
-    <div className="card bg-base-100 border-base-300 w-full border px-6 shadow-sm">
+    <div className="card bg-base-100 border-base-300 hidden w-full border px-6 shadow-sm lg:block lg:max-w-5xl">
       <div className="card-body flex flex-col items-center gap-4 p-0 py-6 text-center">
         <div className="avatar">
           <div className="ring-base-content/50 ring-offset-base-100 w-20 rounded-full ring-2 ring-offset-2">
@@ -20,15 +20,15 @@ function SideProfileCard() {
 
         <div className="divider my-0 w-full"></div>
 
-        <div className="flex w-full items-center justify-around text-center">
-          <div>
+        <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center text-center">
+          <div className="min-w-0">
             <div className="text-lg font-bold">1</div>
             <div className="text-base-content/50 text-xs">Followings</div>
           </div>
 
           <div className="divider divider-horizontal mx-0 h-10"></div>
 
-          <div>
+          <div className="min-w-0">
             <div className="text-lg font-bold">1</div>
             <div className="text-base-content/50 text-xs">Followers</div>
           </div>

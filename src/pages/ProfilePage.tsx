@@ -1,7 +1,7 @@
-import PostCard from "../Components/cards/PostCard";
-import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
-import UserProfileCard from "../Components/cards/UserProfileCard";
-import Container from "../Components/Ui/Container";
+import PostCard from "../components/cards/PostCard";
+import RecommendedUserCard from "../components/cards/RecommendedUserCard";
+import UserProfileCard from "../components/cards/UserProfileCard";
+import Container from "../components/ui/Container";
 
 function Profile() {
   return (
