@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ChatIcon, HeartIcon, SendIcon } from "../../assets/icons";
 import Button from "../Ui/Button";
+import type { PostCardProps } from "../../types/post.types";
 
-function PostCard() {
+function PostCard({post} : PostCardProps) {
   const [comment, setComment] = useState("");
 
   const isCommentDisabled = comment.trim().length === 0;
@@ -58,7 +59,7 @@ function PostCard() {
       <div className="border-base-300 mt-4 border-t" />
 
       <div className="mt-4">
-        <div className="flex h-[100px] w-full items-start gap-4">
+        <div className="flex h-25 w-full items-start gap-4">
           <div className="bg-primary text-primary-content flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg">
             S
           </div>
@@ -67,7 +68,7 @@ function PostCard() {
             value={comment}
             onChange={(event) => setComment(event.target.value)}
             placeholder="Write a comment..."
-            className="border-base-300 text-base-content placeholder:text-base-content/50 h-[100px] min-w-0 flex-1 resize-none rounded-md border bg-transparent p-3 text-sm outline-none focus:outline-none"
+            className="border-base-300 text-base-content placeholder:text-base-content/50 h-25 min-w-0 flex-1 resize-none rounded-md border bg-transparent p-3 text-sm outline-none focus:outline-none"
           />
         </div>
 

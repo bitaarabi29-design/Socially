@@ -1,4 +1,4 @@
-export type Post = {
+export type PostCardProps = {
   id: string;
   authorId: string;
   content: string;

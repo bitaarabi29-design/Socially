@@ -3,8 +3,9 @@ import { getUserLikes } from "../api/socialApi";
 
 function useLikes() {
   return useQuery({
-    queryKey: ["likes"],
-    queryFn: getUserLikes,
+    queryKey: ["likes", userId],
+    queryFn: () => getUserLikes(userId),
+    enabled: !!userId,
   });
 }
 

@@ -6,6 +6,7 @@ import Container from "../Components/Ui/Container";
 import { useSession } from "../hooks/useSession";
 import { HeartIcon, PostIcon } from "../assets/icons";
 import usePosts from "../hooks/usePost";
+import useLikes from "../hooks/useLike";
 
 function Profile() {
   const { data: session } = useSession();
@@ -14,6 +15,7 @@ function Profile() {
   const userId = session?.data?.user?.id;
 
   const { data: posts } = usePosts(userId);
+  const { data: likes } = useLikes(userId);
 
   return (
     <Container>
@@ -45,6 +47,7 @@ function Profile() {
             <HeartIcon /> Likes
           </button>
         </div>
+
         {section === "posts" && (
           <div>
             {posts?.map((post) => (
@@ -52,7 +55,13 @@ function Profile() {
             ))}
           </div>
         )}
-        {/* <PostCard /> */}
+        {section === "likes" && (
+          <div>
+            {likes?.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
       </div>
       {session && (
         <div className="hidden md:col-span-2 md:flex md:flex-col md:gap-6">
@@ -64,5 +73,3 @@ function Profile() {
 }
 
 export default Profile;
-
-
