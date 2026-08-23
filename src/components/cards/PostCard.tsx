@@ -1,37 +1,65 @@
 import { useState } from "react";
 import { ChatIcon, HeartIcon, SendIcon } from "../../assets/icons";
+import type { PostCardProps } from "../../types/post.types";
 import Button from "../Ui/Button";
 
-function PostCard() {
+function formatTimeAgo(date: string) {
+  const now = Date.now();
+  const postDate = new Date(date).getTime();
+
+  const diff = now - postDate;
+
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (minutes < 1) return "just now";
+  if (minutes < 60) return `${minutes} minutes ago`;
+  if (hours < 24) return `${hours} hours ago`;
+
+  return `${days} days ago`;
+}
+
+function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
 
   const isCommentDisabled = comment.trim().length === 0;
 
+  const avatarLetter = post.author.name?.charAt(0).toUpperCase() || "U";
+
   return (
     <article className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
       <div className="flex items-start gap-4">
-        <img
-          src="https://i.pravatar.cc/150?img=12"
-          alt="Farshad Hosseini"
-          className="h-10 w-10 shrink-0 rounded-full object-cover"
-        />
+        {post.author.image ? (
+          <img
+            src={post.author.image}
+            alt={post.author.name}
+            className="h-10 w-10 shrink-0 rounded-full object-cover"
+          />
+        ) : (
+          <div className="bg-primary text-primary-content flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg">
+            {avatarLetter}
+          </div>
+        )}
 
         <div className="min-w-0 flex-1">
           <div className="flex h-6 items-center">
             <h3 className="text-base-content text-base font-semibold">
-              Farshad Hosseini
+              {post.author.name}
             </h3>
 
             <span className="text-base-content/50 ml-3 text-xs">
-              @f.e.h.farshad
+              {post.author.email}
             </span>
 
             <span className="text-base-content/50 mx-3 text-xs">•</span>
 
-            <span className="text-base-content/50 text-xs">8 days ago</span>
+            <span className="text-base-content/50 text-xs">
+              {formatTimeAgo(post.createdAt)}
+            </span>
           </div>
 
-          <p className="text-base-content mt-1 text-sm">image</p>
+          <p className="text-base-content mt-1 text-sm">{post.content}</p>
         </div>
       </div>
 
@@ -42,7 +70,7 @@ function PostCard() {
           aria-label="Like post"
         >
           <HeartIcon className="h-4 w-4" />
-          <span className="text-sm">1</span>
+          <span className="text-sm">{post._count.likes}</span>
         </button>
 
         <button
@@ -51,7 +79,8 @@ function PostCard() {
           aria-label="Comment on post"
         >
           <ChatIcon className="h-4 w-4" />
-          <span className="text-sm">1</span>
+
+          <span className="text-sm">{post._count.comments}</span>
         </button>
       </div>
 
@@ -60,7 +89,7 @@ function PostCard() {
       <div className="mt-4">
         <div className="flex h-[100px] w-full items-start gap-4">
           <div className="bg-primary text-primary-content flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg">
-            S
+            U
           </div>
 
           <textarea
