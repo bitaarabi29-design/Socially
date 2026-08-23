@@ -6,6 +6,7 @@ import Container from "../Components/Ui/Container";
 import { useSession } from "../hooks/useSession";
 import { HeartIcon, PostIcon } from "../assets/icons";
 import { useUserPosts } from "../hooks/usePost";
+import type { Post } from "../types/post.types";
 
 
 function Profile() {
@@ -48,7 +49,7 @@ function Profile() {
         </div>
         {section === "posts" && (
           <div>
-            {posts?.map((post) => (
+            {posts?.map((post:Post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>
