@@ -5,7 +5,6 @@ function useLikes() {
   return useQuery({
     queryKey: ["likes", userId],
     queryFn: () => getUserLikes(userId),
-    enabled: !!userId,
   });
 }
 
