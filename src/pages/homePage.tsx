@@ -2,10 +2,10 @@ import AddPostCard from "../Components/cards/AddPostCard";
 import PostCard from "../Components/cards/PostCard";
 import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
 import Container from "../Components/Ui/Container";
-import usePosts from "../hooks/usePost";
+import { useAllPosts } from "../hooks/usePost";
 
 function Home() {
-  const { data: posts, isPending, isError, error } = usePosts();
+  const { data: posts, isPending, isError, error } = useAllPosts();
 
   return (
     <Container>

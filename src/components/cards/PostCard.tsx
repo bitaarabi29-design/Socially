@@ -79,7 +79,6 @@ function PostCard({ post }: PostCardProps) {
           aria-label="Comment on post"
         >
           <ChatIcon className="h-4 w-4" />
-
           <span className="text-sm">{post._count.comments}</span>
         </button>
       </div>

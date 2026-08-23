@@ -21,12 +21,9 @@ export type Post = {
   content: string;
   createdAt: string;
   updatedAt: string;
-
   author: PostAuthor;
-
   likes: PostLike[];
   comments: PostComment[];
-
   _count: {
     likes: number;
     comments: number;
