@@ -30,10 +30,10 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
   return (
     <div className="md:hidden">
       {/* Mobile Header */}
-      <header className="border-base-300/50 bg-base-100/70 fixed top-0 right-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b px-4 backdrop-blur-xl">
+      <header className="border-base-300/50 bg-base-100/50 fixed top-0 right-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b px-4 backdrop-blur-xl">
         <Link
           to="/"
-          className="text-[20px] leading-[28px] font-bold tracking-[1px]"
+          className="font-mono text-[20px] leading-[28px] font-bold tracking-[1px]"
         >
           Socially
         </Link>
@@ -42,7 +42,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
           <button
             type="button"
             onClick={toggleTheme}
-            className="border-base-300 bg-base-100 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] border"
+            className="border-base-300 bg-base-100/10 hover:bg-base-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] border transition duration-300 ease-in-out"
             aria-label="Toggle theme"
           >
             {theme === "sociallydark" ? (
@@ -54,7 +54,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
 
           <label
             htmlFor="mobile-sidebar"
-            className="bg-neutral text-neutral-content flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px]"
+            className="bg-neutral text-neutral-content hover:bg-neutral/80 hover:text-neutral-content/80 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] transition duration-300 ease-in-out"
             aria-label="Open menu"
           >
             <MenuIcon className="h-5 w-5" />
@@ -98,7 +98,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
               <Link
                 to="/"
                 onClick={closeDrawer}
-                className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
               >
                 <HomeIcon className="text-base-content h-4 w-4" />
                 <span>Home</span>
@@ -109,7 +109,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <Link
                     to="/notification"
                     onClick={closeDrawer}
-                    className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                    className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >
                     <NotificationIcon className="text-base-content h-4 w-4" />
                     <span>Notifications</span>
@@ -118,7 +118,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <Link
                     to="/profile"
                     onClick={closeDrawer}
-                    className="flex h-10 items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                    className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >
                     <PersonIcon className="text-base-content h-4 w-4" />
                     <span>Profile</span>
@@ -127,7 +127,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <button
                     type="button"
                     onClick={closeDrawer}
-                    className="flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4"
+                    className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4 transition duration-300 ease-in-out"
                     aria-label="Sign out"
                   >
                     <LogoutIcon className="text-base-content h-4 w-4" />
@@ -140,7 +140,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
               <Link
                 to="/login"
                 onClick={closeDrawer}
-                className="bg-neutral text-neutral-content mt-auto flex h-9 items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal"
+                className="bg-neutral text-neutral-content hover:bg-base-300 hover:text-base-content mt-auto flex h-9 cursor-pointer items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
               >
                 Sign In
               </Link>

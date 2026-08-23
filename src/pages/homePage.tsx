@@ -1,9 +1,11 @@
+
 import AddPostCard from "../Components/cards/AddPostCard";
 import PostCard from "../Components/cards/PostCard";
 import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
 import Container from "../Components/Ui/Container";
 import { useAllPosts } from "../hooks/usePost";
 import { useSession } from "../hooks/useSession";
+
 
 function Home() {
   const { data: posts, isPending, isError, error } = useAllPosts();

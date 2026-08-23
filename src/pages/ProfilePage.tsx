@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import PostCard from "../Components/cards/PostCard";
 import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
@@ -11,6 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon, PostIcon } from "../assets/icons";
 import { useUserPosts } from "../hooks/usePost";
 import type { Post } from "../types/post.types";
+
 
 function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
