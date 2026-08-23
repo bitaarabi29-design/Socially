@@ -14,8 +14,9 @@ function Profile() {
   const [section, setSection] = useState("");
   const userId = session?.data?.user?.id;
 
-  const { data: posts } = usePosts(userId);
-  const { data: likes } = useLikes(userId);
+  const { data: posts, isLoading: postsLoading, postsError } = usePosts(userId);
+  const { data: likes, isLoading: likesLoading, likesError } = useLikes(userId);
+  const isLoading = postsLoading || likesLoading;
 
   return (
     <Container>
@@ -47,19 +48,30 @@ function Profile() {
             <HeartIcon /> Likes
           </button>
         </div>
-
         {section === "posts" && (
           <div>
-            {posts?.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+            {isLoading && (
+              <p className="text-base-content/60 text-center">Loading...</p>
+            )}
+            {postsError && (
+              <p className="text-center text-red-500">Failed to load posts</p>
+            )}
+            {!isLoading &&
+              !likesError &&
+              posts?.map((post) => <PostCard key={post.id} post={post} />)}
           </div>
         )}
         {section === "likes" && (
           <div>
-            {likes?.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+            {isLoading && (
+              <p className="text-base-content/60 text-center">Loading...</p>
+            )}
+            {likesError && (
+              <p className="text-center text-red-500">Failed to load likes</p>
+            )}
+            {!isLoading &&
+              !likesError &&
+              likes?.map((post) => <PostCard key={post.id} post={post} />)}
           </div>
         )}
       </div>
