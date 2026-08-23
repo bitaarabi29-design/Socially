@@ -4,7 +4,11 @@ import { useSession } from "../../hooks/useSession";
 
 function SideProfileCard() {
   const { data: session } = useSession();
-  const { data: user, isLoading, error } = useUserProfile(session?.id ?? "");
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useUserProfile(session?.data?.user?.id ?? "");
 
   if (isLoading) {
     return (
