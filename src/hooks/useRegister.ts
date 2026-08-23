@@ -12,7 +12,7 @@ export const useRegister = () => {
       });
     },
     onError: () => {
-      toast.error("Invalid email or password", {
+      toast.error("ّFaild! try again.", {
         className:
           "!bg-white/90 dark:!bg-black/80 backdrop-blur-3xl border border-black/20 dark:border-white/20 rounded-xl !text-black dark:!text-white text-[14px] px-4 py-3",
       });
