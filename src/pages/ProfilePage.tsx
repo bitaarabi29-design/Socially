@@ -1,11 +1,12 @@
 import { useState } from "react";
 import PostCard from "../Components/cards/PostCard";
 import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
-import UserProfileCard from "../Components/cards/UserProfileCard";
+import UserProfileCard from "../components/cards/UserProfileCard";
 import Container from "../Components/Ui/Container";
 import { useSession } from "../hooks/useSession";
 import { HeartIcon, PostIcon } from "../assets/icons";
-import usePosts from "../hooks/usePost";
+import { useUserPosts } from "../hooks/usePost";
+
 
 function Profile() {
   const { data: session } = useSession();
@@ -13,7 +14,7 @@ function Profile() {
   const [section, setSection] = useState("");
   const userId = session?.data?.user?.id;
 
-  const { data: posts } = usePosts(userId);
+  const { data: posts } = useUserPosts(userId);
 
   return (
     <Container>
