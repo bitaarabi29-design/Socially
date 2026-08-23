@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-
+import { useSession } from "../../hooks/useSession";
 import Header from "./Header";
 import MobileSidebar from "./MobileSidebar";
-import SideSignInCard from "../cards/SideSignInCard";
 import SideProfileCard from "../cards/SideProfileCard";
-import { useSession } from "../../hooks/useSession";
+import SideSignInCard from "../cards/SideSignInCard";
 
 function Layout() {
   const [theme, setTheme] = useState(() => {

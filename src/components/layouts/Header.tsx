@@ -8,7 +8,7 @@ import {
   PersonIcon,
 } from "../../assets/icons";
 import { useSession } from "../../hooks/useSession";
-import type { useLogout } from "../../hooks/useLogout";
+
 
 type HeaderProps = {
   theme: string;

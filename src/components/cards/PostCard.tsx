@@ -2,8 +2,7 @@ import { useState } from "react";
 import { ChatIcon, HeartIcon, SendIcon } from "../../assets/icons";
 
 import type { PostCardProps } from "../../types/post.types";
-import Button from "../Ui/Button";
-
+import Button from "../ui/Button";
 
 
 function formatTimeAgo(date: string) {
