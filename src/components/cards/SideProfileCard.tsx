@@ -9,6 +9,7 @@ function SideProfileCard() {
     isLoading,
     error,
   } = useUserProfile(session?.data?.user?.id ?? "");
+  console.log("user", user);
 
   if (isLoading) {
     return (
@@ -52,7 +53,7 @@ function SideProfileCard() {
         <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center text-center">
           <div className="min-w-0">
            
-            <div className="text-lg font-bold">{user._count.followings}</div>
+            <div className="text-lg font-bold">{user._count?.followings?? 0}</div>
             <div className="text-base-content/50 text-xs">Followings</div>
           </div>
 
@@ -61,7 +62,7 @@ function SideProfileCard() {
 
           <div className="min-w-0">
         
-            <div className="text-lg font-bold">{user._count.followers}</div>
+            <div className="text-lg font-bold">{user._count?.followers ?? 0}</div>
 
             <div className="text-base-content/50 text-xs">Followers</div>
           </div>
