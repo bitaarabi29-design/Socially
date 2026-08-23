@@ -5,6 +5,7 @@ import Header from "./Header";
 import MobileSidebar from "./MobileSidebar";
 import SideSignInCard from "../cards/SideSignInCard";
 import SideProfileCard from "../cards/SideProfileCard";
+import { useSession } from "../../hooks/useSession";
 
 function Layout() {
   const [theme, setTheme] = useState(() => {
@@ -22,6 +23,8 @@ function Layout() {
     );
   }
 
+  const { data: session } = useSession();
+  const hasSession = !!session;
   return (
     <div>
       <Header theme={theme} toggleTheme={toggleTheme} />
@@ -30,8 +33,7 @@ function Layout() {
 
       <main className="mx-auto grid max-w-7xl grid-cols-1 gap-3 p-4 md:grid-cols-5">
         <aside className="hidden md:col-span-1 md:flex md:shrink-0 md:flex-col md:gap-6">
-          <SideSignInCard />
-          <SideProfileCard />
+          {hasSession? <SideProfileCard />: <SideSignInCard />}
         </aside>
 
         <section className="col-span-1 md:col-span-4">
