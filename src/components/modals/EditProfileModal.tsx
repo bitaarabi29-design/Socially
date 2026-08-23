@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import type { UserProfile } from "../../types";
+import type { user } from "../../types/user.types";
 import Button from "../Ui/Button";
 
 const editProfileSchema = z.object({
@@ -13,7 +13,7 @@ const editProfileSchema = z.object({
 type EditProfileFormData = z.infer<typeof editProfileSchema>;
 
 type EditProfileModalProps = {
-  user: UserProfile;
+  user: user;
   onClose: () => void;
   onSave: (data: EditProfileFormData) => void;
 };
@@ -38,45 +38,44 @@ function EditProfileModal({ user, onClose, onSave }: EditProfileModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-md rounded-2xl bg-base-100 p-6">
-        <h2 className="text-lg font-semibold text-base-content">
+      <div className="bg-base-100 w-full max-w-md rounded-2xl p-6">
+        <h2 className="text-base-content text-lg font-semibold">
           Edit Profile
         </h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mt-4 flex flex-col gap-4"
+        >
           <div>
-            <label className="text-sm text-base-content-secondary">
-              Name
-            </label>
+            <label className="text-base-content-secondary text-sm">Name</label>
             <input
               {...register("name")}
-              className="mt-1 w-full rounded-[var(--radius-field)] border border-base-300 bg-transparent p-2 text-sm text-base-content outline-none focus:border-primary"
+              className="border-base-300 text-base-content focus:border-primary mt-1 w-full rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-error">{errors.name.message}</p>
+              <p className="text-error mt-1 text-xs">{errors.name.message}</p>
             )}
           </div>
 
           <div>
-            <label className="text-sm text-base-content-secondary">
-              Bio
-            </label>
+            <label className="text-base-content-secondary text-sm">Bio</label>
             <textarea
               {...register("bio")}
-              className="mt-1 h-20 w-full resize-none rounded-[var(--radius-field)] border border-base-300 bg-transparent p-2 text-sm text-base-content outline-none focus:border-primary"
+              className="border-base-300 text-base-content focus:border-primary mt-1 h-20 w-full resize-none rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
             />
             {errors.bio && (
-              <p className="mt-1 text-xs text-error">{errors.bio.message}</p>
+              <p className="text-error mt-1 text-xs">{errors.bio.message}</p>
             )}
           </div>
 
           <div>
-            <label className="text-sm text-base-content-secondary">
+            <label className="text-base-content-secondary text-sm">
               Location
             </label>
             <input
               {...register("location")}
-              className="mt-1 w-full rounded-[var(--radius-field)] border border-base-300 bg-transparent p-2 text-sm text-base-content outline-none focus:border-primary"
+              className="border-base-300 text-base-content focus:border-primary mt-1 w-full rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
             />
           </div>
 
