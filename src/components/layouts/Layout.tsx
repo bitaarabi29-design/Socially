@@ -5,6 +5,7 @@ import Header from "./Header";
 import MobileSidebar from "./MobileSidebar";
 import SideSignInCard from "../cards/SideSignInCard";
 import SideProfileCard from "../cards/SideProfileCard";
+import { useSession } from "../../hooks/useSession";
 
 function Layout() {
   const [theme, setTheme] = useState(() => {
@@ -22,18 +23,32 @@ function Layout() {
     );
   }
 
+  const { data: session ,isLoading} = useSession();
+  const hasSession = !!session;
   return (
     <div>
       <Header theme={theme} toggleTheme={toggleTheme} />
 
       <MobileSidebar theme={theme} toggleTheme={toggleTheme} />
-
-      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-4 lg:grid-cols-5">
+      
+        
+      
+       
+      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-4 md:grid-cols-5">
         <aside className="lg:col-span-1 lg:flex lg:shrink-0 lg:flex-col lg:gap-6">
-          <SideSignInCard />
-          <SideProfileCard />
-        </aside>
-        <section className="col-span-1 lg:col-span-4">
+
+        
+  {isLoading ? (
+    <div>Loading...</div>
+  ) : hasSession ? (
+    <SideProfileCard />
+  ) : (
+    <SideSignInCard />
+  )}
+</aside>
+        
+        <section className="col-span-1 md:col-span-4">
+
           <Outlet />
         </section>
       </main>

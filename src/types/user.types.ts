@@ -1,24 +1,11 @@
-export type UserProfile = {
-id:string;
-name:string;
-username:string;
-avatarUrl?:string;
-bio?:string;
-location?:string;
-followerCount:number;
-followingCount:number;
-isCurrentUser?:boolean;
+export type recommendedUserResponse = {
+  message: string;
+  success: boolean;
+  data: user[];
 };
 
-
-export type recommendedUserResponse = {
-    message:string  ,
-  success:boolean ,
-  data :user[]
-}
-
 export type user = {
-   id: string;
+  id: string;
   name: string;
   email: string;
   emailVerified: boolean;
@@ -33,7 +20,7 @@ export type user = {
     followings: number;
     posts: number;
   };
-     followers: {
+  followers: {
     followerId: string;
   }[];
-}
+};

@@ -1,71 +1,105 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegister } from "../hooks/useRegister";
+import { registerSchema } from "../schemas/form.schemas";
+import type { z } from "zod";
+
+type RegisterFormData = z.infer<typeof registerSchema>;
 
 function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const registerMutation = useRegister();
   const navigate = useNavigate();
 
-  const handleRegister = () => {
-    registerMutation.mutate(
-      { name, email, password },
-      {
-        onSuccess: () => {
-          navigate("/");
-        },
-      },
-    );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      await registerMutation.mutateAsync(data);
+      navigate("/");
+    } catch {
+      console.error();
+    }
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white dark:bg-black">
-      <div className="flex h-130 w-100 flex-col gap-2 rounded-2xl border border-black/40 bg-black/10 backdrop-blur-3xl md:h-140 md:w-120 lg:h-150 lg:w-140 dark:border-white/20 dark:bg-white/10">
+      <div className="flex min-h-130 w-100 flex-col gap-2 rounded-2xl border border-black/40 bg-black/10 backdrop-blur-3xl md:min-h-140 md:w-120 lg:min-h-150 lg:w-140 dark:border-white/20 dark:bg-white/10">
         <h3 className="pt-8 text-center text-[24px] font-bold md:text-[28px] lg:text-[32px] dark:text-white">
           Create your account
         </h3>
         <span className="text-center text-[14px] text-black/60 dark:text-white/70">
           Enter your email below to create your account
         </span>
-        <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
-          Name
-        </label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your name"
-          className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 text-[12px] transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 md:text-[14px] lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
-        />
-        <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
-          Email
-        </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="m@example.com"
-          className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 text-[12px] transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 md:text-[14px] lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
-        />
-        <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
-          Password
-        </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder=""
-          className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
-        />
-        <button
-          onClick={handleRegister}
-          className="mt-6 ml-4 h-10 w-90 cursor-pointer rounded-lg border bg-black text-[14px] font-semibold text-white transition duration-300 hover:bg-black/80 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl lg:text-[16px] dark:bg-white/90 dark:text-black dark:hover:bg-white/70"
-        >
-          Create Account
-        </button>
-        <div className="flex items-center justify-center gap-1 pt-4">
+
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+          <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
+            Name
+          </label>
+          <input
+            type="text"
+            {...register("name")}
+            placeholder="Enter your name"
+            className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 text-[12px] transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 md:text-[14px] lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
+          />
+          {errors.name && (
+            <span className="pl-4 text-[12px] text-red-500 md:pl-5">
+              {errors.name.message}
+            </span>
+          )}
+
+          <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
+            Email
+          </label>
+          <input
+            type="email"
+            {...register("email")}
+            placeholder="m@example.com"
+            className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 text-[12px] transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 md:text-[14px] lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
+          />
+          {errors.email && (
+            <span className="pl-4 text-[12px] text-red-500 md:pl-5">
+              {errors.email.message}
+            </span>
+          )}
+
+          <label className="pt-4 pl-4 text-[14px] md:pl-6 lg:text-[16px] dark:text-white">
+            Password
+          </label>
+          <input
+            type="password"
+            {...register("password")}
+            placeholder=""
+            className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
+          />
+          {errors.password && (
+            <span className="pl-4 text-[12px] text-red-500 md:pl-5">
+              {errors.password.message}
+            </span>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="mt-6 ml-4 h-10 w-90 cursor-pointer rounded-lg border bg-black text-[14px] font-semibold text-white transition-transform duration-200 hover:bg-black/80 active:translate-y-1 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl lg:text-[16px] dark:bg-white/90 dark:text-black dark:hover:bg-white/70"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center justify-center">
+                <span className="border-gray h-4 w-4 animate-spin rounded-full border-2 border-t-gray-500"></span>
+              </span>
+            ) : (
+              "Create Account"
+            )}
+          </button>
+        </form>
+
+        <div className="flex items-center justify-center gap-1 pt-4 pb-6">
           <span className="text-[12px] text-black/70 md:text-[14px] dark:text-white/70">
             Already have an account?
           </span>
