@@ -35,14 +35,22 @@ function Profile() {
         <div className="border-base-300 flex gap-4 border-b px-6 py-3">
           <button
             onClick={() => setSection("posts")}
-            className="text-base-content-secondary flex items-center gap-2"
+            className={`text-base-content-secondary gap-2border-b-2 flex items-center pb-3 ${
+              section === "posts"
+                ? "border-white text-white"
+                : "text-base-content-secondary"
+            }`}
           >
             <PostIcon /> Posts
           </button>
 
           <button
             onClick={() => setSection("likes")}
-            className="text-base-content-secondary flex items-center gap-2"
+            className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
+              section === "likes"
+                ? "border-white text-white"
+                : "text-base-content-secondary"
+            }`}
           >
             <HeartIcon /> Likes
           </button>
