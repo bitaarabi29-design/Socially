@@ -8,6 +8,7 @@ import {
   PersonIcon,
 } from "../../assets/icons";
 import { useSession } from "../../hooks/useSession";
+import type { useLogout } from "../../hooks/useLogout";
 
 type HeaderProps = {
   theme: string;
@@ -15,8 +16,9 @@ type HeaderProps = {
 };
 
 function Header({ theme, toggleTheme }: HeaderProps) {
-  const {data: session } = useSession();
+  const {data: session ,isLoading} = useSession();
   const hasSession = !!session;
+  
 
   return (
     <>
@@ -51,7 +53,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
               <span>Home</span>
             </Link>
 
-            {hasSession ? (
+            {isLoading? <p>loeading</p> :hasSession ? (
               <>
                 <Link
                   to="/notification"
