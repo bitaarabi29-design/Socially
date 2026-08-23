@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import type { UserProfile } from "../../types";
+import type { user } from "../../types/user.types";
 import Button from "../Ui/Button";
 
 const editProfileSchema = z.object({
@@ -13,7 +13,7 @@ const editProfileSchema = z.object({
 type EditProfileFormData = z.infer<typeof editProfileSchema>;
 
 type EditProfileModalProps = {
-  user: UserProfile;
+  user: user;
   onClose: () => void;
   onSave: (data: EditProfileFormData) => void;
 };
