@@ -54,7 +54,6 @@ function Profile() {
             ))}
           </div>
         )}
-        {/* <PostCard /> */}
       </div>
       {session && (
         <div className="hidden md:col-span-2 md:flex md:flex-col md:gap-6">
@@ -66,5 +65,3 @@ function Profile() {
 }
 
 export default Profile;
-
-

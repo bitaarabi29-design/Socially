@@ -13,7 +13,7 @@ export const getUserPosts = async (userId: string) => {
   return res.data.data;
 };
 
-export const getUserLikes = async () => {
-  const res = await api.get("/api/users/likes");
+export const getUserLikes = async (userId: string) => {
+  const res = await api.get(`/api/users/${userId}/likes`);
   return res.data;
 };
