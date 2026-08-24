@@ -2,6 +2,7 @@ import { useRecommendedUser } from "../../hooks/useRecommendedUser";
 
 function RecommendedUserCard() {
   const { data: recommendedUsers, error, isLoading } = useRecommendedUser();
+  console.log(recommendedUsers);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -30,11 +31,11 @@ function RecommendedUserCard() {
 
               <div className="flex min-w-0 flex-col gap-1">
                 <p className="text-base-content truncate text-sm">
-                  @{user.username}
+                  @{user.name}
                 </p>
 
                 <span className="text-base-content/60 hidden text-xs md:block">
-                  {user.followersCount} followers
+                  {user._count.followers} followers
                 </span>
               </div>
             </div>
