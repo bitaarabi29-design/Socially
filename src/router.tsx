@@ -8,6 +8,7 @@ import Notification from "./pages/notificationPage";
 import NotFound from "./pages/notFoundPage";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 
+
 const router = createBrowserRouter([
   {
     element: <Layout />,
