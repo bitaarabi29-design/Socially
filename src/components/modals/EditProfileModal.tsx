@@ -4,7 +4,6 @@ import { z } from "zod";
 import type { user } from "../../types/user.types";
 import Button from "../ui/Button";
 
-
 const editProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
   bio: z.string().max(160, "Bio must be under 160 characters").optional(),
@@ -17,9 +16,15 @@ type EditProfileModalProps = {
   user: user;
   onClose: () => void;
   onSave: (data: EditProfileFormData) => void;
+  isSaving?: boolean;
 };
 
-function EditProfileModal({ user, onClose, onSave }: EditProfileModalProps) {
+function EditProfileModal({
+  user,
+  onClose,
+  onSave,
+  isSaving = false,
+}: EditProfileModalProps) {
   const {
     register,
     handleSubmit,
@@ -84,8 +89,13 @@ function EditProfileModal({ user, onClose, onSave }: EditProfileModalProps) {
             <Button variant="secondary" size="sm" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="primary" size="sm">
-              Save Changes
+            <Button
+              variant="primary"
+              size="sm"
+              disabled={isSaving}
+              loading={isSaving}
+            >
+              {isSaving ? "Saving..." : "Save Changes"}
             </Button>
           </div>
         </form>
