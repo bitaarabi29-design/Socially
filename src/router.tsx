@@ -1,19 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./components/layouts/Layout";
+import Layout from "./Components/layouts/Layout";
 import Home from "./pages/homePage";
 import Profile from "./pages/ProfilePage";
 import Login from "./pages/loginPage";
 import Register from "./pages/registerPage";
 import Notification from "./pages/notificationPage";
 import NotFound from "./pages/notFoundPage";
+import ProtectedRoute from "./Components/routes/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/notification", element: <Notification /> },
-      { path: "/profile", element: <Profile /> },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          { path: "/profile", element: <Profile /> },
+          { path: "/notification", element: <Notification /> },
+        ],
+      },
     ],
   },
   { path: "/login", element: <Login /> },
