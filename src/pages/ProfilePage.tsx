@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import PostCard from "../Components/cards/PostCard";
-import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
-import UserProfileCard from "../Components/cards/UserProfileCard";
-import EditProfileModal from "../Components/modals/EditProfileModal";
-import Container from "../Components/Ui/Container";
+import PostCard from "../components/cards/PostCard";
+import RecommendedUserCard from "../components/cards/RecommendedUserCard";
+import UserProfileCard from "../components/cards/UserProfileCard";
+import EditProfileModal from "../components/modals/EditProfileModal";
+import Container from "../components/ui/Container";
 import { useSession } from "../hooks/useSession";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { HeartIcon, PostIcon } from "../assets/icons";
