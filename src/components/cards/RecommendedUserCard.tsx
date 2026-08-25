@@ -1,5 +1,5 @@
 import { useRecommendedUser } from "../../hooks/useRecommendedUser";
-import RecommendedUserSkeleton from "../ui/Skeleton";
+import {RecommendedUserSkeleton} from "../ui/Skeleton";
 
 
 function RecommendedUserCard() {

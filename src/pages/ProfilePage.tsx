@@ -10,7 +10,6 @@ import { useFollowUser } from "../hooks/useFollowUser";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { HeartIcon, PostIcon } from "../assets/icons";
 import { useUserPosts } from "../hooks/usePost";
-import useUserLikes from "../hooks/useLike";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import type { Post } from "../types/post.types";
 import { useUserLikes } from "../hooks/useLike";

@@ -71,7 +71,7 @@ function PostCard({ post }: PostCardProps) {
       <article className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
         <div
           className="flex items-start gap-4 cursor-pointer"
-          onClick={() => navigate(/profile/${post.authorId})}
+          onClick={() => navigate(`/profile/${post.authorId}`)}
         >
           {post.author.image ? (
             <img
