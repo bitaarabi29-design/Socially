@@ -1,12 +1,10 @@
 import api from "../lib/axios";
-import type {  user } from "../types";
+import type { user } from "../types";
 
-
-export const getRecommendedUser =
-  async (): Promise<user[]> => {
-    const response = await api.get("/api/users/recommend");
-    return response.data.data;
-  };
+export const getRecommendedUser = async (): Promise<user[]> => {
+  const response = await api.get("/api/users/recommend");
+  return response.data.data;
+};
 
 export const getUserPosts = async (userId: string) => {
   const res = await api.get(`/api/users/${userId}/posts`);
