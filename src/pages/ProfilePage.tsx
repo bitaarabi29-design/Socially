@@ -1,40 +1,48 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+
+import { HeartIcon, PostIcon } from "../assets/icons";
+
 import PostCard from "../components/cards/PostCard";
 import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 import UserProfileCard from "../components/cards/UserProfileCard";
 import EditProfileModal from "../components/modals/EditProfileModal";
 import Container from "../components/ui/Container";
-import { useSession } from "../hooks/useSession";
+
 import { useFollowUser } from "../hooks/useFollowUser";
-import { useUserProfile } from "../hooks/useUserProfile";
-import { HeartIcon, PostIcon } from "../assets/icons";
-import { useUserPosts } from "../hooks/usePost";
-import { useUpdateProfile } from "../hooks/useUpdateProfile";
-import type { Post } from "../types/post.types";
 import { useUserLikes } from "../hooks/useLike";
+import { useUserPosts } from "../hooks/usePost";
+import { useSession } from "../hooks/useSession";
+import { useUpdateProfile } from "../hooks/useUpdateProfile";
+import { useUserProfile } from "../hooks/useUserProfile";
+
+import type { Post } from "../types/post.types";
 
 function Profile() {
   const { id } = useParams();
-  console.log("User ID:", id);
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [section, setSection] = useState<"posts" | "likes">("posts");
+
   const { data: session } = useSession();
 
   const currentUserId = session?.data?.user?.id;
   const isCurrentUser = id === currentUserId;
 
   const { data: user, isLoading, error } = useUserProfile(id ?? "");
+
   const {
     data: posts,
     isLoading: isPostsLoading,
     error: postsError,
   } = useUserPosts(id ?? "");
-const {
-  data: likes,
-  isLoading: isLikesLoading,
-  error: likesError,
-} = useUserLikes(id ?? "");
+
+  const {
+    data: likes,
+    isLoading: isLikesLoading,
+    error: likesError,
+  } = useUserLikes(id ?? "");
+
   const updateProfileMutation = useUpdateProfile(id ?? "");
   const followMutation = useFollowUser(id ?? "");
 
@@ -63,17 +71,18 @@ const {
           onEditClick={() => setShowEditModal(true)}
           onFollowClick={() => followMutation.mutate()}
         />
+
         <div className="border-base-300 flex gap-4 border-b px-6 py-3">
           <button
             onClick={() => setSection("posts")}
-
             className={`text-base-content-secondary flex items-center gap-2 pb-3 ${
               section === "posts"
                 ? "border-b-2 border-white text-white"
                 : "text-base-content-secondary"
             }`}
           >
-            <PostIcon /> Posts
+            <PostIcon />
+            Posts
           </button>
 
           <button
@@ -84,9 +93,11 @@ const {
                 : "text-base-content-secondary"
             }`}
           >
-            <HeartIcon /> Likes
+            <HeartIcon />
+            Likes
           </button>
         </div>
+
         {section === "posts" && (
           <div>
             {isPostsLoading && <p>Loading posts...</p>}
@@ -96,6 +107,7 @@ const {
             {!isPostsLoading && !postsError && posts?.length === 0 && (
               <p>No posts yet.</p>
             )}
+
             {!isPostsLoading &&
               !postsError &&
               posts?.map((post: Post) => (
@@ -113,6 +125,7 @@ const {
             {!isLikesLoading && !likesError && likes?.length === 0 && (
               <p>No liked posts yet.</p>
             )}
+
             {!isLikesLoading &&
               !likesError &&
               likes?.map((post: Post) => (
