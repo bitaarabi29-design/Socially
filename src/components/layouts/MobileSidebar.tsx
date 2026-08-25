@@ -78,7 +78,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
           <label
             htmlFor="mobile-sidebar"
             aria-label="Close sidebar"
-            className="drawer-overlay"
+            className="drawer-overlay cursor-default"
           />
 
           <aside className="bg-base-100 text-base-content flex min-h-full w-72 flex-col p-4">
@@ -94,11 +94,11 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
               </label>
             </div>
 
-            <nav className="mt-6 flex flex-col gap-2">
+            <nav className="mt-6 flex w-full flex-col items-center gap-2">
               <Link
                 to="/"
                 onClick={closeDrawer}
-                className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
+                className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
               >
                 <HomeIcon className="text-base-content h-4 w-4" />
                 <span>Home</span>
@@ -109,7 +109,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <Link
                     to="/notification"
                     onClick={closeDrawer}
-                    className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
+                    className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >
                     <NotificationIcon className="text-base-content h-4 w-4" />
                     <span>Notifications</span>
@@ -118,7 +118,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <Link
                     to="/profile"
                     onClick={closeDrawer}
-                    className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
+                    className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >
                     <PersonIcon className="text-base-content h-4 w-4" />
                     <span>Profile</span>
@@ -127,7 +127,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <button
                     type="button"
                     onClick={closeDrawer}
-                    className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4 transition duration-300 ease-in-out"
+                    className="hover:bg-base-300 flex h-10 w-9 cursor-pointer items-center justify-center rounded-[6px] transition duration-300 ease-in-out"
                     aria-label="Sign out"
                   >
                     <LogoutIcon className="text-base-content h-4 w-4" />

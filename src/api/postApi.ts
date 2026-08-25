@@ -1,8 +1,47 @@
 import api from "../lib/axios";
-import type { PostsResponse } from "../types/post.types";
+import type {
+  Post,
+  PostsResponse,
+  CreatePostResponse,
+  CreateCommentResponse,
+} from "../types/post.types";
 
-export const getAllPosts = async () => {
+export const getAllPosts = async (): Promise<Post[]> => {
   const response = await api.get<PostsResponse>("/api/posts");
+  return response.data.data;
+};
+
+export const createPost = async (content: string) => {
+  const response = await api.post<CreatePostResponse>("/api/posts", {
+    content,
+  });
+
+  return response.data.data;
+};
+
+export const deletePost = async (postId: string) => {
+  const response = await api.delete(`/api/posts/${postId}`);
+  return response.data;
+};
+
+export const toggleLikePost = async (postId: string) => {
+  const response = await api.patch(`/api/posts/${postId}`);
+  return response.data;
+};
+
+export const createComment = async ({
+  postId,
+  content,
+}: {
+  postId: string;
+  content: string;
+}) => {
+  const response = await api.post<CreateCommentResponse>(
+    `/api/posts/${postId}/comment`,
+    {
+      content,
+    },
+  );
 
   return response.data.data;
 };

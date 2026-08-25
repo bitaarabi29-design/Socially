@@ -1,10 +1,12 @@
 import { useRecommendedUser } from "../../hooks/useRecommendedUser";
+import RecommendedUserSkeleton from "../ui/Skeleton";
+
 
 function RecommendedUserCard() {
   const { data: recommendedUsers, error, isLoading } = useRecommendedUser();
   console.log(recommendedUsers);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <RecommendedUserSkeleton/>
   }
 
   if (error) {

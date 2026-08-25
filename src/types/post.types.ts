@@ -36,6 +36,18 @@ export type PostsResponse = {
   data: Post[];
 };
 
+export type CreatePostResponse = {
+  message: string;
+  success: boolean;
+  data: Post;
+};
+
+export type CreateCommentResponse = {
+  message: string;
+  success: boolean;
+  data: PostComment;
+};
+
 export type PostCardProps = {
   post: Post;
 };
