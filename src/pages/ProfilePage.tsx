@@ -9,7 +9,7 @@ import { useSession } from "../hooks/useSession";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { HeartIcon, PostIcon } from "../assets/icons";
 import { useUserPosts } from "../hooks/usePost";
-import { useUserLikes } from "../hooks/useLike";
+import useUserLikes from "../hooks/useLike";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import type { Post } from "../types/post.types";
 
@@ -141,6 +141,3 @@ function Profile() {
 }
 
 export default Profile;
-function useUserLikes(arg0: string): { data: any } {
-  throw new Error("Function not implemented.");
-}
