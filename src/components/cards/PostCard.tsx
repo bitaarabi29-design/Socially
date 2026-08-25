@@ -2,8 +2,8 @@ import { useState } from "react";
 import { ChatIcon, HeartIcon, SendIcon } from "../../assets/icons";
 
 import type { PostCardProps } from "../../types/post.types";
+import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
-
 
 function formatTimeAgo(date: string) {
   const now = Date.now();
@@ -24,6 +24,7 @@ function formatTimeAgo(date: string) {
 
 function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
+  const navigate = useNavigate();
 
   const isCommentDisabled = comment.trim().length === 0;
 
@@ -31,7 +32,10 @@ function PostCard({ post }: PostCardProps) {
 
   return (
     <article className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
-      <div className="flex items-start gap-4">
+      <div
+        className="flex items-start gap-4"
+        onClick={() => navigate(`/profile/${post.authorId}`)}
+      >
         {post.author.image ? (
           <img
             src={post.author.image}
