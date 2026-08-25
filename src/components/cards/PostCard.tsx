@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChatIcon, HeartIcon, SendIcon, TrashIcon } from "../../assets/icons";
+import { useNavigate } from "react-router-dom";
 
 import {
   useCreateComment,
@@ -17,6 +18,7 @@ function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const navigate = useNavigate();
 
   const { data: session } = useSession();
 
@@ -74,7 +76,10 @@ function PostCard({ post }: PostCardProps) {
   return (
     <>
       <article className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
-        <div className="flex items-start gap-4">
+        <div
+          className="flex items-start gap-4 cursor-pointer"
+          onClick={() => navigate(`/profile/${post.authorId}`)}
+        >
           {post.author.image ? (
             <img
               src={post.author.image}
@@ -110,7 +115,10 @@ function PostCard({ post }: PostCardProps) {
           {isOwner && (
             <button
               type="button"
-              onClick={() => setShowDeleteModal(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDeleteModal(true);
+              }}
               className="text-base-content/60 hover:text-error"
               aria-label="Delete post"
             >
@@ -137,8 +145,7 @@ function PostCard({ post }: PostCardProps) {
 
             <span className="text-sm">{post._count.likes}</span>
           </button>
-
-          <button
+<button
             type="button"
             onClick={() => setShowComments((current) => !current)}
             className="hover:bg-base-300 flex h-8 items-center gap-2 rounded-md px-2"
