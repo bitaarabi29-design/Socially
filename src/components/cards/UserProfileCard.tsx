@@ -53,19 +53,13 @@ function UserProfileCard({
 
       <div className="mt-4 flex gap-4 text-sm">
         <span className="text-base-content">
-<<<<<<< HEAD
-          <strong>{user._count?.followings}</strong>{" "}
-          <span className="text-base-content-secondary">Following</span>
-        </span>
-        <span className="text-base-content">
-          <strong>{user._count?.followers}</strong>{" "}
-=======
+
           <strong>{user._count?.followings?? 0}</strong>{" "}
           <span className="text-base-content-secondary">Following</span>
         </span>
         <span className="text-base-content">
           <strong>{user._count?.followers ?? 0}</strong>{" "}
->>>>>>> dev
+
           <span className="text-base-content-secondary">Followers</span>
         </span>
       </div>

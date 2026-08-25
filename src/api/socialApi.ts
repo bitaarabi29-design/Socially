@@ -1,9 +1,6 @@
 import api from "../lib/axios";
-<<<<<<< HEAD
 import type {  user } from "../types";
-=======
-import type { recommendedUserResponse, user } from "../types";
->>>>>>> dev
+
 
 export const getRecommendedUser =
   async (): Promise<user[]> => {

@@ -49,32 +49,21 @@ function SideProfileCard() {
 
         <div className="divider my-0 w-full"></div>
 
-<<<<<<< HEAD
-        <div className="flex w-full items-center justify-around text-center">
-          <div>
-            <div className="text-lg font-bold">{user._count?.followings}</div>
-=======
 
         <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center text-center">
           <div className="min-w-0">
            
             <div className="text-lg font-bold">{user._count?.followings?? 0}</div>
->>>>>>> dev
+
             <div className="text-base-content/50 text-xs">Followings</div>
           </div>
 
           <div className="divider divider-horizontal mx-0 h-10"></div>
 
-<<<<<<< HEAD
-          <div>
-            <div className="text-lg font-bold">{user._count?.followers}</div>
-=======
-
           <div className="min-w-0">
         
             <div className="text-lg font-bold">{user._count?.followers ?? 0}</div>
 
->>>>>>> dev
             <div className="text-base-content/50 text-xs">Followers</div>
           </div>
         </div>
