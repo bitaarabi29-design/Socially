@@ -50,14 +50,14 @@ function SideProfileCard() {
 
         <div className="flex w-full items-center justify-around text-center">
           <div>
-            <div className="text-lg font-bold">{user._count.followings}</div>
+            <div className="text-lg font-bold">{user._count?.followings}</div>
             <div className="text-base-content/50 text-xs">Followings</div>
           </div>
 
           <div className="divider divider-horizontal mx-0 h-10"></div>
 
           <div>
-            <div className="text-lg font-bold">{user._count.followers}</div>
+            <div className="text-lg font-bold">{user._count?.followers}</div>
             <div className="text-base-content/50 text-xs">Followers</div>
           </div>
         </div>
