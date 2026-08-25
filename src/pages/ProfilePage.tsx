@@ -8,6 +8,7 @@ import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 import UserProfileCard from "../components/cards/UserProfileCard";
 import EditProfileModal from "../components/modals/EditProfileModal";
 import Container from "../components/ui/Container";
+import Spinner from "../components/ui/Spinner";
 
 import { useFollowUser } from "../hooks/useFollowUser";
 import { useUserLikes } from "../hooks/useLike";
@@ -20,11 +21,7 @@ import type { Post } from "../types/post.types";
 
 function Profile() {
   const { id } = useParams();
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> dev
   const [showEditModal, setShowEditModal] = useState(false);
   const [section, setSection] = useState<"posts" | "likes">("posts");
 
@@ -81,9 +78,8 @@ function Profile() {
             onClick={() => setSection("posts")}
 
             className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
-
               section === "posts"
-                ? "border-white text-white"
+                ? "text-base-content border-white"
                 : "text-base-content-secondary border-transparent"
             }`}
           >
@@ -95,7 +91,7 @@ function Profile() {
             onClick={() => setSection("likes")}
             className={`text-base-content-secondary -mb-px flex items-center gap-2 border-b-2 pb-3 ${
               section === "likes"
-                ? "border-white text-white"
+                ? "text-base-content border-white"
                 : "text-base-content-secondary border-transparent"
             }`}
           >
@@ -106,7 +102,12 @@ function Profile() {
 
         {section === "posts" && (
           <div>
-            {isPostsLoading && <p>Loading posts...</p>}
+            {isPostsLoading && (
+              <p>
+                Loading posts...
+                <Spinner />
+              </p>
+            )}
 
             {postsError && <p>Failed to load posts.</p>}
 
@@ -124,7 +125,12 @@ function Profile() {
 
         {section === "likes" && (
           <div>
-            {isLikesLoading && <p>Loading liked posts...</p>}
+            {isLikesLoading && (
+              <p>
+                Loading liked posts...
+                <Spinner />
+              </p>
+            )}
 
             {likesError && <p>Failed to load liked posts.</p>}
 
