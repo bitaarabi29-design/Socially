@@ -17,7 +17,7 @@ import { useUserLikes } from "../hooks/useLike";
 
 function Profile() {
   const { id } = useParams();
-  console.log("User ID:", id);
+  
   const [showEditModal, setShowEditModal] = useState(false);
   const [section, setSection] = useState<"posts" | "likes">("posts");
   const { data: session } = useSession();
@@ -64,14 +64,14 @@ const {
           onEditClick={() => setShowEditModal(true)}
           onFollowClick={() => followMutation.mutate()}
         />
-        <div className="border-base-300 flex gap-4 border-b px-6 py-3">
+        <div className="border-base-300 flex gap-4 border-b px-6">
           <button
             onClick={() => setSection("posts")}
 
-            className={`text-base-content-secondary flex items-center gap-2 pb-3 ${
+            className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
               section === "posts"
-                ? "border-b-2 border-white text-white"
-                : "text-base-content-secondary"
+                ? "border-white text-white"
+                : "text-base-content-secondary border-transparent"
             }`}
           >
             <PostIcon /> Posts
@@ -79,10 +79,10 @@ const {
 
           <button
             onClick={() => setSection("likes")}
-            className={`text-base-content-secondary flex items-center gap-2 pb-3 ${
+            className={`text-base-content-secondary -mb-px flex items-center gap-2 border-b-2 pb-3 ${
               section === "likes"
-                ? "border-b-2 border-white text-white"
-                : "text-base-content-secondary"
+                ? "border-white text-white"
+                : "text-base-content-secondary border-transparent"
             }`}
           >
             <HeartIcon /> Likes
