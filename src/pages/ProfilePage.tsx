@@ -64,9 +64,9 @@ function Profile() {
           <button
             onClick={() => setSection("posts")}
 
-            className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
+            className={`text-base-content-secondary flex items-center gap-2 pb-3 ${
               section === "posts"
-                ? "border-white text-white"
+                ? "border-b-2 border-white text-white"
                 : "text-base-content-secondary"
             }`}
           >
@@ -75,9 +75,9 @@ function Profile() {
 
           <button
             onClick={() => setSection("likes")}
-            className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
+            className={`text-base-content-secondary flex items-center gap-2 pb-3 ${
               section === "likes"
-                ? "border-white text-white"
+                ? "border-b-2 border-white text-white"
                 : "text-base-content-secondary"
             }`}
           >
