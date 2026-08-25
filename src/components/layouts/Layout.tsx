@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-
+import { useSession } from "../../hooks/useSession";
 import Header from "./Header";
 import MobileSidebar from "./MobileSidebar";
-import SideSignInCard from "../cards/SideSignInCard";
 import SideProfileCard from "../cards/SideProfileCard";
-import { useSession } from "../../hooks/useSession";
+import SideSignInCard from "../cards/SideSignInCard";
 
 function Layout() {
   const [theme, setTheme] = useState(() => {
@@ -30,9 +29,12 @@ function Layout() {
       <Header theme={theme} toggleTheme={toggleTheme} />
 
       <MobileSidebar theme={theme} toggleTheme={toggleTheme} />
-
-      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-3 p-4 md:grid-cols-5">
-        <aside className="hidden md:col-span-1 md:flex md:shrink-0 md:flex-col md:gap-6">
+      
+        
+      
+       
+      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-4 md:grid-cols-5">
+        <aside className="lg:col-span-1 lg:flex lg:shrink-0 lg:flex-col lg:gap-6">
 
         
   {isLoading ? (
@@ -45,6 +47,7 @@ function Layout() {
 </aside>
         
         <section className="col-span-1 md:col-span-4">
+
           <Outlet />
         </section>
       </main>

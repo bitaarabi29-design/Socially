@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+  --font-mono: "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", monospace;
+}
+
 @plugin "daisyui" {
   themes:
     sociallylight --default,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SendIcon } from "../../assets/icons";
-import Button from "../Ui/Button";
+import Button from "../ui/Button";
 
 function AddPostCard() {
   const [content, setContent] = useState("");

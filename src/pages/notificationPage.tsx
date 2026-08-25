@@ -1,66 +1,111 @@
-import NotificationCard from "../Components/cards/NotificationCard";
+import { useState } from "react";
+import NotificationCard from "../components/cards/NotificationCard";
+import type { SocialNotificaion } from "../types/notification";
+// Static Data
+const notifications: SocialNotificaion[] = [
+  {
+    id: 1,
+    avatarUrl:
+      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
+    username: "Farhan",
+    type: "comment",
+    postTitle: "Test Post",
+    comment: "Test Comment",
+    createdAt: "3 minutes ago",
+    isRead: false,
+  },
+  {
+    id: 2,
+    avatarUrl:
+      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
+    username: "Farhan",
+    type: "like",
+    postTitle: "Test Post",
+    createdAt: "3 minutes ago",
+    isRead: false,
+  },
+  {
+    id: 3,
+    avatarUrl:
+      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
+    username: "Farhan",
+    type: "comment",
+    postTitle: "Test Post",
+    comment: "Test Comment",
+    createdAt: "3 minutes ago",
+    isRead: true,
+  },
+  {
+    id: 4,
+    avatarUrl:
+      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
+    username: "Farhan",
+    type: "like",
+    postTitle: "Test Post",
+    createdAt: "3 minutes ago",
+    isRead: true,
+  },
+  {
+    id: 5,
+    avatarUrl:
+      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
+    username: "Farhan",
+    type: "follow",
+    createdAt: "3 minutes ago",
+    isRead: false,
+  },
+  {
+    id: 6,
+    avatarUrl:
+      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
+    username: "Farhan",
+    type: "follow",
+    createdAt: "3 minutes ago",
+    isRead: true,
+  },
+];
 
-const NotificationPage = () => {
-  const notifications = [
-    {
-      id: 1,
-      avatar: "https://i.pravatar.cc/150?img=11",
-      username: "Ali Mousavi",
-      action: "commented on your post",
-      preview: "test post",
-      time: "3 minutes ago",
-      isRead: false,
-    },
-    {
-      id: 2,
-      avatar: "https://i.pravatar.cc/150?img=11",
-      username: "Ali Mousavi",
-      action: "liked your post",
-      preview: "test post",
-      time: "3 minutes ago",
-      isRead: false,
-    },
-    {
-      id: 3,
-      avatar: "https://i.pravatar.cc/150?img=11",
-      username: "Ali Mousavi",
-      action: "commented on your post",
-      preview: "test post",
-      time: "3 minutes ago",
-      isRead: true,
-    },
-  ];
+function notificationPage() {
+  const [notificationItems, setNotificationItems] = useState(notifications);
+  const unreadCount = notificationItems.filter(
+    (notification) => !notification.isRead,
+  ).length;
 
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
+  function markAllAsRead() {
+    setNotificationItems((currentNotifications) =>
+      currentNotifications.map((notification) => ({
+        ...notification,
+        isRead: true,
+      })),
+    );
+  }
 
   return (
-    <div className="bg-base-100 min-h-screen">
-      <div className="container mx-auto max-w-3xl px-4 py-8">
-        <div className="mb-6 flex justify-between">
-          <h2 className="text-base-content text-2xl font-bold">
-            Notifications
-          </h2>
-          <p className="text-base-content/60 mt-1 text-sm">
+    <section className="bg-base-100 border-base-300 mb-20 flex max-w-233 flex-col overflow-hidden rounded-xl border shadow-sm">
+      <header className="border-base-300 flex items-center justify-between border-b px-5 py-4">
+        <h1 className="text-base-content text-lg font-bold">Notifications</h1>
+        <div className="flex items-center gap-3">
+          <span className="text-base-content/50 text-xs">
             {unreadCount} unread
-          </p>
+          </span>
+          {unreadCount > 0 && (
+            <button
+              type="button"
+              onClick={markAllAsRead}
+              className="text-base-content hover:bg-base-300 cursor-pointer rounded-md p-2 text-xs font-medium transition duration-300 ease-in-out"
+            >
+              Mark as read
+            </button>
+          )}
         </div>
-
-        <div className="bg-base-100 border-base-300 overflow-hidden rounded-lg border">
-          {notifications.map((notif) => (
-            <NotificationCard
-              key={notif.id}
-              avatar={notif.avatar}
-              username={notif.username}
-              action={notif.action}
-              preview={notif.preview}
-              time={notif.time}
-              isRead={notif.isRead}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+      </header>
+      <main>
+        {notificationItems.map((notification) => (
+          <NotificationCard key={notification.id} notification={notification} />
+        ))}
+      </main>
+    </section>
   );
-};
+}
 
-export default NotificationPage;
+export default notificationPage;

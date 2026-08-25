@@ -1,27 +1,37 @@
 import { useState } from "react";
-import PostCard from "../Components/cards/PostCard";
-import RecommendedUserCard from "../Components/cards/RecommendedUserCard";
-import UserProfileCard from "../Components/cards/UserProfileCard";
-import EditProfileModal from "../Components/modals/EditProfileModal";
-import Container from "../Components/Ui/Container";
+import { useParams } from "react-router-dom";
+import PostCard from "../components/cards/PostCard";
+import RecommendedUserCard from "../components/cards/RecommendedUserCard";
+import UserProfileCard from "../components/cards/UserProfileCard";
+import EditProfileModal from "../components/modals/EditProfileModal";
+import Container from "../components/ui/Container";
 import { useSession } from "../hooks/useSession";
 import { useUserProfile } from "../hooks/useUserProfile";
-import { updateUserProfile } from "../api/usersApi";
-import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon, PostIcon } from "../assets/icons";
 import { useUserPosts } from "../hooks/usePost";
+import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import type { Post } from "../types/post.types";
 
 function Profile() {
+  const { id } = useParams();
   const [showEditModal, setShowEditModal] = useState(false);
   const [section, setSection] = useState("posts");
   const { data: session } = useSession();
+<<<<<<< HEAD
   const userId = session?.data?.user?.id;
   const { data: user, isLoading, error } = useUserProfile(userId ?? "");
   const { data: posts } = useUserPosts(userId);
   console.log("userId:", userId);
   console.log("posts:", posts);
   const queryClient = useQueryClient();
+=======
+  const currentUserId = session?.data?.user?.id;
+  const isCurrentUser = id === currentUserId;
+
+  const { data: user, isLoading, error } = useUserProfile(id ?? "");
+  const { data: posts } = useUserPosts(id ?? "");
+  const updateProfileMutation = useUpdateProfile(id ?? "");
+>>>>>>> dev
 
   if (isLoading) {
     return (
@@ -44,28 +54,28 @@ function Profile() {
       <div className="col-span-5 flex flex-col gap-6 md:col-span-3">
         <UserProfileCard
           user={user}
-          isCurrentUser={true}
+          isCurrentUser={isCurrentUser}
           onEditClick={() => setShowEditModal(true)}
         />
         <div className="border-base-300 flex gap-4 border-b px-6 py-3">
           <button
             onClick={() => setSection("posts")}
+<<<<<<< HEAD
             className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
               section === "posts"
                 ? "border-white text-white"
                 : "text-base-content-secondary"
             }`}
+=======
+            className="text-base-content-secondary flex items-center gap-2"
+>>>>>>> dev
           >
             <PostIcon /> Posts
           </button>
 
           <button
             onClick={() => setSection("likes")}
-            className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
-              section === "likes"
-                ? "border-white text-white"
-                : "text-base-content-secondary"
-            }`}
+            className="text-base-content-secondary flex items-center gap-2"
           >
             <HeartIcon /> Likes
           </button>
@@ -88,13 +98,12 @@ function Profile() {
       {showEditModal && (
         <EditProfileModal
           user={user}
+          isSaving={updateProfileMutation.isPending}
           onClose={() => setShowEditModal(false)}
-          onSave={async (data) => {
-            await updateUserProfile(user.id, data);
-            await queryClient.invalidateQueries({
-              queryKey: ["Profile", user.id],
+          onSave={(data) => {
+            updateProfileMutation.mutate(data, {
+              onSuccess: () => setShowEditModal(false),
             });
-            setShowEditModal(false);
           }}
         />
       )}
