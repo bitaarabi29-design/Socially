@@ -54,11 +54,11 @@ function SideProfileCard() {
           <div className="min-w-0">
            
             <div className="text-lg font-bold">{user._count?.followings?? 0}</div>
+
             <div className="text-base-content/50 text-xs">Followings</div>
           </div>
 
           <div className="divider divider-horizontal mx-0 h-10"></div>
-
 
           <div className="min-w-0">
         

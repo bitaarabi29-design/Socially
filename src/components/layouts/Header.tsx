@@ -64,7 +64,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
                 </Link>
 
                 <Link
-                  to="/profile"
+                    to={`/profile/${session?.data?.user?.id}`}
                   className="text-base-content hover:bg-base-300 flex h-9 cursor-pointer items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                 >
                   <PersonIcon className="text-base-content h-4 w-4" />
