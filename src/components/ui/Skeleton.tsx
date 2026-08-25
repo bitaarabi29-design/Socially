@@ -7,11 +7,7 @@ function Skeleton({ className = "" }: { className?: string }) {
 }
 
 
-
-
-
-
-function RecommendedUserSkeleton() {
+ export function RecommendedUserSkeleton() {
   return (
     <div className="border-base-300 bg-base-100 rounded-xl border p-6 shadow-sm md:p-4">
       <Skeleton className="mb-6 h-5 w-32" />
@@ -39,4 +35,3 @@ function RecommendedUserSkeleton() {
   );
 }
 
-export default RecommendedUserSkeleton;
