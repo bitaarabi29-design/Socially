@@ -9,9 +9,10 @@ import { useSession } from "../hooks/useSession";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { HeartIcon, PostIcon } from "../assets/icons";
 import { useUserPosts } from "../hooks/usePost";
-import { useUserLikes } from "../hooks/useLike";
+
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import type { Post } from "../types/post.types";
+import { useUserLikes } from "../hooks/useLike";
 
 function Profile() {
   const { id } = useParams();
@@ -28,11 +29,11 @@ function Profile() {
     isLoading: isPostsLoading,
     error: postsError,
   } = useUserPosts(id ?? "");
-  const {
-    data: likes,
-    isLoading: isLikesLoading,
-    error: likesError,
-  } = useUserLikes(id ?? "");
+const {
+  data: likes,
+  isLoading: isLikesLoading,
+  error: likesError,
+} = useUserLikes(id ?? "");
   const updateProfileMutation = useUpdateProfile(id ?? "");
 
   if (isLoading) {
@@ -141,6 +142,3 @@ function Profile() {
 }
 
 export default Profile;
-function useUserLikes(arg0: string): { data: any } {
-  throw new Error("Function not implemented.");
-}
