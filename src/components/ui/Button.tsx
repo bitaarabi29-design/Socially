@@ -1,4 +1,5 @@
 import type { ButtonProps } from "../../types/ui.types";
+import Spinner from "./Spinner";
 
 const ButtonVariants = {
   variant: {
@@ -36,7 +37,7 @@ function Button({
       onClick={onClick}
     >
       {loading ? (
-        <span>Loading...</span>
+        <span>Loading...<Spinner /></span>
       ) : (
         <>
           {icon && <span>{icon}</span>}
