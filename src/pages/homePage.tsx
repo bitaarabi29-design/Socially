@@ -2,6 +2,7 @@ import AddPostCard from "../components/cards/AddPostCard";
 import PostCard from "../components/cards/PostCard";
 import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 import Container from "../components/ui/Container";
+import { AddPostCardSkeleton } from "../components/ui/Skeleton";
 import { useAllPosts } from "../hooks/usePost";
 import { useSession } from "../hooks/useSession";
 
@@ -16,7 +17,6 @@ function Home() {
     <Container>
       <div className="col-span-3 flex flex-col gap-6">
         <AddPostCard />
-
         {isPending && <p className="text-base-content/50">Loading posts...</p>}
 
         {isError && (

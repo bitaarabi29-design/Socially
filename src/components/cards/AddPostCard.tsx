@@ -24,7 +24,7 @@ function AddPostCard() {
 
   return (
     <div className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
-      <div className="flex h-[100px] items-start gap-4">
+      <div className="flex h-25 items-start gap-4">
         <img
           src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
           alt="Current user"
