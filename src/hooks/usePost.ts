@@ -63,6 +63,9 @@ export function useToggleLikePost() {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["likes"],
+      });
     },
   });
 }
