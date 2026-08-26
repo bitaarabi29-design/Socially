@@ -8,6 +8,7 @@ const editProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
   bio: z.string().max(160, "Bio must be under 160 characters").optional(),
   location: z.string().optional(),
+   image: z.any().optional(),
 });
 
 type EditProfileFormData = z.infer<typeof editProfileSchema>;
@@ -82,6 +83,16 @@ function EditProfileModal({
             <input
               {...register("location")}
               className="border-base-300 text-base-content focus:border-primary mt-1 w-full rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
+            />
+          </div>
+          <div>
+            <label className="text-base-content-secondary text-sm">
+              Profile Picture
+            </label>
+            <input
+              type="file"
+              {...register("image")}
+              className="border-base-300 text-base-content mt-1 w-full rounded-[var(--radius-field)] border p-2 text-sm"
             />
           </div>
 
