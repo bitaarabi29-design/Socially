@@ -42,7 +42,7 @@ function Profile() {
     isLoading: isLikesLoading,
     error: likesError,
   } = useUserLikes(id ?? "");
-
+ 
   const updateProfileMutation = useUpdateProfile(id ?? "");
   const followMutation = useFollowUser(id ?? "");
 
