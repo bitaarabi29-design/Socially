@@ -1,9 +1,9 @@
 import { ChatIcon, HeartIcon } from "../../assets/icons";
 import { UserRoundPlus } from "lucide-react";
-import type { SocialNotificaion } from "../../types/notification";
+import type { SocialNotification } from "../../types/notification";
 
 interface NotificationCardProps {
-  notification: SocialNotificaion;
+  notification: SocialNotification;
 }
 
 function NotificationCard({ notification }: NotificationCardProps) {
