@@ -2,7 +2,7 @@ import { useState } from "react";
 import NotificationCard from "../components/cards/NotificationCard";
 import type { SocialNotification } from "../types/notification";
 // Static Data
-const notifications: SocialNotification[] = [
+const notifications: Array<SocialNotification> = [
   {
     id: 1,
     avatarUrl:
