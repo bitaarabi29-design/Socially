@@ -37,6 +37,9 @@
   --color-error: #ef4444;
   --color-error-content: #ffffff;
 
+  --color-success: #10b981;
+  --color-success-content: #ffffff;
+
   --radius-box: 12px;
   --radius-field: 6px;
   --radius-selector: 6px;
@@ -70,6 +73,9 @@
 
   --color-error: #ef4444;
   --color-error-content: #ffffff;
+
+  --color-success: #10b981;
+  --color-success-content: #ffffff;
 
   --radius-box: 12px;
   --radius-field: 6px;

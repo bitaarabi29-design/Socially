@@ -37,7 +37,7 @@ function NotificationCard(props: NotificationCardProps) {
     notification.type === "like"
       ? "text-error"
       : notification.type === "follow"
-        ? "text-green-500"
+        ? "text-success"
         : "text-primary";
   const backgroundColor = notification.isRead
     ? "bg-base-100"
