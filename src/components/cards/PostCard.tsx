@@ -39,7 +39,7 @@ function PostCard({ post }: PostCardProps) {
 
   const isCommentDisabled = comment.trim().length === 0 || isCommentPending;
 
-  const avatarLetter = post.author.name?.charAt(0).toUpperCase() || "U";
+  const avatarLetter = post.author?.name?.charAt(0).toUpperCase() || "U";
 
   function handleLike() {
     toggleLike(post.id);
@@ -77,10 +77,10 @@ function PostCard({ post }: PostCardProps) {
     <>
       <article className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
         <div
-          className="flex items-start gap-4 cursor-pointer"
+          className="flex cursor-pointer items-start gap-4"
           onClick={() => navigate(`/profile/${post.authorId}`)}
         >
-          {post.author.image ? (
+          {post.author?.image ? (
             <img
               src={post.author.image}
               alt={post.author.name}
@@ -95,11 +95,11 @@ function PostCard({ post }: PostCardProps) {
           <div className="min-w-0 flex-1">
             <div className="flex h-6 items-center">
               <h3 className="text-base-content text-base font-semibold">
-                {post.author.name}
+                {post.author?.name}
               </h3>
 
               <span className="text-base-content/50 ml-3 text-xs">
-                {post.author.email}
+                {post.author?.email}
               </span>
 
               <span className="text-base-content/50 mx-3 text-xs">•</span>
@@ -143,9 +143,9 @@ function PostCard({ post }: PostCardProps) {
               }`}
             />
 
-            <span className="text-sm">{post._count.likes}</span>
+            <span className="text-sm">{post._count?.likes}</span>
           </button>
-<button
+          <button
             type="button"
             onClick={() => setShowComments((current) => !current)}
             className="hover:bg-base-300 flex h-8 items-center gap-2 rounded-md px-2"
@@ -154,7 +154,7 @@ function PostCard({ post }: PostCardProps) {
           >
             <ChatIcon className="h-4 w-4" />
 
-            <span className="text-sm">{post._count.comments}</span>
+            <span className="text-sm">{post._count?.comments}</span>
           </button>
         </div>
 
