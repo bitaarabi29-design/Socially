@@ -8,23 +8,24 @@ const editProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
   bio: z.string().max(160, "Bio must be under 160 characters").optional(),
   location: z.string().optional(),
-   image: z.any().optional(),
+  website: z.string().optional(),
+  image: z.any().optional(),
 });
 
 type EditProfileFormData = z.infer<typeof editProfileSchema>;
 
 type EditProfileModalProps = {
   user: user;
+  isSaving?: boolean;
   onClose: () => void;
   onSave: (data: EditProfileFormData) => void;
-  isSaving?: boolean;
 };
 
 function EditProfileModal({
   user,
+  isSaving = false,
   onClose,
   onSave,
-  isSaving = false,
 }: EditProfileModalProps) {
   const {
     register,
@@ -36,6 +37,7 @@ function EditProfileModal({
       name: user.name,
       bio: user.bio ?? "",
       location: user.location ?? "",
+      website: user.website ?? "",
     },
   });
 
@@ -44,18 +46,28 @@ function EditProfileModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div className="bg-base-100 w-full max-w-md rounded-2xl p-6">
-        <h2 className="text-base-content text-lg font-semibold">
-          Edit Profile
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-base-content text-lg font-semibold">
+            Edit Profile
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="text-base-content-secondary hover:text-base-content text-xl"
+          >
+            ×
+          </button>
+        </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="mt-4 flex flex-col gap-4"
         >
           <div>
-            <label className="text-base-content-secondary text-sm">Name</label>
+            <label className="text-base-content text-sm">Name</label>
             <input
               {...register("name")}
               className="border-base-300 text-base-content focus:border-primary mt-1 w-full rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
@@ -66,10 +78,11 @@ function EditProfileModal({
           </div>
 
           <div>
-            <label className="text-base-content-secondary text-sm">Bio</label>
+            <label className="text-base-content text-sm">Bio</label>
             <textarea
               {...register("bio")}
-              className="border-base-300 text-base-content focus:border-primary mt-1 h-20 w-full resize-none rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
+              placeholder="Enter your Bio"
+              className="border-base-300 text-base-content placeholder:text-base-content-secondary focus:border-primary mt-1 h-24 w-full resize-none rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
             />
             {errors.bio && (
               <p className="text-error mt-1 text-xs">{errors.bio.message}</p>
@@ -77,12 +90,11 @@ function EditProfileModal({
           </div>
 
           <div>
-            <label className="text-base-content-secondary text-sm">
-              Location
-            </label>
+            <label className="text-base-content text-sm">Location</label>
             <input
               {...register("location")}
-              className="border-base-300 text-base-content focus:border-primary mt-1 w-full rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
+              placeholder="Where you are at"
+              className="border-base-300 text-base-content placeholder:text-base-content-secondary focus:border-primary mt-1 w-full rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
             />
           </div>
           <div>
@@ -96,8 +108,22 @@ function EditProfileModal({
             />
           </div>
 
-          <div className="mt-4 flex justify-end gap-3">
-            <Button variant="secondary" size="sm" onClick={onClose}>
+          <div>
+            <label className="text-base-content text-sm">Website</label>
+            <input
+              {...register("website")}
+              placeholder="Your personal website"
+              className="border-base-300 text-base-content placeholder:text-base-content-secondary focus:border-primary mt-1 w-full rounded-[var(--radius-field)] border bg-transparent p-2 text-sm outline-none"
+            />
+          </div>
+
+          <div className="mt-2 flex justify-end gap-3">
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={onClose}
+            >
               Cancel
             </Button>
             <Button
