@@ -11,9 +11,17 @@ export const getAllPosts = async (): Promise<Post[]> => {
   return response.data.data;
 };
 
-export const createPost = async (content: string) => {
+
+export const createPost = async ({
+  content,
+  image,
+}: {
+  content: string;
+  image: string | null;
+}) => {
   const response = await api.post<CreatePostResponse>("/api/posts", {
     content,
+    ...(image ? { image } : {}),
   });
 
   return response.data.data;

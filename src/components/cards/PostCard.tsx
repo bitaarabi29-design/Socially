@@ -13,13 +13,14 @@ import type { PostCardProps } from "../../types/post.types";
 import { formatTimeAgo } from "../../utils/formatTimeAgo";
 
 import Button from "../ui/Button";
+import { getImageUrl } from "../../lib/getImageUrl";
 
 function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
-
+  const postImageUrl = getImageUrl(post.image);
   const { data: session } = useSession();
 
   const { mutate: toggleLike, isPending: isLikePending } = useToggleLikePost();
@@ -110,6 +111,14 @@ function PostCard({ post }: PostCardProps) {
             </div>
 
             <p className="text-base-content mt-1 text-sm">{post.content}</p>
+
+            {postImageUrl && (
+              <img
+                src={postImageUrl}
+                alt="Post attachment"
+                className="mt-3 max-h-96 w-full rounded-lg object-cover"
+              />
+            )}
           </div>
 
           {isOwner && (
