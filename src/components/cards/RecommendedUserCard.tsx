@@ -1,12 +1,12 @@
+import { PictureIcon } from "../../assets/icons";
 import { useRecommendedUser } from "../../hooks/useRecommendedUser";
-import {RecommendedUserSkeleton} from "../ui/Skeleton";
-
+import { RecommendedUserSkeleton } from "../ui/Skeleton";
 
 function RecommendedUserCard() {
   const { data: recommendedUsers, error, isLoading } = useRecommendedUser();
   console.log(recommendedUsers);
   if (isLoading) {
-    return <RecommendedUserSkeleton/>
+    return <RecommendedUserSkeleton />;
   }
 
   if (error) {
@@ -26,7 +26,7 @@ function RecommendedUserCard() {
           >
             <div className="flex min-w-0 items-center gap-3">
               <img
-                src="./src/assets/icons/picture.svg"
+                src={PictureIcon}
                 alt="picture"
                 className="hidden h-10 w-10 rounded-full object-cover md:block"
               />
