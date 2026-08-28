@@ -73,7 +73,7 @@ function AddPostCard() {
           className="btn btn-ghost text-base-content/50 btn-sm cursor-pointer"
         >
           {isUploadingImage
-            ? "Uploading"
+            ? "Uploading..."
             : postImageId
               ? "Change image"
               : "Add image"}
