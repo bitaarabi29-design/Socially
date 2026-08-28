@@ -24,6 +24,7 @@ function Button({
   children,
   icon,
   onClick,
+  type = "button",
 }: ButtonProps) {
   const baseStyles =
     "flex flex-row justify-center gap-2 rounded-[var(--radius-field)] text-base font-family";
@@ -31,6 +32,7 @@ function Button({
   const sizeStyles = ButtonVariants.size[size];
   return (
     <button
+      type={type}
       className={`${baseStyles} ${variantStyles} ${sizeStyles}`}
       disabled={disabled}
       onClick={onClick}
