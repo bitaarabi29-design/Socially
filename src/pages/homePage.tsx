@@ -7,7 +7,11 @@ import { useSession } from "../hooks/useSession";
 
 function Home() {
   const { data: posts, isPending, isError, error } = useAllPosts();
+
   const { data: session } = useSession();
+
+  const hasNoPosts = !isPending && !isError && posts?.length === 0;
+
   return (
     <Container>
       <div className="col-span-3 flex flex-col gap-6">
@@ -18,6 +22,12 @@ function Home() {
         {isError && (
           <p className="text-error">
             {error instanceof Error ? error.message : "Failed to load posts"}
+          </p>
+        )}
+
+        {hasNoPosts && (
+          <p className="text-base-content/50 text-center text-sm">
+            No posts yet.
           </p>
         )}
 
