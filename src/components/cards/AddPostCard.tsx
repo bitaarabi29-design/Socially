@@ -6,7 +6,7 @@ import { useUploadImage } from "../../hooks/useUploadeImage";
 
 function AddPostCard() {
   const [content, setContent] = useState("");
-  const [postImageUrl, setPostImageUrl] = useState<string | null>(null);
+  const [postImageId, setPostImageId] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { mutate: createPost, isPending: isCreatingPost } = useCreatePost();
   const {
@@ -17,8 +17,7 @@ function AddPostCard() {
   const isPostDisabled =
     content.trim().length === 0 ||
     isCreatingPost ||
-    isUploadingImage ||
-    isImageUploadError;
+    isUploadingImage ;
 
   function handleCreatePost() {
     const trimmedContent = content.trim();
@@ -28,12 +27,12 @@ function AddPostCard() {
     createPost(
       {
         content: trimmedContent,
-        image: postImageUrl,
+        image: postImageId,
       },
       {
         onSuccess: () => {
           setContent("");
-          setPostImageUrl(null);
+          setPostImageId(null);
           setPreviewUrl(null);
         },
       },
@@ -47,7 +46,7 @@ function AddPostCard() {
     setPreviewUrl(URL.createObjectURL(file));
     uploadImage(file, {
       onSuccess: (imageId) => {
-        setPostImageUrl(imageId);
+        setPostImageId(imageId);
       },
     });
   }
@@ -71,9 +70,13 @@ function AddPostCard() {
       <div>
         <label
           htmlFor="post-image"
-          className="btn btn-ghost cursor-pointer text-base-content/50 btn-sm"
+          className="btn btn-ghost text-base-content/50 btn-sm cursor-pointer"
         >
-          Add image
+          {isUploadingImage
+            ? "Uploading"
+            : postImageId
+              ? "Change image"
+              : "Add image"}
         </label>
 
         <input
@@ -84,7 +87,16 @@ function AddPostCard() {
           className="hidden"
         />
       </div>
-
+      {previewUrl && (
+        <div className="mt-4">
+          <img
+            src={previewUrl}
+            alt="Selected image"
+            className="max-h-64 w-full rounded-lg object-cover"
+          />
+        </div>
+      )}
+      {isImageUploadError&& (<p className="text-error text-sm mt-2">Upload failed.Please choose the image again.</p>)}
       <div className="border-base-300 mt-4 border-t pt-4">
         <div className="flex justify-end">
           <Button
