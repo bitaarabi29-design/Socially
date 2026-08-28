@@ -5,6 +5,7 @@ import type { SocialNotification } from "../../types/notification";
 interface NotificationCardProps {
   notification: SocialNotification;
 }
+// sample data for testing the NotificationCard component
 // const props: NotificationCardProps = {
 //   notification: {
 //     id: 1,
