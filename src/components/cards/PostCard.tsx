@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ChatIcon, HeartIcon, SendIcon, TrashIcon } from "../../assets/icons";
-import { useNavigate } from "react-router-dom";
 
 import {
   useCreateComment,
@@ -18,7 +17,6 @@ function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const navigate = useNavigate();
 
   const { data: session } = useSession();
 
@@ -34,12 +32,12 @@ function PostCard({ post }: PostCardProps) {
   const isOwner = currentUserId === post.authorId;
 
   const isLiked = Boolean(
-    currentUserId && post.likes?.some((like) => like.userId === currentUserId),
+    currentUserId && post.likes.some((like) => like.userId === currentUserId),
   );
 
   const isCommentDisabled = comment.trim().length === 0 || isCommentPending;
 
-  const avatarLetter = post.author?.name?.charAt(0).toUpperCase() || "U";
+  const avatarLetter = post.author.name?.charAt(0).toUpperCase() || "U";
 
   function handleLike() {
     toggleLike(post.id);
@@ -76,11 +74,9 @@ function PostCard({ post }: PostCardProps) {
   return (
     <>
       <article className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
-        <div
-          className="flex cursor-pointer items-start gap-4"
-          onClick={() => navigate(`/profile/${post.authorId}`)}
-        >
-          {post.author?.image ? (
+        {/* Post Header */}
+        <div className="flex items-start gap-4">
+          {post.author.image ? (
             <img
               src={post.author.image}
               alt={post.author.name}
@@ -95,11 +91,11 @@ function PostCard({ post }: PostCardProps) {
           <div className="min-w-0 flex-1">
             <div className="flex h-6 items-center">
               <h3 className="text-base-content text-base font-semibold">
-                {post.author?.name}
+                {post.author.name}
               </h3>
 
               <span className="text-base-content/50 ml-3 text-xs">
-                {post.author?.email}
+                {post.author.email}
               </span>
 
               <span className="text-base-content/50 mx-3 text-xs">•</span>
@@ -115,10 +111,7 @@ function PostCard({ post }: PostCardProps) {
           {isOwner && (
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDeleteModal(true);
-              }}
+              onClick={() => setShowDeleteModal(true)}
               className="text-base-content/60 hover:text-error"
               aria-label="Delete post"
             >
@@ -127,41 +120,58 @@ function PostCard({ post }: PostCardProps) {
           )}
         </div>
 
+        {/* Like + Comment */}
         <div className="mt-4 flex h-8 items-center gap-4">
           <button
             type="button"
             onClick={handleLike}
             disabled={isLikePending}
-            className="hover:bg-base-300 flex h-8 items-center gap-2 rounded-md px-2 disabled:opacity-50"
+            className={`flex h-8 items-center gap-2 rounded-md px-2 disabled:opacity-50 ${
+              isLiked
+                ? "bg-base-300 text-error"
+                : "text-base-content hover:bg-base-300"
+            }`}
             aria-label={isLiked ? "Unlike post" : "Like post"}
           >
             <HeartIcon
               className={`h-4 w-4 ${
                 isLiked
-                  ? "text-error [&_path]:fill-current"
-                  : "text-base-content [&_path]:fill-none"
+                  ? "[&_path]:fill-current [&_path]:stroke-current"
+                  : "[&_path]:fill-none [&_path]:stroke-current"
               }`}
             />
 
-            <span className="text-sm">{post._count?.likes}</span>
+            <span className="text-sm">{post._count.likes}</span>
           </button>
+
           <button
             type="button"
             onClick={() => setShowComments((current) => !current)}
-            className="hover:bg-base-300 flex h-8 items-center gap-2 rounded-md px-2"
+            className={`flex h-8 items-center gap-2 rounded-md px-2 ${
+              showComments
+                ? "bg-base-300 text-primary"
+                : "text-base-content hover:bg-base-300"
+            }`}
             aria-label="Toggle comments"
             aria-expanded={showComments}
           >
-            <ChatIcon className="h-4 w-4" />
+            <ChatIcon
+              className={`h-4 w-4 ${
+                showComments
+                  ? "[&_path]:fill-current [&_path]:stroke-current"
+                  : "[&_path]:fill-none [&_path]:stroke-current"
+              }`}
+            />
 
-            <span className="text-sm">{post._count?.comments}</span>
+            <span className="text-sm">{post._count.comments}</span>
           </button>
         </div>
 
+        {/* Comments */}
         {showComments && (
           <div className="border-base-300 mt-4 border-t pt-4">
             <div className="flex flex-col gap-4">
-              {!post.comments || post.comments.length === 0 ? (
+              {post.comments.length === 0 ? (
                 <p className="text-base-content/50 text-sm">No comments yet.</p>
               ) : (
                 post.comments.map((postComment) => {
@@ -186,9 +196,17 @@ function PostCard({ post }: PostCardProps) {
                       )}
 
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center">
                           <span className="text-base-content text-sm font-semibold">
                             {postComment.author.name}
+                          </span>
+
+                          <span className="text-base-content/50 ml-3 text-xs">
+                            {postComment.author.email}
+                          </span>
+
+                          <span className="text-base-content/50 mx-3 text-xs">
+                            •
                           </span>
 
                           <span className="text-base-content/50 text-xs">
@@ -206,6 +224,7 @@ function PostCard({ post }: PostCardProps) {
               )}
             </div>
 
+            {/* Add Comment */}
             {session && (
               <div className="border-base-300 mt-4 border-t pt-4">
                 <div className="flex h-25 w-full items-start gap-4">
@@ -237,6 +256,7 @@ function PostCard({ post }: PostCardProps) {
         )}
       </article>
 
+      {/* Delete Post Modal */}
       {isOwner && showDeleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
           <div className="bg-secondary-content border-base-300 w-full max-w-md rounded-xl border p-6 shadow-md md:p-5">
