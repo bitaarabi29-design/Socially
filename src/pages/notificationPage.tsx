@@ -65,7 +65,7 @@ const notifications: Array<SocialNotification> = [
   },
 ];
 
-function notificationPage() {
+function NotificationPage() {
   const [notificationItems, setNotificationItems] = useState(notifications);
   const unreadCount = notificationItems.filter(
     (notification) => !notification.isRead,
@@ -108,4 +108,4 @@ function notificationPage() {
   );
 }
 
-export default notificationPage;
+export default NotificationPage;

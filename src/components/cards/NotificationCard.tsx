@@ -5,20 +5,6 @@ import type { SocialNotification } from "../../types/notification";
 interface NotificationCardProps {
   notification: SocialNotification;
 }
-// sample data for testing the NotificationCard component
-// const props: NotificationCardProps = {
-//   notification: {
-//     id: 1,
-//     avatarUrl:
-//       "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-//     username: "Farhan",
-//     type: "comment",
-//     postTitle: "Test Post",
-//     comment: "Test Comment",
-//     createdAt: "3 minutes ago",
-//     isRead: false,
-//   },
-// };
 
 function NotificationCard(props: NotificationCardProps) {
   const notification = props.notification;
