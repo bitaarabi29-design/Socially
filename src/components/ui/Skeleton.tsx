@@ -35,3 +35,29 @@ function Skeleton({ className = "" }: { className?: string }) {
   );
 }
 
+export function PostCardSkeleton() {
+  return (
+    <div className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
+    
+      <div className="flex items-start gap-4">
+        <Skeleton className="h-10 w-10 shrink-0 rounded-full" />
+
+        <div className="flex-1">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="mt-2 h-3 w-24" />
+        </div>
+      </div>
+
+    
+      <div className="mt-4 flex flex-col gap-2">
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-4/5" />
+      </div>
+
+      <div className="mt-4 flex gap-4">
+        <Skeleton className="h-8 w-16 rounded-md" />
+        <Skeleton className="h-8 w-20 rounded-md" />
+      </div>
+    </div>
+  );
+}

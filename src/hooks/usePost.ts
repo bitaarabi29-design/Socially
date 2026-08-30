@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createComment,
   createPost,
+  deleteComment,
   deletePost,
   getAllPosts,
   toggleLikePost,
@@ -63,6 +64,10 @@ export function useToggleLikePost() {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["likes"],
+      });
     },
   });
 }
@@ -72,6 +77,20 @@ export function useCreateComment() {
 
   return useMutation({
     mutationFn: createComment,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+    },
+  });
+}
+
+export function useDeleteComment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteComment,
 
     onSuccess: () => {
       queryClient.invalidateQueries({

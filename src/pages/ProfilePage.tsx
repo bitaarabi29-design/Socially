@@ -8,6 +8,7 @@ import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 import UserProfileCard from "../components/cards/UserProfileCard";
 import EditProfileModal from "../components/modals/EditProfileModal";
 import Container from "../components/ui/Container";
+import Spinner from "../components/ui/Spinner";
 
 import { useFollowUser } from "../hooks/useFollowUser";
 import { useUserLikes } from "../hooks/useLike";
@@ -17,6 +18,7 @@ import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import { useUserProfile } from "../hooks/useUserProfile";
 
 import type { Post } from "../types/post.types";
+import { PostCardSkeleton } from "../components/ui/Skeleton";
 
 function Profile() {
   const { id } = useParams();
@@ -42,7 +44,7 @@ function Profile() {
     isLoading: isLikesLoading,
     error: likesError,
   } = useUserLikes(id ?? "");
- 
+
   const updateProfileMutation = useUpdateProfile(id ?? "");
   const followMutation = useFollowUser(id ?? "");
 
@@ -72,13 +74,14 @@ function Profile() {
           onFollowClick={() => followMutation.mutate()}
         />
 
-        <div className="border-base-300 flex gap-4 border-b px-6 py-3">
+        <div className="border-base-300 flex gap-4 border-b px-6">
           <button
             onClick={() => setSection("posts")}
-            className={`text-base-content-secondary flex items-center gap-2 pb-3 ${
+
+            className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
               section === "posts"
-                ? "border-b-2 border-white text-white"
-                : "text-base-content-secondary"
+                ? "text-base-content border-white"
+                : "text-base-content-secondary border-transparent"
             }`}
           >
             <PostIcon />
@@ -87,10 +90,10 @@ function Profile() {
 
           <button
             onClick={() => setSection("likes")}
-            className={`text-base-content-secondary flex items-center gap-2 pb-3 ${
+            className={`text-base-content-secondary -mb-px flex items-center gap-2 border-b-2 pb-3 ${
               section === "likes"
-                ? "border-b-2 border-white text-white"
-                : "text-base-content-secondary"
+                ? "text-base-content border-white"
+                : "text-base-content-secondary border-transparent"
             }`}
           >
             <HeartIcon />
@@ -100,7 +103,10 @@ function Profile() {
 
         {section === "posts" && (
           <div>
-            {isPostsLoading && <p>Loading posts...</p>}
+            {isPostsLoading &&
+              Array.from({ length: 3 }).map((_, index) => (
+                <PostCardSkeleton key={index} />
+              ))}
 
             {postsError && <p>Failed to load posts.</p>}
 
@@ -118,7 +124,10 @@ function Profile() {
 
         {section === "likes" && (
           <div>
-            {isLikesLoading && <p>Loading liked posts...</p>}
+            {isLikesLoading &&
+              Array.from({ length: 3 }).map((_, index) => (
+                <PostCardSkeleton key={index} />
+              ))}
 
             {likesError && <p>Failed to load liked posts.</p>}
 

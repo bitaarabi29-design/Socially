@@ -1,4 +1,5 @@
 export type PostAuthor = {
+  id: string;
   name: string;
   email: string;
   image: string | null;
@@ -19,7 +20,9 @@ export type Post = {
   id: string;
   authorId: string;
   content: string;
-  image: string | null;
+
+
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
   author: PostAuthor;
@@ -47,6 +50,11 @@ export type CreateCommentResponse = {
   message: string;
   success: boolean;
   data: PostComment;
+};
+
+export type DeleteCommentParams = {
+  postId: string;
+  commentId: string;
 };
 
 export type PostCardProps = {
