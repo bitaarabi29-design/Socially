@@ -15,8 +15,13 @@ import type { PostCardProps } from "../../types/post.types";
 import { formatTimeAgo } from "../../utils/formatTimeAgo";
 
 import Button from "../ui/Button";
+
+import { getImageUrl } from "../../lib/getImageUrl";
+
+
 import DeleteCommentModal from "../modals/DeleteCommentModal";
 import DeletePostModal from "../modals/DeletePostModal";
+
 
 function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
@@ -27,6 +32,9 @@ function PostCard({ post }: PostCardProps) {
   const [postImageError, setPostImageError] = useState(false);
 
   const navigate = useNavigate();
+
+  const navigate = useNavigate();
+  const postImageUrl = getImageUrl(post.image);
 
   const { data: session } = useSession();
 
@@ -150,6 +158,14 @@ function PostCard({ post }: PostCardProps) {
             </div>
 
             <p className="text-base-content mt-1 text-sm">{post.content}</p>
+
+            {postImageUrl && (
+              <img
+                src={postImageUrl}
+                alt="Post attachment"
+                className="mt-3 max-h-96 w-full rounded-lg object-cover"
+              />
+            )}
           </div>
 
           {isOwner && (
