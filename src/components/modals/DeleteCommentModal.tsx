@@ -1,20 +1,20 @@
-type DeletePostModalProps = {
+type DeleteCommentModalProps = {
   isPending: boolean;
   onCancel: () => void;
   onDelete: () => void;
 };
 
-function DeletePostModal({
+function DeleteCommentModal({
   isPending,
   onCancel,
   onDelete,
-}: DeletePostModalProps) {
+}: DeleteCommentModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
       <div className="bg-secondary-content border-base-300 w-full max-w-md rounded-xl border p-6 shadow-md md:p-5">
         <div>
           <h2 className="text-base-content text-lg font-semibold">
-            Delete Post
+            Delete Comment
           </h2>
 
           <p className="text-base-content/60 mt-1 text-base">
@@ -46,4 +46,4 @@ function DeletePostModal({
   );
 }
 
-export default DeletePostModal;
+export default DeleteCommentModal;

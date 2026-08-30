@@ -48,7 +48,7 @@ export const createComment = async ({
     },
   );
 
-  return response.data.data;
+  return response.data;
 };
 
 export const deleteComment = async ({
