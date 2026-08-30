@@ -14,6 +14,6 @@ export const getSessionRequest = async () => {
   return response.data;
 };
 
-export const logoutRequest = (data: loginTypes) => {
-  return api.post("api/authentication/logout", data);
+export const logoutRequest = () => {
+  return api.post("api/authentication/logout");
 };
