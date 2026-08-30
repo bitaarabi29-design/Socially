@@ -1,8 +1,4 @@
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import { useLogout } from "../../hooks/useLogout";
-import toast from "react-hot-toast";
 import {
   DarkModeIcon,
   HomeIcon,
@@ -13,31 +9,16 @@ import {
 } from "../../assets/icons";
 import { useSession } from "../../hooks/useSession";
 
+
 type HeaderProps = {
   theme: string;
   toggleTheme: () => void;
 };
 
 function Header({ theme, toggleTheme }: HeaderProps) {
-  const { data: session, isLoading } = useSession();
+  const {data: session ,isLoading} = useSession();
   const hasSession = !!session;
-
-  const logoutMutation = useLogout();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logoutMutation.mutate(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["session"] });
-        toast.success("Logged out successfully", {
-          className:
-            "!bg-white/90 dark:!bg-black/80 backdrop-blur-3xl border border-black/20 dark:border-white/20 rounded-xl !text-black dark:!text-white text-[14px] px-4 py-3",
-        });
-        navigate("/login");
-      },
-    });
-  };
+  
 
   return (
     <>
@@ -72,7 +53,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
               <span>Home</span>
             </Link>
 
-            {hasSession ? (
+            {isLoading? <p>loeading</p> :hasSession ? (
               <>
                 <Link
                   to="/notification"
@@ -83,7 +64,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
                 </Link>
 
                 <Link
-                  to={`/profile/${session?.data?.user?.id}`}
+                  to="/profile"
                   className="text-base-content hover:bg-base-300 flex h-9 cursor-pointer items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                 >
                   <PersonIcon className="text-base-content h-4 w-4" />
@@ -92,7 +73,6 @@ function Header({ theme, toggleTheme }: HeaderProps) {
 
                 <button
                   type="button"
-                  onClick={handleLogout}
                   className="text-base-content hover:bg-base-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] transition duration-300 ease-in-out"
                   aria-label="Sign out"
                 >

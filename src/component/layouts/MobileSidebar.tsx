@@ -1,10 +1,5 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-import { useSession } from "../../hooks/useSession";
-import { useLogout } from "../../hooks/useLogout";
 import {
   CloseIcon,
   DarkModeIcon,
@@ -24,25 +19,7 @@ type MobileSidebarProps = {
 function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
   const drawerRef = useRef<HTMLInputElement>(null);
 
-  const { data: session } = useSession();
-  const isLoggedIn = !!session;
-  const logoutMutation = useLogout();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logoutMutation.mutate(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["session"] });
-        toast.success("Logged out successfully", {
-          className:
-            "!bg-white/90 dark:!bg-black/80 backdrop-blur-3xl border border-black/20 dark:border-white/20 rounded-xl !text-black dark:!text-white text-[14px] px-4 py-3",
-        });
-        closeDrawer();
-        navigate("/login");
-      },
-    });
-  };
+  const isLoggedIn = true;
 
   function closeDrawer() {
     if (drawerRef.current) {
@@ -101,7 +78,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
           <label
             htmlFor="mobile-sidebar"
             aria-label="Close sidebar"
-            className="drawer-overlay cursor-default"
+            className="drawer-overlay"
           />
 
           <aside className="bg-base-100 text-base-content flex min-h-full w-72 flex-col p-4">
@@ -117,11 +94,11 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
               </label>
             </div>
 
-            <nav className="mt-6 flex w-full flex-col gap-2">
+            <nav className="mt-6 flex flex-col gap-2">
               <Link
                 to="/"
                 onClick={closeDrawer}
-                className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-start gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
+                className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
               >
                 <HomeIcon className="text-base-content h-4 w-4" />
                 <span>Home</span>
@@ -132,7 +109,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <Link
                     to="/notification"
                     onClick={closeDrawer}
-                    className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-start gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
+                    className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >
                     <NotificationIcon className="text-base-content h-4 w-4" />
                     <span>Notifications</span>
@@ -141,7 +118,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   <Link
                     to="/profile"
                     onClick={closeDrawer}
-                    className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-start gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
+                    className="hover:bg-base-300 flex h-10 cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >
                     <PersonIcon className="text-base-content h-4 w-4" />
                     <span>Profile</span>
@@ -149,12 +126,11 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
 
                   <button
                     type="button"
-                    onClick={handleLogout}
-                    className="text-base-content hover:bg-base-300 flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
-                    aria-label="Logout"
+                    onClick={closeDrawer}
+                    className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4 transition duration-300 ease-in-out"
+                    aria-label="Sign out"
                   >
                     <LogoutIcon className="text-base-content h-4 w-4" />
-                    <span>Logout</span>
                   </button>
                 </>
               )}
