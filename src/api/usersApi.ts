@@ -21,7 +21,3 @@ export const updateUserProfile = async (id: string, data: Partial<user>) => {
   return response.data;
 };
 
-export const uploadProfileImage = async () => {
-  const response = await api.post(`/api/upload`);
-  return response.data;
-};
