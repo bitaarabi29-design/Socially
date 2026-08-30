@@ -84,4 +84,5 @@
 body {
   font-family: "Inter", sans-serif;
   margin: 0;
+  user-select: none;
 }

@@ -1,5 +1,5 @@
 export type PostAuthor = {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   image: string | null;
@@ -49,7 +49,6 @@ export type CreatePostResponse = {
 export type CreateCommentResponse = {
   message: string;
   success: boolean;
-  data: PostComment;
 };
 
 export type DeleteCommentParams = {
