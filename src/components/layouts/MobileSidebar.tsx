@@ -139,7 +139,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   </Link>
 
                   <Link
-                    to="/profile"
+                    to={`/profile/${session?.data?.user?.id}`}
                     onClick={closeDrawer}
                     className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-start gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >

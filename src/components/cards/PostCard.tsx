@@ -18,10 +18,8 @@ import Button from "../ui/Button";
 
 import { getImageUrl } from "../../lib/getImageUrl";
 
-
 import DeleteCommentModal from "../modals/DeleteCommentModal";
 import DeletePostModal from "../modals/DeletePostModal";
-
 
 function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
@@ -33,7 +31,6 @@ function PostCard({ post }: PostCardProps) {
 
   const navigate = useNavigate();
 
-  const navigate = useNavigate();
   const postImageUrl = getImageUrl(post.image);
 
   const { data: session } = useSession();

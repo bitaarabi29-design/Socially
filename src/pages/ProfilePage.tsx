@@ -8,7 +8,6 @@ import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 import UserProfileCard from "../components/cards/UserProfileCard";
 import EditProfileModal from "../components/modals/EditProfileModal";
 import Container from "../components/ui/Container";
-import Spinner from "../components/ui/Spinner";
 
 import { useFollowUser } from "../hooks/useFollowUser";
 import { useUserLikes } from "../hooks/useLike";

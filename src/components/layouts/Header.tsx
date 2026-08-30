@@ -19,7 +19,7 @@ type HeaderProps = {
 };
 
 function Header({ theme, toggleTheme }: HeaderProps) {
-  const { data: session, isLoading } = useSession();
+  const { data: session } = useSession();
   const hasSession = !!session;
 
   const logoutMutation = useLogout();
