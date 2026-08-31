@@ -63,14 +63,17 @@ function Header({ theme, toggleTheme }: HeaderProps) {
                   <span>Notifications</span>
                 </Link>
 
-                <Link to={`/profile/${session?.data?.user?.id}`}>
+                <Link
+                  to={`/profile/${session?.data?.user?.id}`}
+                  className="text-base-content hover:bg-base-300 flex h-9 cursor-pointer items-center gap-2 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
+                >
                   <PersonIcon className="text-base-content h-4 w-4" />
                   <span>Profile</span>
                 </Link>
 
                 <button
                   type="button"
-                  className="text-base-content flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px]"
+                  className="text-base-content hover:bg-base-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[6px] transition duration-300 ease-in-out"
                   aria-label="Sign out"
                 >
                   <LogoutIcon className="text-base-content h-4 w-4" />

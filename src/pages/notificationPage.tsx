@@ -78,7 +78,7 @@ function NotificationPage() {
           )}
         </div>
       </header>
-      <main className="overflow-y-scroll">
+      <main>
         {error ? (
           <div className="text-error bg-error/10 border-error/20 m-4 flex flex-col items-center gap-3 rounded-lg border p-4">
             <p className="font-medium">{error}</p>
