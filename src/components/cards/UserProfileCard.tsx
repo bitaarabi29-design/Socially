@@ -5,6 +5,8 @@ import { CalendarIcon, EditIcon } from "../../assets/icons";
 type UserProfileCardProps = {
   user: user;
   isCurrentUser?: boolean;
+  isFollowing?: boolean;
+  isFollowLoading?: boolean;
   onEditClick?: () => void;
   onFollowClick?: () => void;
 };
@@ -19,6 +21,8 @@ function formatJoinDate(date: string) {
 function UserProfileCard({
   user,
   isCurrentUser = false,
+  isFollowing = false,
+  isFollowLoading = false,
   onEditClick,
   onFollowClick,
 }: UserProfileCardProps) {
@@ -82,12 +86,14 @@ function UserProfileCard({
             </Button>
           ) : (
             <Button
-              variant="primary"
+              variant={isFollowing ? "secondary" : "primary"}
               size="md"
               onClick={onFollowClick}
+              disabled={isFollowLoading}
+              loading={isFollowLoading}
               className="w-full"
             >
-              Follow
+              {isFollowing ? "Following" : "Follow"}
             </Button>
           )}
         </div>
