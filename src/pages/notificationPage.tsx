@@ -8,6 +8,7 @@ const notifications: Array<SocialNotification> = [
     id: 1,
     avatarUrl:
       "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
+    userId: "dwdSyr6WtwQsc8pWjSbTpeJd0jcwkj56",
     username: "Farhan",
     type: "comment",
     postTitle: "Test Post",

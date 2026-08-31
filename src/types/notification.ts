@@ -1,6 +1,7 @@
 export interface SocialNotification {
   id: number;
   avatarUrl: string;
+  userId: string;
   username: string;
   type: "comment" | "like" | "follow";
   postTitle?: string;

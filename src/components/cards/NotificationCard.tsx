@@ -1,6 +1,7 @@
 import { ChatIcon, HeartIcon } from "../../assets/icons";
 import { UserRoundPlus } from "lucide-react";
 import type { SocialNotification } from "../../types/notification";
+import { Link } from "react-router-dom";
 
 interface NotificationCardProps {
   notification: SocialNotification;
@@ -28,7 +29,7 @@ function NotificationCard(props: NotificationCardProps) {
         ? "text-success"
         : "text-primary";
   const backgroundColor = !notification.isRead
-    ? "bg-base-300/35 hover:bg-base-300/50 transition duration-300 ease-in-out"
+    ? "bg-base-300/35"
     : "bg-base-100";
 
   return (
@@ -36,18 +37,27 @@ function NotificationCard(props: NotificationCardProps) {
       className={`border-base-300 relative flex items-start gap-2 border-b px-4 py-5 ${backgroundColor}`}
       onClick={props.onMarkAsRead}
     >
-      <img
-        src={notification.avatarUrl}
-        alt={`${notification.username}'s avatar`}
-        className="h-10 w-10 shrink-0 cursor-pointer rounded-full object-cover"
-      />
+      <Link
+        to={`/profile/${notification.userId}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={notification.avatarUrl}
+          alt={`${notification.username}'s avatar`}
+          className="h-10 w-10 shrink-0 cursor-pointer rounded-full object-cover"
+        />
+      </Link>
       <div className="min-w-0 flex-1 pr-5">
         <p className="text-base-content flex items-center gap-2 text-sm">
           <Icon className={`${iconColor} h-4 w-4 shrink-0`} />
           <span>
-            <span className="cursor-pointer font-semibold">
+            <Link
+              to={`/profile/${notification.userId}`}
+              onClick={(e) => e.stopPropagation()}
+              className="cursor-pointer font-semibold"
+            >
               {notification.username}
-            </span>{" "}
+            </Link>{" "}
             {message}
           </span>
         </p>
@@ -66,7 +76,7 @@ function NotificationCard(props: NotificationCardProps) {
         </p>
       </div>
       {!notification.isRead && (
-        <span className="bg-primary absolute top-6 right-4 h-2 w-2 cursor-pointer rounded-full" />
+        <span className="bg-primary absolute top-6 right-4 h-2 w-2 rounded-full" />
       )}
     </section>
   );
