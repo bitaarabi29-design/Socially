@@ -2,6 +2,9 @@
 
 @theme {
   --font-mono: "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --color-base-content-secondary: #737373;
+  --color-base-content-tertiary: #a6a6a6;
+  --color-base-content-opposite: #171717;
 }
 
 @plugin "daisyui" {

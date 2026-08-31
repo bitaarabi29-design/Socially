@@ -44,16 +44,6 @@ function UserProfileCard({
         </h2>
         <p className="text-base-content-secondary text-sm">{user.email}</p>
 
-        {user.bio && (
-          <p className="text-base-content mt-3 text-sm">{user.bio}</p>
-        )}
-
-        {user.location && (
-          <p className="text-base-content-secondary mt-1 text-sm">
-            {user.location}
-          </p>
-        )}
-
         <div className="mt-6 flex w-full justify-around">
           <div className="flex flex-col items-center">
             <span className="text-base-content font-bold">
@@ -86,11 +76,17 @@ function UserProfileCard({
               size="md"
               icon={<EditIcon className="h-4 w-4" />}
               onClick={onEditClick}
+              className="w-full"
             >
               Edit Profile
             </Button>
           ) : (
-            <Button variant="primary" size="md" onClick={onFollowClick}>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={onFollowClick}
+              className="w-full"
+            >
               Follow
             </Button>
           )}
