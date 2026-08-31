@@ -44,7 +44,7 @@ function Login() {
             type="email"
             {...register("email")}
             placeholder="m@example.com"
-            className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 text-[12px] transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 md:text-[14px] lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
+            className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 text-[12px] placeholder:text-black/50 transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 md:text-[14px] lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:placeholder:text-white/50 dark:focus:border-white/40 dark:focus:ring-white/10"
           />
           {errors.email && (
             <span className="pl-4 text-[12px] text-red-500 md:pl-5">
@@ -59,7 +59,7 @@ function Login() {
             type="password"
             {...register("password")}
             placeholder=""
-            className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:focus:border-white/40 dark:focus:ring-white/10"
+            className="ml-4 h-10 w-90 rounded-lg border border-black/20 bg-white/40 pl-4 placeholder:text-black/50 transition-all duration-200 outline-none focus:border-black/40 focus:ring-2 focus:ring-black/10 md:ml-5 md:h-12 md:w-110 lg:w-130 lg:rounded-xl dark:border-white/20 dark:bg-white/7 dark:placeholder:text-white/50 dark:focus:border-white/40 dark:focus:ring-white/10"
           />
           {errors.password && (
             <span className="pl-4 text-[12px] text-red-500 md:pl-5">

@@ -4,6 +4,7 @@ import type { SocialNotification } from "../../types/notification";
 
 interface NotificationCardProps {
   notification: SocialNotification;
+  onMarkAsRead?: () => void;
 }
 
 function NotificationCard(props: NotificationCardProps) {
@@ -26,24 +27,27 @@ function NotificationCard(props: NotificationCardProps) {
       : notification.type === "follow"
         ? "text-success"
         : "text-primary";
-  const backgroundColor = notification.isRead
-    ? "bg-base-100"
-    : "bg-base-300/35";
+  const backgroundColor = !notification.isRead
+    ? "bg-base-300/35 hover:bg-base-300/50 transition duration-300 ease-in-out"
+    : "bg-base-100";
 
   return (
     <section
       className={`border-base-300 relative flex items-start gap-2 border-b px-4 py-5 ${backgroundColor}`}
+      onClick={props.onMarkAsRead}
     >
       <img
         src={notification.avatarUrl}
         alt={`${notification.username}'s avatar`}
-        className="h-10 w-10 shrink-0 rounded-full object-cover"
+        className="h-10 w-10 shrink-0 cursor-pointer rounded-full object-cover"
       />
       <div className="min-w-0 flex-1 pr-5">
-        <p className="text-base-content flex cursor-pointer items-center gap-2 text-sm">
+        <p className="text-base-content flex items-center gap-2 text-sm">
           <Icon className={`${iconColor} h-4 w-4 shrink-0`} />
           <span>
-            <span className="font-semibold">{notification.username}</span>{" "}
+            <span className="cursor-pointer font-semibold">
+              {notification.username}
+            </span>{" "}
             {message}
           </span>
         </p>
@@ -62,7 +66,7 @@ function NotificationCard(props: NotificationCardProps) {
         </p>
       </div>
       {!notification.isRead && (
-        <span className="bg-primary absolute top-6 right-4 h-2 w-2 rounded-full" />
+        <span className="bg-primary absolute top-6 right-4 h-2 w-2 cursor-pointer rounded-full" />
       )}
     </section>
   );
