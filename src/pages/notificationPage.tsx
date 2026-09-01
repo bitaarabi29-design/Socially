@@ -1,22 +1,28 @@
-import { useState } from "react";
+import {
+  useGetNotifications,
+  useMarkNotificationsAsRead,
+} from "../hooks/useNotifications";
+
 import { AlertCircle } from "lucide-react";
 
 import NotificationCard from "../components/cards/NotificationCard";
-import Spinner from "../components/ui/Spinner";
 import { NotificationPageSkeleton } from "../components/ui/Skeleton";
-
 import type { SocialNotification } from "../types/notification";
 
-// Static Data
-const notifications: Array<SocialNotification> = [];
-
 function NotificationPage() {
-  const [notificationItems, setNotificationItems] = useState(notifications);
+  const {
+    data,
+    isLoading: isPageLoading,
+    isError,
+    refetch,
+  } = useGetNotifications();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPageLoading, setIsPageLoading] = useState<boolean>(false);
+  const { mutate: markAllAsRead, isPending: isMarkingLoading } =
+    useMarkNotificationsAsRead();
 
-  const [error, setError] = useState<string | null>(null);
+  const notificationItems: Array<SocialNotification> = Array.isArray(data)
+    ? data
+    : [];
 
   const unreadCount = notificationItems.filter((item) => !item.isRead).length;
 
@@ -24,32 +30,20 @@ function NotificationPage() {
     return <NotificationPageSkeleton />;
   }
 
-  function markOneAsRead(id: number) {
-    const updatedList = notificationItems.map((item) =>
-      item.id === id ? { ...item, isRead: true } : item,
+  if (isError) {
+    return (
+      <div className="text-error bg-error/10 border-error/20 m-4 flex flex-col items-center gap-3 rounded-lg border p-4">
+        <AlertCircle className="h-6 w-6" />
+        <p className="font-medium">Something went wrong!</p>
+        <button
+          type="button"
+          onClick={() => refetch()}
+          className="text-error btn btn-sm btn-outline btn-error bg-error/30 hover:bg-error/50 cursor-pointer rounded-md px-3 py-1 text-sm font-medium transition duration-300 ease-in-out"
+        >
+          Try Again!
+        </button>
+      </div>
     );
-    setNotificationItems(updatedList);
-  }
-
-  function markAllAsRead() {
-    setIsLoading(true);
-    setError(null);
-    const updatedList = notificationItems.map((item) => ({
-      ...item,
-      isRead: true,
-    }));
-    setTimeout(() => {
-      setNotificationItems(updatedList);
-      setIsLoading(false);
-    }, 1000);
-  }
-
-  function handleRetry() {
-    setError(null);
-    setIsPageLoading(true);
-    setTimeout(() => {
-      setIsPageLoading(false);
-    }, 1500);
   }
 
   return (
@@ -63,13 +57,13 @@ function NotificationPage() {
           {unreadCount > 0 && (
             <button
               type="button"
-              disabled={isLoading}
-              onClick={markAllAsRead}
+              disabled={isMarkingLoading}
+              onClick={() => markAllAsRead()}
               className="text-base-content hover:bg-base-300 cursor-pointer rounded-md p-2 text-xs font-medium transition duration-300 ease-in-out"
             >
-              {isLoading ? (
+              {isMarkingLoading ? (
                 <div className="flex items-center gap-2">
-                  <Spinner />
+                  <span className="loading loading-spinner loading-xs" />
                   <span className="font-mono">Loading...</span>
                 </div>
               ) : (
@@ -79,46 +73,24 @@ function NotificationPage() {
           )}
         </div>
       </header>
+
       <main>
-        {
-          // Loading State
-          isPageLoading ? (
-            <div className="flex flex-col items-center justify-center gap-3 py-12">
-              <span className="loading loading-spinner loading-lg text-base-content/80"></span>
-              <p className="text-base-content/70 text-sm">
-                Loading notifications...
-              </p>
-            </div>
-          ) : // Error State
-          error ? (
-            <div className="text-error bg-error/10 border-error/20 m-4 flex flex-col items-center gap-3 rounded-lg border p-4">
-              <p className="font-medium">{error}</p>
-              <AlertCircle />
-              <button
-                type="button"
-                onClick={handleRetry}
-                className="text-error btn btn-sm btn-outline btn-error bg-error/30 hover:bg-error/50 cursor-pointer rounded-md px-3 py-1 text-sm font-medium transition duration-300 ease-in-out"
-              >
-                Try Again!
-              </button>
-            </div>
-          ) : // Empty State
-          notificationItems.length === 0 ? (
-            <div className="text-base-content/50 flex h-40 flex-col items-center justify-center gap-2">
-              <p>Your notifications are taking a nap.😴</p>
-              <p>Check back later!</p>
-            </div>
-          ) : (
-            // Success State
-            notificationItems.map((item) => (
-              <NotificationCard
-                key={item.id}
-                notification={item}
-                onMarkAsRead={() => markOneAsRead(item.id)}
-              />
-            ))
-          )
-        }
+        {notificationItems.length === 0 ? (
+          // Empty State
+          <div className="text-base-content/50 flex h-40 flex-col items-center justify-center gap-2">
+            <p>Your notifications are taking a nap.😴</p>
+            <p>Check back later!</p>
+          </div>
+        ) : (
+          // Success State
+          notificationItems.map((item) => (
+            <NotificationCard
+              key={item.id}
+              notification={item}
+              onMarkAsRead={() => markAllAsRead()}
+            />
+          ))
+        )}
       </main>
     </section>
   );
