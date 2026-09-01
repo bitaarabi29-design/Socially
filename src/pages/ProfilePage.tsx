@@ -20,6 +20,7 @@ import type { Post } from "../types/post.types";
 import {
   PostCardSkeleton,
   UserProfileCardSkeleton,
+  PostsLikesTabsSkeleton,
 } from "../components/ui/Skeleton";
 
 function Profile() {
@@ -76,31 +77,35 @@ function Profile() {
           />
         )}
 
-        <div className="border-base-300 flex gap-4 border-b px-6">
-          <button
-            onClick={() => setSection("posts")}
-            className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
-              section === "posts"
-                ? "text-base-content border-white"
-                : "text-base-content-secondary border-transparent"
-            }`}
-          >
-            <PostIcon />
-            Posts
-          </button>
+        {isLoading ? (
+          <PostsLikesTabsSkeleton />
+        ) : (
+          <div className="border-base-300 flex gap-4 border-b px-6">
+            <button
+              onClick={() => setSection("posts")}
+              className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
+                section === "posts"
+                  ? "text-base-content border-white"
+                  : "text-base-content-secondary border-transparent"
+              }`}
+            >
+              <PostIcon />
+              Posts
+            </button>
 
-          <button
-            onClick={() => setSection("likes")}
-            className={`text-base-content-secondary -mb-px flex items-center gap-2 border-b-2 pb-3 ${
-              section === "likes"
-                ? "text-base-content border-white"
-                : "text-base-content-secondary border-transparent"
-            }`}
-          >
-            <HeartIcon />
-            Likes
-          </button>
-        </div>
+            <button
+              onClick={() => setSection("likes")}
+              className={`text-base-content-secondary -mb-px flex items-center gap-2 border-b-2 pb-3 ${
+                section === "likes"
+                  ? "text-base-content border-white"
+                  : "text-base-content-secondary border-transparent"
+              }`}
+            >
+              <HeartIcon />
+              Likes
+            </button>
+          </div>
+        )}
 
         {section === "posts" && (
           <div className="flex flex-col gap-4">
