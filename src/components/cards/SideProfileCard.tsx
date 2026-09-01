@@ -1,3 +1,4 @@
+import { LinkIcon, LocationIcon } from "../../assets/icons";
 import { useUserProfile } from "../../hooks/useUserProfile";
 import { useSession } from "../../hooks/useSession";
 
@@ -8,6 +9,7 @@ function SideProfileCard() {
     isLoading,
     error,
   } = useUserProfile(session?.data?.user?.id ?? "");
+  console.log("user", user);
 
   if (isLoading) {
     return (
@@ -41,33 +43,42 @@ function SideProfileCard() {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-1">
-          <h2 className="card-title text-base-content text-lg font-bold">
-            {user.name}
-          </h2>
-          <p className="text-base-content-secondary">{user.email}</p>
+          <h2 className="card-title text-lg font-bold">{user.name}</h2>
+          <p className="text-base-content/50">{user.email}</p>
         </div>
 
         <div className="divider my-0 w-full"></div>
 
         <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center text-center">
           <div className="min-w-0">
-            <div className="text-base-content text-lg font-bold">
+            <div className="text-lg font-bold">
               {user._count?.followings ?? 0}
             </div>
 
-            <div className="text-base-content-secondary text-xs">
-              Followings
-            </div>
+            <div className="text-base-content/50 text-xs">Followings</div>
           </div>
 
           <div className="divider divider-horizontal mx-0 h-10"></div>
 
           <div className="min-w-0">
-            <div className="text-base-content text-lg font-bold">
+            <div className="text-lg font-bold">
               {user._count?.followers ?? 0}
             </div>
 
-            <div className="text-base-content-secondary text-xs">Followers</div>
+            <div className="text-base-content/50 text-xs">Followers</div>
+          </div>
+        </div>
+
+        <div className="divider my-0 w-full"></div>
+
+        <div className="mt-2 w-full space-y-3 text-left">
+          <div className="text-base-content/70 flex items-center gap-2 text-sm">
+            <LocationIcon className="text-base-content/70" />
+            <span>{user.location ?? "No location"}</span>
+          </div>
+          <div className="text-base-content/70 flex items-center gap-2 text-sm">
+            <LinkIcon className="text-base-content/70" />
+            <span>{user.website?.trim() || "No Website"}</span>
           </div>
         </div>
       </div>
