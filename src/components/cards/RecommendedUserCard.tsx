@@ -1,4 +1,4 @@
-import { PictureIcon } from "../../assets/icons";
+import UserAvatar from "../ui/UserAvatar";
 import { useRecommendedUser } from "../../hooks/useRecommendedUser";
 import { RecommendedUserSkeleton } from "../ui/Skeleton";
 
@@ -25,10 +25,10 @@ function RecommendedUserCard() {
             className="flex min-w-0 items-center justify-between"
           >
             <div className="flex min-w-0 items-center gap-3">
-              <img
-                src={PictureIcon}
-                alt="picture"
-                className="hidden h-10 w-10 rounded-full object-cover md:block"
+              <UserAvatar
+                name={user.name}
+                image={user.image}
+                className="h-10 w-10"
               />
 
               <div className="flex min-w-0 flex-col gap-1">

@@ -2,6 +2,9 @@
 
 @theme {
   --font-mono: "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --color-base-content-secondary: #737373;
+  --color-base-content-tertiary: #a6a6a6;
+  --color-base-content-opposite: #171717;
 }
 
 @plugin "daisyui" {
@@ -37,6 +40,9 @@
   --color-error: #ef4444;
   --color-error-content: #ffffff;
 
+  --color-success: #10b981;
+  --color-success-content: #ffffff;
+
   --radius-box: 12px;
   --radius-field: 6px;
   --radius-selector: 6px;
@@ -70,6 +76,9 @@
 
   --color-error: #ef4444;
   --color-error-content: #ffffff;
+
+  --color-success: #10b981;
+  --color-success-content: #ffffff;
 
   --radius-box: 12px;
   --radius-field: 6px;

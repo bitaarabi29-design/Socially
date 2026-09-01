@@ -1,6 +1,7 @@
 import { LinkIcon, LocationIcon } from "../../assets/icons";
 import { useUserProfile } from "../../hooks/useUserProfile";
 import { useSession } from "../../hooks/useSession";
+import UserAvatar from "../ui/UserAvatar";
 
 function SideProfileCard() {
   const { data: session } = useSession();
@@ -31,13 +32,11 @@ function SideProfileCard() {
     <div className="card bg-base-100 border-base-300 hidden w-full border px-6 shadow-sm lg:block lg:max-w-5xl">
       <div className="card-body flex flex-col items-center gap-4 p-0 py-6 text-center">
         <div className="avatar">
-          <div className="ring-base-content/50 ring-offset-base-100 w-20 rounded-full ring-2 ring-offset-2">
-            <img
-              alt={user.name}
-              src={
-                user.image ??
-                "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
-              }
+          <div className="ring-base-content/50 ring-offset-base-100 rounded-full ring-2 ring-offset-2">
+            <UserAvatar
+              name={user.name}
+              image={user.image}
+              className="h-20 w-20 text-2xl"
             />
           </div>
         </div>
@@ -74,7 +73,7 @@ function SideProfileCard() {
         <div className="mt-2 w-full space-y-3 text-left">
           <div className="text-base-content/70 flex items-center gap-2 text-sm">
             <LocationIcon className="text-base-content/70" />
-            <span>{user.location ?? "No location"}</span>
+            <span>{user.location ?? "No Location"}</span>
           </div>
           <div className="text-base-content/70 flex items-center gap-2 text-sm">
             <LinkIcon className="text-base-content/70" />

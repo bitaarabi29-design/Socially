@@ -1,12 +1,15 @@
 import { ChatIcon, HeartIcon } from "../../assets/icons";
 import { UserRoundPlus } from "lucide-react";
-import type { SocialNotificaion } from "../../types/notification";
+import type { SocialNotification } from "../../types/notification";
+import { Link } from "react-router-dom";
 
 interface NotificationCardProps {
-  notification: SocialNotificaion;
+  notification: SocialNotification;
+  onMarkAsRead?: () => void;
 }
 
-function NotificationCard({ notification }: NotificationCardProps) {
+function NotificationCard(props: NotificationCardProps) {
+  const notification = props.notification;
   const Icon =
     notification.type === "like"
       ? HeartIcon
@@ -23,26 +26,38 @@ function NotificationCard({ notification }: NotificationCardProps) {
     notification.type === "like"
       ? "text-error"
       : notification.type === "follow"
-        ? "text-green-500"
+        ? "text-success"
         : "text-primary";
-  const backgroundColor = notification.isRead
-    ? "bg-base-100"
-    : "bg-base-300/35";
+  const backgroundColor = !notification.isRead
+    ? "bg-base-300/35"
+    : "bg-base-100";
 
   return (
     <section
       className={`border-base-300 relative flex items-start gap-2 border-b px-4 py-5 ${backgroundColor}`}
+      onClick={props.onMarkAsRead}
     >
-      <img
-        src={notification.avatarUrl}
-        alt={`${notification.username}'s avatar`}
-        className="h-10 w-10 shrink-0 rounded-full object-cover"
-      />
+      <Link
+        to={`/profile/${notification.userId}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={notification.avatarUrl}
+          alt={`${notification.username}'s avatar`}
+          className="h-10 w-10 shrink-0 cursor-pointer rounded-full object-cover"
+        />
+      </Link>
       <div className="min-w-0 flex-1 pr-5">
-        <p className="text-base-content flex cursor-pointer items-center gap-2 text-sm">
+        <p className="text-base-content flex items-center gap-2 text-sm">
           <Icon className={`${iconColor} h-4 w-4 shrink-0`} />
           <span>
-            <span className="font-semibold">{notification.username}</span>{" "}
+            <Link
+              to={`/profile/${notification.userId}`}
+              onClick={(e) => e.stopPropagation()}
+              className="cursor-pointer font-semibold"
+            >
+              {notification.username}
+            </Link>{" "}
             {message}
           </span>
         </p>

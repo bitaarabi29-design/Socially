@@ -1,8 +1,9 @@
-function Skeleton({ className = "" }: { className?: string }) {
+export function Skeleton({ className = "" }: { className?: string }) {
   return (
     <div className={`bg-base-300 animate-pulse rounded-md ${className}`} />
   );
 }
+
 
 export function PostCardSkeleton() {
   return (
@@ -24,6 +25,7 @@ export function PostCardSkeleton() {
     </div>
   );
 }
+
 
 export function RecommendedUserSkeleton() {
   return (
@@ -49,3 +51,57 @@ export function RecommendedUserSkeleton() {
     </div>
   );
 }
+
+
+export function NotificationCardSkeleton() {
+  return (
+    <section className="border-base-300 relative flex items-start gap-3 border-b px-4 py-5">
+      {/* Avatar */}
+      <Skeleton className="h-10 w-10 shrink-0 !rounded-full" />
+
+      {/* Content */}
+      <div className="min-w-0 flex-1 space-y-3 pr-5">
+        {/* Username + Message */}
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-3 w-3 rounded-full" /> {/* Icon */}
+          <Skeleton className="h-4 w-2/3" /> {/* Text */}
+        </div>
+
+        {/* Post Title Placeholder */}
+        <Skeleton className="ml-6 h-9 w-3/4 rounded-md" />
+
+        {/* Comment Placeholder */}
+        <Skeleton className="ml-6 h-9 w-11/12 rounded-md" />
+
+        {/* Timestamp */}
+        <Skeleton className="h-3 w-20" />
+      </div>
+
+      {/* Unread Indicator */}
+      <Skeleton className="h-2 w-2 shrink-0 rounded-full" />
+    </section>
+  );
+}
+
+export function NotificationPageSkeleton() {
+  return (
+    <div className="bg-base-100 border-base-300 mb-20 flex max-w-233 flex-col overflow-hidden rounded-xl border shadow-sm">
+      {/* Header */}
+      <div className="border-base-300 flex items-center justify-between border-b px-5 py-4">
+        <Skeleton className="h-6 w-32" />
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-8 w-24 rounded-md" />
+        </div>
+      </div>
+
+      {/* Notification Cards */}
+      <div className="divide-base-300 divide-y">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <NotificationCardSkeleton key={index} />
+        ))}
+      </div>
+    </div>
+  );
+}
+

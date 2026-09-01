@@ -69,6 +69,10 @@ function Profile() {
         <UserProfileCard
           user={user}
           isCurrentUser={isCurrentUser}
+          isFollowing={user.followers?.some(
+            (f: { followerId: string }) => f.followerId === currentUserId,
+          )}
+          isFollowLoading={followMutation.isPending}
           onEditClick={() => setShowEditModal(true)}
           onFollowClick={() => followMutation.mutate()}
         />
