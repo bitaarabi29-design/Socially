@@ -1,7 +1,7 @@
+import { useEffect, useRef, useState } from "react";
 import type { user } from "../../types/user.types";
 import Button from "../ui/Button";
 import { CalendarIcon, EditIcon } from "../../assets/icons";
-import UserAvatar from "../ui/UserAvatar";
 
 type UserProfileCardProps = {
   user: user;
@@ -27,14 +27,35 @@ function UserProfileCard({
   onEditClick,
   onFollowClick,
 }: UserProfileCardProps) {
+  const avatarLetter = user.name?.charAt(0).toUpperCase() || "U";
+
+  const [localFollowing, setLocalFollowing] = useState(isFollowing);
+  const followerCountRef = useRef(user._count?.followers ?? 0);
+
+  useEffect(() => {
+    const currentCount = user._count?.followers ?? 0;
+    if (currentCount > followerCountRef.current) {
+      setLocalFollowing(true);
+    } else if (currentCount < followerCountRef.current) {
+      setLocalFollowing(false);
+    }
+    followerCountRef.current = currentCount;
+  }, [user._count?.followers]);
+
   return (
     <div className="border-base-300 bg-base-100 w-full max-w-2xl rounded-2xl border p-6">
       <div className="flex flex-col items-center text-center">
-        <UserAvatar
-          name={user.name}
-          image={user.image}
-          className="h-24 w-24 text-4xl"
-        />
+        {user.image ? (
+          <img
+            src={user.image}
+            alt={user.name}
+            className="h-24 w-24 rounded-full object-cover"
+          />
+        ) : (
+          <div className="bg-primary text-primary-content flex h-24 w-24 items-center justify-center rounded-full text-4xl font-semibold">
+            {avatarLetter}
+          </div>
+        )}
 
         <h2 className="text-base-content mt-4 text-xl font-semibold">
           {user.name}
@@ -79,14 +100,14 @@ function UserProfileCard({
             </Button>
           ) : (
             <Button
-              variant={isFollowing ? "secondary" : "primary"}
+              variant={localFollowing ? "secondary" : "primary"}
               size="md"
               onClick={onFollowClick}
               disabled={isFollowLoading}
               loading={isFollowLoading}
               className="w-full"
             >
-              {isFollowing ? "Following" : "Follow"}
+              {localFollowing ? "Following" : "Follow"}
             </Button>
           )}
         </div>

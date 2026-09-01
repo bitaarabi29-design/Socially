@@ -50,6 +50,30 @@ export function RecommendedUserSkeleton() {
   );
 }
 
+export function UserProfileCardSkeleton() {
+  return (
+    <div className="border-base-300 bg-base-100 w-full max-w-2xl rounded-2xl border p-6">
+      <div className="flex flex-col items-center text-center">
+        <Skeleton className="h-24 w-24 rounded-full" />
+
+        <Skeleton className="mt-4 h-5 w-32" />
+        <Skeleton className="mt-2 h-4 w-40" />
+
+        <div className="mt-6 flex w-full justify-around">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div key={index} className="flex flex-col items-center gap-2">
+              <Skeleton className="h-4 w-6" />
+              <Skeleton className="h-3 w-14" />
+            </div>
+          ))}
+        </div>
+
+        <Skeleton className="mt-6 h-10 w-full rounded-lg" />
+      </div>
+    </div>
+  );
+}
+
 export function NotificationCardSkeleton() {
   return (
     <section className="border-base-300 relative flex items-start gap-3 border-b px-4 py-5">
