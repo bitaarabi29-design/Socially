@@ -1,7 +1,11 @@
 import { LinkIcon, LocationIcon } from "../../assets/icons";
 import { useUserProfile } from "../../hooks/useUserProfile";
 import { useSession } from "../../hooks/useSession";
+
+import { SideProfileCardSkeleton } from "../ui/Skeleton";
+
 import UserAvatar from "../ui/UserAvatar";
+
 
 function SideProfileCard() {
   const { data: session } = useSession();
@@ -10,14 +14,9 @@ function SideProfileCard() {
     isLoading,
     error,
   } = useUserProfile(session?.data?.user?.id ?? "");
-  console.log("user", user);
 
   if (isLoading) {
-    return (
-      <div className="card bg-base-100 border-base-300 w-full border px-6 py-6">
-        Loading...
-      </div>
-    );
+    return <SideProfileCardSkeleton />;
   }
 
   if (error || !user) {

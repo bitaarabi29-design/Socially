@@ -125,3 +125,76 @@ export function NotificationPageSkeleton() {
     </div>
   );
 }
+
+export function HeaderSkeleton() {
+  return (
+    <div className="mx-auto flex h-16 w-full max-w-[1248px] items-center justify-between px-2 md:px-4 lg:px-6">
+      <Skeleton className="h-6 w-24" />
+
+      <div className="flex items-center gap-4">
+        <Skeleton className="h-9 w-9 rounded-[6px]" />
+        <Skeleton className="h-9 w-20 rounded-[6px]" />
+        <Skeleton className="h-9 w-32 rounded-[6px]" />
+        <Skeleton className="h-9 w-24 rounded-[6px]" />
+        <Skeleton className="h-9 w-9 rounded-[6px]" />
+      </div>
+    </div>
+  );
+}
+
+export function SideProfileCardSkeleton() {
+  return (
+    <div className="card bg-base-100 border-base-300 hidden w-full border px-6 shadow-sm lg:block lg:max-w-5xl">
+      <div className="card-body flex flex-col items-center gap-4 p-0 py-6 text-center">
+        {/* Avatar */}
+        <div className="avatar">
+          <div className="ring-base-content/50 ring-offset-base-100 w-20 rounded-full ring-2 ring-offset-2">
+            <Skeleton className="h-20 w-20 rounded-full" />
+          </div>
+        </div>
+
+        {/* Name and Email */}
+        <div className="flex flex-col items-center justify-center gap-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-4 w-40" />
+        </div>
+
+        <div className="divider my-0 w-full"></div>
+
+        {/* Follow Section */}
+        <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center gap-2 text-center">
+          <div className="min-w-0">
+            <Skeleton className="mx-auto h-6 w-8" /> {/* Followings count */}
+            <Skeleton className="mx-auto mt-2 h-3 w-20" />{" "}
+            {/* Followings label */}
+          </div>
+
+          <div className="divider divider-horizontal mx-0 h-10"></div>
+
+          <div className="min-w-0">
+            <Skeleton className="mx-auto h-6 w-8" /> {/* Followers count */}
+            <Skeleton className="mx-auto mt-2 h-3 w-16" />{" "}
+            {/* Followers label */}
+          </div>
+        </div>
+
+        <div className="divider my-0 w-full"></div>
+
+        {/* Info Section */}
+        <div className="mt-2 w-full space-y-3 text-left">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-4 w-4 shrink-0 rounded-sm" />{" "}
+            {/* Location Icon */}
+            <Skeleton className="h-4 w-32" />
+          </div>
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-4 w-4 shrink-0 rounded-sm" />{" "}
+            {/* Website Icon */}
+            <Skeleton className="h-4 w-40" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
