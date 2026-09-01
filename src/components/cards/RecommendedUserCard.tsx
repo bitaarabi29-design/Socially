@@ -46,6 +46,18 @@ function RecommendedUserCard() {
     return <div>Something went wrong</div>;
   }
 
+  if (!recommendedUsers || recommendedUsers.length === 0) {
+    return (
+      <div className="border-base-300 bg-base-100 rounded-xl border p-6 shadow-sm md:p-4">
+        <h3 className="text-base-content mb-6 text-sm font-semibold">
+          Who to Follow
+        </h3>
+
+        <p className="text-base-content/50 text-sm">No users to follow.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="border-base-300 bg-base-100 rounded-xl border p-6 shadow-sm md:p-4">
       <h3 className="text-base-content mb-6 truncate text-xs font-semibold md:text-base md:whitespace-nowrap">
@@ -61,4 +73,5 @@ function RecommendedUserCard() {
     </div>
   );
 }
+
 export default RecommendedUserCard;
