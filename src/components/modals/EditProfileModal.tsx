@@ -127,6 +127,7 @@ function EditProfileModal({
               Cancel
             </Button>
             <Button
+              type="submit"
               variant="primary"
               size="sm"
               disabled={isSaving}

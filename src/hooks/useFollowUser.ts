@@ -7,7 +7,7 @@ export const useFollowUser = (userId: string) => {
   return useMutation({
     mutationFn: () => followUnfollowUser(userId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["Profile", userId] });
+      queryClient.invalidateQueries({ queryKey: ["Profile"] });
     },
   });
 };
