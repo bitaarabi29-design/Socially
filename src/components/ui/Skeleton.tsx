@@ -113,6 +113,10 @@ export function HeaderSkeleton() {
         <Skeleton className="h-9 w-32 rounded-[6px]" />
         <Skeleton className="h-9 w-24 rounded-[6px]" />
         <Skeleton className="h-9 w-9 rounded-[6px]" />
+      </div>
+    </div>
+  );
+}
 
 export function SideProfileCardSkeleton() {
   return (

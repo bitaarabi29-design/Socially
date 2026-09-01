@@ -53,7 +53,7 @@ function RecommendedUserCard() {
         ))}
       </div>
       <div
-        key={user.id}
+        
         className="flex min-w-0 items-center justify-between"
       ></div>
     </div>
