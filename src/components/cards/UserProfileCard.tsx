@@ -6,6 +6,8 @@ import UserAvatar from "../ui/UserAvatar";
 type UserProfileCardProps = {
   user: user;
   isCurrentUser?: boolean;
+  isFollowing?: boolean;
+  isFollowLoading?: boolean;
   onEditClick?: () => void;
   onFollowClick?: () => void;
 };
@@ -20,6 +22,8 @@ function formatJoinDate(date: string) {
 function UserProfileCard({
   user,
   isCurrentUser = false,
+  isFollowing = false,
+  isFollowLoading = false,
   onEditClick,
   onFollowClick,
 }: UserProfileCardProps) {
@@ -36,16 +40,6 @@ function UserProfileCard({
           {user.name}
         </h2>
         <p className="text-base-content-secondary text-sm">{user.email}</p>
-
-        {user.bio && (
-          <p className="text-base-content mt-3 text-sm">{user.bio}</p>
-        )}
-
-        {user.location && (
-          <p className="text-base-content-secondary mt-1 text-sm">
-            {user.location}
-          </p>
-        )}
 
         <div className="mt-6 flex w-full justify-around">
           <div className="flex flex-col items-center">
@@ -79,12 +73,20 @@ function UserProfileCard({
               size="md"
               icon={<EditIcon className="h-4 w-4" />}
               onClick={onEditClick}
+              className="w-full"
             >
               Edit Profile
             </Button>
           ) : (
-            <Button variant="primary" size="md" onClick={onFollowClick}>
-              Follow
+            <Button
+              variant={isFollowing ? "secondary" : "primary"}
+              size="md"
+              onClick={onFollowClick}
+              disabled={isFollowLoading}
+              loading={isFollowLoading}
+              className="w-full"
+            >
+              {isFollowing ? "Following" : "Follow"}
             </Button>
           )}
         </div>
