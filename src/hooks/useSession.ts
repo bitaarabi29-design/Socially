@@ -6,5 +6,6 @@ export const useSession = () => {
     queryKey: ["session"],
     queryFn: getSessionRequest,
     retry: false,
+    staleTime: 5 * 60 * 1000,
   });
 };

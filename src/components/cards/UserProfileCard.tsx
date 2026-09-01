@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import type { user } from "../../types/user.types";
 import Button from "../ui/Button";
 import { CalendarIcon, EditIcon } from "../../assets/icons";
@@ -27,6 +28,19 @@ function UserProfileCard({
   onFollowClick,
 }: UserProfileCardProps) {
   const avatarLetter = user.name?.charAt(0).toUpperCase() || "U";
+
+  const [localFollowing, setLocalFollowing] = useState(isFollowing);
+  const followerCountRef = useRef(user._count?.followers ?? 0);
+
+  useEffect(() => {
+    const currentCount = user._count?.followers ?? 0;
+    if (currentCount > followerCountRef.current) {
+      setLocalFollowing(true);
+    } else if (currentCount < followerCountRef.current) {
+      setLocalFollowing(false);
+    }
+    followerCountRef.current = currentCount;
+  }, [user._count?.followers]);
 
   return (
     <div className="border-base-300 bg-base-100 w-full max-w-2xl rounded-2xl border p-6">
@@ -86,14 +100,14 @@ function UserProfileCard({
             </Button>
           ) : (
             <Button
-              variant={isFollowing ? "secondary" : "primary"}
+              variant={localFollowing ? "secondary" : "primary"}
               size="md"
               onClick={onFollowClick}
               disabled={isFollowLoading}
               loading={isFollowLoading}
               className="w-full"
             >
-              {isFollowing ? "Following" : "Follow"}
+              {localFollowing ? "Following" : "Follow"}
             </Button>
           )}
         </div>
