@@ -169,7 +169,7 @@ function PostCard({ post }: PostCardProps) {
             <button
               type="button"
               onClick={() => setShowDeletePostModal(true)}
-              className="text-base-content/60 hover:text-error"
+              className="text-base-content/60 hover:text-error cursor-pointer"
               aria-label="Delete post"
             >
               <TrashIcon className="h-4 w-4" />
@@ -184,6 +184,8 @@ function PostCard({ post }: PostCardProps) {
             onClick={handleLike}
             disabled={isLikePending}
             className={`flex h-8 items-center gap-2 rounded-md px-2 disabled:opacity-50 ${
+              isLikePending ? "" : "cursor-pointer"
+            } ${
               isLiked
                 ? "bg-base-300 text-error"
                 : "text-base-content hover:bg-base-300"
@@ -204,7 +206,7 @@ function PostCard({ post }: PostCardProps) {
           <button
             type="button"
             onClick={() => setShowComments((current) => !current)}
-            className={`flex h-8 items-center gap-2 rounded-md px-2 ${
+            className={`flex h-8 cursor-pointer items-center gap-2 rounded-md px-2 ${
               showComments
                 ? "bg-base-300 text-primary"
                 : "text-base-content hover:bg-base-300"

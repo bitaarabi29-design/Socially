@@ -23,7 +23,9 @@ function RecommendedUserItem({ user }: { user: any }) {
       <button
         onClick={() => mutate()}
         disabled={isPending}
-        className="bg-base-300 text-base-content shrink-0 rounded-md px-2 py-1 text-[10px] md:rounded-lg md:px-3 md:py-1.5 md:text-xs"
+        className={`bg-base-300 text-base-content shrink-0 rounded-md px-2 py-1 text-[10px] md:rounded-lg md:px-3 md:py-1.5 md:text-xs ${
+          isPending ? "" : "cursor-pointer"
+        }`}
       >
         {isPending ? "Following..." : "Follow"}
       </button>
@@ -52,10 +54,7 @@ function RecommendedUserCard() {
           <RecommendedUserItem key={user.id} user={user} />
         ))}
       </div>
-      <div
-        
-        className="flex min-w-0 items-center justify-between"
-      ></div>
+      <div className="flex min-w-0 items-center justify-between"></div>
     </div>
   );
 }

@@ -32,10 +32,11 @@ function Button({
     "flex flex-row justify-center gap-2 rounded-[var(--radius-field)] text-base font-family";
   const variantStyles = ButtonVariants.variant[variant];
   const sizeStyles = ButtonVariants.size[size];
+  const cursorStyle = disabled ? "" : "cursor-pointer";
   return (
     <button
       type={type}
-      className={`${baseStyles} ${variantStyles} ${sizeStyles} ${className}`}
+      className={`${baseStyles} ${variantStyles} ${sizeStyles} ${cursorStyle} ${className}`}
       disabled={disabled}
       onClick={onClick}
     >
