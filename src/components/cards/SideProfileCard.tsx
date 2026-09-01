@@ -1,6 +1,7 @@
 import { LinkIcon, LocationIcon } from "../../assets/icons";
 import { useUserProfile } from "../../hooks/useUserProfile";
 import { useSession } from "../../hooks/useSession";
+import { SideProfileCardSkeleton } from "../ui/Skeleton";
 
 function SideProfileCard() {
   const { data: session } = useSession();
@@ -9,14 +10,9 @@ function SideProfileCard() {
     isLoading,
     error,
   } = useUserProfile(session?.data?.user?.id ?? "");
-  console.log("user", user);
 
   if (isLoading) {
-    return (
-      <div className="card bg-base-100 border-base-300 w-full border px-6 py-6">
-        Loading...
-      </div>
-    );
+    return <SideProfileCardSkeleton />;
   }
 
   if (error || !user) {
@@ -49,11 +45,11 @@ function SideProfileCard() {
 
         <div className="divider my-0 w-full"></div>
 
-
         <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center text-center">
           <div className="min-w-0">
-           
-            <div className="text-lg font-bold">{user._count?.followings?? 0}</div>
+            <div className="text-lg font-bold">
+              {user._count?.followings ?? 0}
+            </div>
 
             <div className="text-base-content/50 text-xs">Followings</div>
           </div>
@@ -61,8 +57,9 @@ function SideProfileCard() {
           <div className="divider divider-horizontal mx-0 h-10"></div>
 
           <div className="min-w-0">
-        
-            <div className="text-lg font-bold">{user._count?.followers ?? 0}</div>
+            <div className="text-lg font-bold">
+              {user._count?.followers ?? 0}
+            </div>
 
             <div className="text-base-content/50 text-xs">Followers</div>
           </div>
