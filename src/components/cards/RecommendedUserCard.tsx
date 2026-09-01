@@ -10,10 +10,12 @@ function RecommendedUserItem({ user }: { user: any }) {
 
   return (
     <div className="flex min-w-0 items-center justify-between gap-3">
+
       <div
         className="flex min-w-0 cursor-pointer items-center gap-2 md:gap-3"
         onClick={() => navigate(`/profile/${user.id}`)}
       >
+
         <UserAvatar name={user.name} image={user.image} className="h-10 w-10" />
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-base-content truncate text-sm">@{user.name}</p>
@@ -27,7 +29,9 @@ function RecommendedUserItem({ user }: { user: any }) {
       <button
         onClick={() => mutate()}
         disabled={isPending}
-        className="bg-base-300 text-base-content shrink-0 rounded-md px-2 py-1 text-[10px] md:rounded-lg md:px-3 md:py-1.5 md:text-xs"
+        className={`bg-base-300 text-base-content shrink-0 rounded-md px-2 py-1 text-[10px] md:rounded-lg md:px-3 md:py-1.5 md:text-xs ${
+          isPending ? "" : "cursor-pointer"
+        }`}
       >
         {isPending ? "Following..." : "Follow"}
       </button>

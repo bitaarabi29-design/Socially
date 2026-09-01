@@ -71,7 +71,7 @@ function AddPostCard() {
       <div>
         <label
           htmlFor="post-image"
-          className="btn btn-ghost text-base-content/50 btn-sm cursor-pointer"
+          className="btn btn-ghost text-base-content/50 btn-sm border-base-300 cursor-pointer border"
         >
           {isUploadingImage
             ? "Uploading..."
