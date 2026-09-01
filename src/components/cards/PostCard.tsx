@@ -154,7 +154,9 @@ function PostCard({ post }: PostCardProps) {
               </span>
             </div>
 
-            <p className="text-base-content mt-1 text-sm">{post.content}</p>
+            <p className="text-base-content mt-1 text-sm break-words">
+              {post.content}
+            </p>
 
             {postImageUrl && (
               <img
@@ -373,7 +375,9 @@ function CommentItem({
           </span>
         </div>
 
-        <p className="text-base-content/80 mt-1 text-sm">{comment.content}</p>
+        <p className="text-base-content/80 mt-1 text-sm break-words">
+          {comment.content}
+        </p>
       </div>
 
       {isCommentOwner && !isTemporaryComment && (
