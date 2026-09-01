@@ -62,7 +62,7 @@ function UserProfileCard({
         </h2>
         <p className="text-base-content-secondary text-sm">{user.email}</p>
 
-        <div className="mt-6 flex w-full justify-around">
+        <div className="mt-6 grid w-full grid-cols-3 gap-4">
           <div className="flex flex-col items-center">
             <span className="text-base-content font-bold">
               {user._count?.followings ?? 0}
