@@ -4,7 +4,6 @@ export function Skeleton({ className = "" }: { className?: string }) {
   );
 }
 
-
 export function PostCardSkeleton() {
   return (
     <div className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
@@ -25,7 +24,6 @@ export function PostCardSkeleton() {
     </div>
   );
 }
-
 
 export function RecommendedUserSkeleton() {
   return (
@@ -51,7 +49,6 @@ export function RecommendedUserSkeleton() {
     </div>
   );
 }
-
 
 export function NotificationCardSkeleton() {
   return (
@@ -105,3 +102,18 @@ export function NotificationPageSkeleton() {
   );
 }
 
+export function HeaderSkeleton() {
+  return (
+    <div className="mx-auto flex h-16 w-full max-w-[1248px] items-center justify-between px-2 md:px-4 lg:px-6">
+      <Skeleton className="h-6 w-24" />
+
+      <div className="flex items-center gap-4">
+        <Skeleton className="h-9 w-9 rounded-[6px]" />
+        <Skeleton className="h-9 w-20 rounded-[6px]" />
+        <Skeleton className="h-9 w-32 rounded-[6px]" />
+        <Skeleton className="h-9 w-24 rounded-[6px]" />
+        <Skeleton className="h-9 w-9 rounded-[6px]" />
+      </div>
+    </div>
+  );
+}
