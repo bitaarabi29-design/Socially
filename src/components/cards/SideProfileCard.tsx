@@ -49,11 +49,11 @@ function SideProfileCard() {
 
         <div className="divider my-0 w-full"></div>
 
-
         <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center text-center">
           <div className="min-w-0">
-           
-            <div className="text-lg font-bold">{user._count?.followings?? 0}</div>
+            <div className="text-lg font-bold">
+              {user._count?.followings ?? 0}
+            </div>
 
             <div className="text-base-content/50 text-xs">Followings</div>
           </div>
@@ -61,8 +61,9 @@ function SideProfileCard() {
           <div className="divider divider-horizontal mx-0 h-10"></div>
 
           <div className="min-w-0">
-        
-            <div className="text-lg font-bold">{user._count?.followers ?? 0}</div>
+            <div className="text-lg font-bold">
+              {user._count?.followers ?? 0}
+            </div>
 
             <div className="text-base-content/50 text-xs">Followers</div>
           </div>
@@ -77,7 +78,7 @@ function SideProfileCard() {
           </div>
           <div className="text-base-content/70 flex items-center gap-2 text-sm">
             <LinkIcon className="text-base-content/70" />
-            <span>{user.website ?? "No Website"}</span>
+            <span>{user.website?.trim() || "No Website"}</span>
           </div>
         </div>
       </div>

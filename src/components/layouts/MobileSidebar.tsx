@@ -1,5 +1,10 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useSession } from "../../hooks/useSession";
+import { useLogout } from "../../hooks/useLogout";
 import {
   CloseIcon,
   DarkModeIcon,
@@ -19,7 +24,25 @@ type MobileSidebarProps = {
 function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
   const drawerRef = useRef<HTMLInputElement>(null);
 
-  const isLoggedIn = true;
+  const { data: session } = useSession();
+  const isLoggedIn = !!session;
+  const logoutMutation = useLogout();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["session"] });
+        toast.success("Logged out successfully", {
+          className:
+            "!bg-white/90 dark:!bg-black/80 backdrop-blur-3xl border border-black/20 dark:border-white/20 rounded-xl !text-black dark:!text-white text-[14px] px-4 py-3",
+        });
+        closeDrawer();
+        navigate("/login");
+      },
+    });
+  };
 
   function closeDrawer() {
     if (drawerRef.current) {
@@ -116,7 +139,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
                   </Link>
 
                   <Link
-                    to="/profile"
+                    to={`/profile/${session?.data?.user?.id}`}
                     onClick={closeDrawer}
                     className="hover:bg-base-300 flex h-10 w-full cursor-pointer items-center justify-start gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                   >
@@ -126,7 +149,7 @@ function MobileSidebar({ theme, toggleTheme }: MobileSidebarProps) {
 
                   <button
                     type="button"
-                    onClick={closeDrawer}
+                    onClick={handleLogout}
                     className="text-base-content hover:bg-base-300 flex h-10 w-full cursor-pointer items-center gap-3 rounded-[6px] px-4 text-[14px] leading-5 font-normal transition duration-300 ease-in-out"
                     aria-label="Logout"
                   >
