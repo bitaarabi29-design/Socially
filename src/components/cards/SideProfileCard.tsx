@@ -74,7 +74,7 @@ function SideProfileCard() {
         <div className="mt-2 w-full space-y-3 text-left">
           <div className="text-base-content/70 flex items-center gap-2 text-sm">
             <LocationIcon className="text-base-content/70" />
-            <span>{user.location ?? "No location"}</span>
+            <span>{user.location ?? "No Location"}</span>
           </div>
           <div className="text-base-content/70 flex items-center gap-2 text-sm">
             <LinkIcon className="text-base-content/70" />

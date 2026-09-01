@@ -1,9 +1,9 @@
-export type NotificationType = "comment" | "like" | "follow";
-export interface SocialNotificaion {
+export interface SocialNotification {
   id: number;
   avatarUrl: string;
+  userId: string;
   username: string;
-  type: NotificationType;
+  type: "comment" | "like" | "follow";
   postTitle?: string;
   comment?: string;
   createdAt: string;

@@ -19,8 +19,11 @@ type HeaderProps = {
 };
 
 function Header({ theme, toggleTheme }: HeaderProps) {
-  const { data: session } = useSession();
+
+  const { data: session, isLoading } = useSession();
   const hasSession = !!session;
+  
+ 
 
   const logoutMutation = useLogout();
   const queryClient = useQueryClient();
@@ -38,6 +41,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
       },
     });
   };
+
 
   return (
     <>
@@ -72,7 +76,12 @@ function Header({ theme, toggleTheme }: HeaderProps) {
               <span>Home</span>
             </Link>
 
-            {hasSession ? (
+
+            {isLoading ? (
+              <p>loeading</p>
+            ) : hasSession ? (
+
+          
               <>
                 <Link
                   to="/notification"
@@ -102,7 +111,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
             ) : (
               <Link
                 to="/login"
-                className="bg-neutral text-neutral-content hover:bg-base-300 hover:text-base-content flex h-9 cursor-pointer items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A] transition duration-300 ease-in-out"
+                className="bg-neutral hover:bg-neutral/80 text-neutral-content flex h-9 items-center justify-center rounded-[6px] px-4 text-[14px] leading-5 font-normal shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A] transition duration-300 ease-in-out"
               >
                 Sign In
               </Link>
