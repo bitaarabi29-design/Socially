@@ -3,25 +3,12 @@ import { AlertCircle } from "lucide-react";
 
 import NotificationCard from "../components/cards/NotificationCard";
 import Spinner from "../components/ui/Spinner";
-import { NotificationCardSkeleton } from "../components/ui/Skeleton";
+import { NotificationPageSkeleton } from "../components/ui/Skeleton";
 
 import type { SocialNotification } from "../types/notification";
 
 // Static Data
-const notifications: Array<SocialNotification> = [
-  {
-    id: 1,
-    avatarUrl:
-      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-    userId: "AyZXlOoaCGrl1XbuurMrAaN20xD7uTki",
-    username: "Farhan",
-    type: "comment",
-    postTitle: "Test Post",
-    comment: "Test Comment",
-    createdAt: "3 minutes ago",
-    isRead: false,
-  },
-];
+const notifications: Array<SocialNotification> = [];
 
 function NotificationPage() {
   const [notificationItems, setNotificationItems] = useState(notifications);
@@ -34,14 +21,7 @@ function NotificationPage() {
   const unreadCount = notificationItems.filter((item) => !item.isRead).length;
 
   if (isPageLoading) {
-    return (
-      <div className="bg-base-100 border-base-300 mb-20 flex max-w-233 flex-col space-y-3 overflow-hidden rounded-xl border shadow-sm">
-        <NotificationCardSkeleton />
-        <NotificationCardSkeleton />
-        <NotificationCardSkeleton />
-        <NotificationCardSkeleton />
-      </div>
-    );
+    return <NotificationPageSkeleton />;
   }
 
   function markOneAsRead(id: number) {
