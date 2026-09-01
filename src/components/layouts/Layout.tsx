@@ -48,7 +48,9 @@ function Layout() {
       <main className="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-4 md:grid-cols-5">
         <aside className="lg:col-span-1 lg:flex lg:shrink-0 lg:flex-col lg:gap-6">
           {isLoading ? (
+
             <div>Loading...</div>
+
           ) : hasSession ? (
             <SideProfileCard />
           ) : (
