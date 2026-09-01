@@ -7,7 +7,7 @@ function RecommendedUserItem({ user }: { user: any }) {
   const { mutate, isPending } = useFollowUser(user.id);
 
   return (
-    <div className="flex min-w-0 items-center gap-3">
+    <div className="flex min-w-0 items-center justify-between gap-3">
       <div className="flex min-w-0 items-center gap-3">
         <UserAvatar name={user.name} image={user.image} className="h-10 w-10" />
 
