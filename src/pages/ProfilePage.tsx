@@ -17,7 +17,10 @@ import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import { useUserProfile } from "../hooks/useUserProfile";
 
 import type { Post } from "../types/post.types";
-import { PostCardSkeleton } from "../components/ui/Skeleton";
+import {
+  PostCardSkeleton,
+  UserProfileCardSkeleton,
+} from "../components/ui/Skeleton";
 
 function Profile() {
   const { id } = useParams();
@@ -47,15 +50,7 @@ function Profile() {
   const updateProfileMutation = useUpdateProfile(id ?? "");
   const followMutation = useFollowUser(id ?? "");
 
-  if (isLoading) {
-    return (
-      <Container>
-        <p>Loading profile...</p>
-      </Container>
-    );
-  }
-
-  if (error || !user) {
+  if (error) {
     return (
       <Container>
         <p>Failed to load profile.</p>
@@ -66,21 +61,24 @@ function Profile() {
   return (
     <Container>
       <div className="col-span-5 flex flex-col gap-6 md:col-span-3">
-        <UserProfileCard
-          user={user}
-          isCurrentUser={isCurrentUser}
-          isFollowing={user.followers?.some(
-            (f: { followerId: string }) => f.followerId === currentUserId,
-          )}
-          isFollowLoading={followMutation.isPending}
-          onEditClick={() => setShowEditModal(true)}
-          onFollowClick={() => followMutation.mutate()}
-        />
+        {isLoading || !user ? (
+          <UserProfileCardSkeleton />
+        ) : (
+          <UserProfileCard
+            user={user}
+            isCurrentUser={isCurrentUser}
+            isFollowing={user.followers?.some(
+              (f: { followerId: string }) => f.followerId === currentUserId,
+            )}
+            isFollowLoading={followMutation.isPending}
+            onEditClick={() => setShowEditModal(true)}
+            onFollowClick={() => followMutation.mutate()}
+          />
+        )}
 
         <div className="border-base-300 flex gap-4 border-b px-6">
           <button
             onClick={() => setSection("posts")}
-
             className={`text-base-content-secondary flex items-center gap-2 border-b-2 pb-3 ${
               section === "posts"
                 ? "text-base-content border-white"
@@ -153,7 +151,7 @@ function Profile() {
         </div>
       )}
 
-      {showEditModal && (
+      {showEditModal && user && (
         <EditProfileModal
           user={user}
           isSaving={updateProfileMutation.isPending}
