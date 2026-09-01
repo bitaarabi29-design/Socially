@@ -1,82 +1,48 @@
-import { useState } from "react";
+import {
+  useGetNotifications,
+  useMarkNotificationsAsRead,
+} from "../hooks/useNotifications";
+
+import { AlertCircle } from "lucide-react";
+
 import NotificationCard from "../components/cards/NotificationCard";
-import type { SocialNotificaion } from "../types/notification";
-// Static Data
-const notifications: SocialNotificaion[] = [
-  {
-    id: 1,
-    avatarUrl:
-      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-    username: "Farhan",
-    type: "comment",
-    postTitle: "Test Post",
-    comment: "Test Comment",
-    createdAt: "3 minutes ago",
-    isRead: false,
-  },
-  {
-    id: 2,
-    avatarUrl:
-      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-    username: "Farhan",
-    type: "like",
-    postTitle: "Test Post",
-    createdAt: "3 minutes ago",
-    isRead: false,
-  },
-  {
-    id: 3,
-    avatarUrl:
-      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-    username: "Farhan",
-    type: "comment",
-    postTitle: "Test Post",
-    comment: "Test Comment",
-    createdAt: "3 minutes ago",
-    isRead: true,
-  },
-  {
-    id: 4,
-    avatarUrl:
-      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-    username: "Farhan",
-    type: "like",
-    postTitle: "Test Post",
-    createdAt: "3 minutes ago",
-    isRead: true,
-  },
-  {
-    id: 5,
-    avatarUrl:
-      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-    username: "Farhan",
-    type: "follow",
-    createdAt: "3 minutes ago",
-    isRead: false,
-  },
-  {
-    id: 6,
-    avatarUrl:
-      "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp",
-    username: "Farhan",
-    type: "follow",
-    createdAt: "3 minutes ago",
-    isRead: true,
-  },
-];
+import { NotificationPageSkeleton } from "../components/ui/Skeleton";
+import type { SocialNotification } from "../types/notification";
 
-function notificationPage() {
-  const [notificationItems, setNotificationItems] = useState(notifications);
-  const unreadCount = notificationItems.filter(
-    (notification) => !notification.isRead,
-  ).length;
+function NotificationPage() {
+  const {
+    data,
+    isLoading: isPageLoading,
+    isError,
+    refetch,
+  } = useGetNotifications();
 
-  function markAllAsRead() {
-    setNotificationItems((currentNotifications) =>
-      currentNotifications.map((notification) => ({
-        ...notification,
-        isRead: true,
-      })),
+  const { mutate: markAllAsRead, isPending: isMarkingLoading } =
+    useMarkNotificationsAsRead();
+
+  const notificationItems: Array<SocialNotification> = Array.isArray(data)
+    ? data
+    : [];
+
+  const unreadCount = notificationItems.filter((item) => !item.isRead).length;
+
+  if (isPageLoading) {
+    return <NotificationPageSkeleton />;
+  }
+
+  if (isError) {
+    return (
+      <div className="text-error bg-error/10 border-error/20 m-4 flex flex-col items-center gap-3 rounded-lg border p-4">
+        <AlertCircle className="h-6 w-6" />
+        <p className="font-medium">Something went wrong!</p>
+        <button
+          type="button"
+          onClick={() => refetch()}
+          className="text-error btn btn-sm btn-outline btn-error bg-error/30 hover:bg-error/50 cursor-pointer rounded-md px-3 py-1 text-sm font-medium transition duration-300 ease-in-out"
+        >
+          Try Again!
+        </button>
+      </div>
     );
   }
 
@@ -91,21 +57,43 @@ function notificationPage() {
           {unreadCount > 0 && (
             <button
               type="button"
-              onClick={markAllAsRead}
+              disabled={isMarkingLoading}
+              onClick={() => markAllAsRead()}
               className="text-base-content hover:bg-base-300 cursor-pointer rounded-md p-2 text-xs font-medium transition duration-300 ease-in-out"
             >
-              Mark as read
+              {isMarkingLoading ? (
+                <div className="flex items-center gap-2">
+                  <span className="loading loading-spinner loading-xs" />
+                  <span className="font-mono">Loading...</span>
+                </div>
+              ) : (
+                "Mark as read"
+              )}
             </button>
           )}
         </div>
       </header>
+
       <main>
-        {notificationItems.map((notification) => (
-          <NotificationCard key={notification.id} notification={notification} />
-        ))}
+        {notificationItems.length === 0 ? (
+          // Empty State
+          <div className="text-base-content/50 flex h-40 flex-col items-center justify-center gap-2">
+            <p>Your notifications are taking a nap.😴</p>
+            <p>Check back later!</p>
+          </div>
+        ) : (
+          // Success State
+          notificationItems.map((item) => (
+            <NotificationCard
+              key={item.id}
+              notification={item}
+              onMarkAsRead={() => markAllAsRead()}
+            />
+          ))
+        )}
       </main>
     </section>
   );
 }
 
-export default notificationPage;
+export default NotificationPage;

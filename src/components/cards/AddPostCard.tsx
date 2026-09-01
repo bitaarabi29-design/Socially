@@ -3,11 +3,15 @@ import { SendIcon } from "../../assets/icons";
 import { useCreatePost } from "../../hooks/usePost";
 import Button from "../ui/Button";
 import { useUploadImage } from "../../hooks/useUploadeImage";
+import { useSession } from "../../hooks/useSession";
+import UserAvatar from "../ui/UserAvatar";
 
 function AddPostCard() {
   const [content, setContent] = useState("");
   const [postImageId, setPostImageId] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const { data: session } = useSession();
+  const currentUser = session?.data?.user;
   const { mutate: createPost, isPending: isCreatingPost } = useCreatePost();
   const {
     mutate: uploadImage,
@@ -15,9 +19,7 @@ function AddPostCard() {
     isError: isImageUploadError,
   } = useUploadImage();
   const isPostDisabled =
-    content.trim().length === 0 ||
-    isCreatingPost ||
-    isUploadingImage ;
+    content.trim().length === 0 || isCreatingPost || isUploadingImage;
 
   function handleCreatePost() {
     const trimmedContent = content.trim();
@@ -54,12 +56,11 @@ function AddPostCard() {
   return (
     <div className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
       <div className="flex h-[100px] items-start gap-4">
-        <img
-          src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
-          alt="Current user"
-          className="h-10 w-10 shrink-0 rounded-full object-cover"
+        <UserAvatar
+          name={currentUser?.name}
+          image={currentUser?.image}
+          className="h-10 w-10"
         />
-
         <textarea
           value={content}
           onChange={(event) => setContent(event.target.value)}
@@ -96,7 +97,11 @@ function AddPostCard() {
           />
         </div>
       )}
-      {isImageUploadError&& (<p className="text-error text-sm mt-2">Upload failed.Please choose the image again.</p>)}
+      {isImageUploadError && (
+        <p className="text-error mt-2 text-sm">
+          Upload failed.Please choose the image again.
+        </p>
+      )}
       <div className="border-base-300 mt-4 border-t pt-4">
         <div className="flex justify-end">
           <Button

@@ -9,4 +9,5 @@ export type ButtonProps = {
   icon?: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  className?: string;
 };
