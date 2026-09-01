@@ -1,12 +1,41 @@
+import UserAvatar from "../ui/UserAvatar";
 import { useRecommendedUser } from "../../hooks/useRecommendedUser";
-import {RecommendedUserSkeleton} from "../ui/Skeleton";
+import { RecommendedUserSkeleton } from "../ui/Skeleton";
+import { useFollowUser } from "../../hooks/useFollowUser";
 
+function RecommendedUserItem({ user }: { user: any }) {
+  const { mutate, isPending } = useFollowUser(user.id);
+
+  return (
+    <div className="flex min-w-0 items-center gap-3">
+      <div className="flex min-w-0 items-center gap-3">
+        <UserAvatar name={user.name} image={user.image} className="h-10 w-10" />
+
+        <div className="flex min-w-0 flex-col gap-1">
+          <p className="text-base-content truncate text-sm">@{user.name}</p>
+
+          <span className="text-base-content/60 hidden text-xs md:block">
+            {user._count.followers} followers
+          </span>
+        </div>
+      </div>
+
+      <button
+        onClick={() => mutate()}
+        disabled={isPending}
+        className="bg-base-300 text-base-content shrink-0 rounded-md px-2 py-1 text-[10px] md:rounded-lg md:px-3 md:py-1.5 md:text-xs"
+      >
+        {isPending ? "Following..." : "Follow"}
+      </button>
+    </div>
+  );
+}
 
 function RecommendedUserCard() {
   const { data: recommendedUsers, error, isLoading } = useRecommendedUser();
-  console.log(recommendedUsers);
+
   if (isLoading) {
-    return <RecommendedUserSkeleton/>
+    return <RecommendedUserSkeleton />;
   }
 
   if (error) {
@@ -20,34 +49,13 @@ function RecommendedUserCard() {
       </h3>
       <div className="flex flex-col gap-5">
         {recommendedUsers?.map((user) => (
-          <div
-            key={user.id}
-            className="flex min-w-0 items-center justify-between"
-          >
-            <div className="flex min-w-0 items-center gap-3">
-              <img
-                src="./src/assets/icons/picture.svg"
-                alt="picture"
-                className="hidden h-10 w-10 rounded-full object-cover md:block"
-              />
-
-              <div className="flex min-w-0 flex-col gap-1">
-                <p className="text-base-content truncate text-sm">
-                  @{user.name}
-                </p>
-
-                <span className="text-base-content/60 hidden text-xs md:block">
-                  {user._count.followers} followers
-                </span>
-              </div>
-            </div>
-
-            <button className="bg-base-300 text-base-content shrink-0 rounded-md px-2 py-1 text-[10px] md:rounded-lg md:px-3 md:py-1.5 md:text-xs">
-              Follow
-            </button>
-          </div>
+          <RecommendedUserItem key={user.id} user={user} />
         ))}
       </div>
+      <div
+        key={user.id}
+        className="flex min-w-0 items-center justify-between"
+      ></div>
     </div>
   );
 }

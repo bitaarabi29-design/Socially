@@ -4,7 +4,7 @@ export const loginSchema = z.object({
   email: z.email("Invalid email"),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters")
+    .min(7, "Password must be at least 6 characters")
     .max(16, "Password must be at most 16 characters long"),
 });
 

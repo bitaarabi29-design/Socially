@@ -16,3 +16,5 @@ export { default as TrashIcon } from "./trash.svg?react";
 export { default as MenuIcon } from "./menu.svg?react";
 export { default as CloseIcon } from "./close.svg?react";
 export { default as LogoutIcon } from "./logout.svg?react";
+export { default as PictureIcon } from "./picture.svg";
+

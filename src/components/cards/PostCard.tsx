@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { ChatIcon, HeartIcon, SendIcon, TrashIcon } from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
+
+import { ChatIcon, HeartIcon, SendIcon, TrashIcon } from "../../assets/icons";
 
 import {
   useCreateComment,
+  useDeleteComment,
   useDeletePost,
   useToggleLikePost,
 } from "../../hooks/usePost";
@@ -14,22 +16,40 @@ import { formatTimeAgo } from "../../utils/formatTimeAgo";
 
 import Button from "../ui/Button";
 
+import { getImageUrl } from "../../lib/getImageUrl";
+
+import DeleteCommentModal from "../modals/DeleteCommentModal";
+import DeletePostModal from "../modals/DeletePostModal";
+
 function PostCard({ post }: PostCardProps) {
   const [comment, setComment] = useState("");
   const [showComments, setShowComments] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeletePostModal, setShowDeletePostModal] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState<string | null>(null);
+
+  const [postImageError, setPostImageError] = useState(false);
+
   const navigate = useNavigate();
+
+  const postImageUrl = getImageUrl(post.image);
 
   const { data: session } = useSession();
 
-  const { mutate: toggleLike, isPending: isLikePending } = useToggleLikePost();
+  const currentUser = session?.data?.user;
+
+  const currentUserId = currentUser?.id;
+  const currentUserEmail = currentUser?.email;
+
+  const { mutate: toggleLike, isPending: isLikePending } =
+    useToggleLikePost(currentUserId);
 
   const { mutate: createComment, isPending: isCommentPending } =
-    useCreateComment();
+    useCreateComment(currentUser);
 
   const { mutate: deletePost, isPending: isDeletePending } = useDeletePost();
 
-  const currentUserId = session?.data?.user?.id;
+  const { mutate: deleteComment, isPending: isDeleteCommentPending } =
+    useDeleteComment();
 
   const isOwner = currentUserId === post.authorId;
 
@@ -37,9 +57,13 @@ function PostCard({ post }: PostCardProps) {
     currentUserId && post.likes?.some((like) => like.userId === currentUserId),
   );
 
-  const isCommentDisabled = comment.trim().length === 0 || isCommentPending;
+  const isCommentDisabled = comment.trim().length < 5 || isCommentPending;
 
-  const avatarLetter = post.author?.name?.charAt(0).toUpperCase() || "U";
+  const avatarLetter = post.author.name?.charAt(0).toUpperCase() || "U";
+
+  function handleProfileNavigation() {
+    navigate(`/profile/${post.authorId}`);
+  }
 
   function handleLike() {
     toggleLike(post.id);
@@ -63,43 +87,64 @@ function PostCard({ post }: PostCardProps) {
     );
   }
 
-  function handleDelete() {
+  function handleDeletePost() {
     if (!isOwner) return;
 
     deletePost(post.id, {
       onSuccess: () => {
-        setShowDeleteModal(false);
+        setShowDeletePostModal(false);
       },
+    });
+  }
+
+  function handleDeleteComment() {
+    if (!commentToDelete) return;
+
+    const commentId = commentToDelete;
+    setCommentToDelete(null);
+
+    deleteComment({
+      postId: post.id,
+      commentId,
     });
   }
 
   return (
     <>
       <article className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
-        <div
-          className="flex cursor-pointer items-start gap-4"
-          onClick={() => navigate(`/profile/${post.authorId}`)}
-        >
-          {post.author?.image ? (
-            <img
-              src={post.author.image}
-              alt={post.author.name}
-              className="h-10 w-10 shrink-0 rounded-full object-cover"
-            />
-          ) : (
-            <div className="bg-primary text-primary-content flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg">
-              {avatarLetter}
-            </div>
-          )}
+        <div className="flex items-start gap-4">
+          <button
+            type="button"
+            onClick={handleProfileNavigation}
+            className="shrink-0 cursor-pointer"
+            aria-label={`View ${post.author.name}'s profile`}
+          >
+            {post.author.image && !postImageError ? (
+              <img
+                src={post.author.image}
+                alt={post.author.name}
+                onError={() => setPostImageError(true)}
+                className="h-10 w-10 rounded-full object-cover"
+              />
+            ) : (
+              <div className="bg-primary text-primary-content flex h-10 w-10 items-center justify-center rounded-full text-lg">
+                {avatarLetter}
+              </div>
+            )}
+          </button>
 
           <div className="min-w-0 flex-1">
             <div className="flex h-6 items-center">
-              <h3 className="text-base-content text-base font-semibold">
-                {post.author?.name}
-              </h3>
+              <button
+                type="button"
+                onClick={handleProfileNavigation}
+                className="text-base-content cursor-pointer text-base font-semibold"
+              >
+                {post.author.name}
+              </button>
 
               <span className="text-base-content/50 ml-3 text-xs">
-                {post.author?.email}
+                {post.author.email}
               </span>
 
               <span className="text-base-content/50 mx-3 text-xs">•</span>
@@ -110,15 +155,20 @@ function PostCard({ post }: PostCardProps) {
             </div>
 
             <p className="text-base-content mt-1 text-sm">{post.content}</p>
+
+            {postImageUrl && (
+              <img
+                src={postImageUrl}
+                alt="Post attachment"
+                className="mt-3 max-h-96 w-full rounded-lg object-cover"
+              />
+            )}
           </div>
 
           {isOwner && (
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDeleteModal(true);
-              }}
+              onClick={() => setShowDeletePostModal(true)}
               className="text-base-content/60 hover:text-error"
               aria-label="Delete post"
             >
@@ -128,33 +178,49 @@ function PostCard({ post }: PostCardProps) {
         </div>
 
         <div className="mt-4 flex h-8 items-center gap-4">
+          {/* Like */}
           <button
             type="button"
             onClick={handleLike}
             disabled={isLikePending}
-            className="hover:bg-base-300 flex h-8 items-center gap-2 rounded-md px-2 disabled:opacity-50"
+            className={`flex h-8 items-center gap-2 rounded-md px-2 disabled:opacity-50 ${
+              isLiked
+                ? "bg-base-300 text-error"
+                : "text-base-content hover:bg-base-300"
+            }`}
             aria-label={isLiked ? "Unlike post" : "Like post"}
           >
             <HeartIcon
               className={`h-4 w-4 ${
                 isLiked
-                  ? "text-error [&_path]:fill-current"
-                  : "text-base-content [&_path]:fill-none"
+                  ? "[&_path]:fill-current [&_path]:stroke-current"
+                  : "[&_path]:fill-none [&_path]:stroke-current"
               }`}
             />
 
-            <span className="text-sm">{post._count?.likes}</span>
+            <span className="text-sm">{post._count.likes}</span>
           </button>
+
           <button
             type="button"
             onClick={() => setShowComments((current) => !current)}
-            className="hover:bg-base-300 flex h-8 items-center gap-2 rounded-md px-2"
+            className={`flex h-8 items-center gap-2 rounded-md px-2 ${
+              showComments
+                ? "bg-base-300 text-primary"
+                : "text-base-content hover:bg-base-300"
+            }`}
             aria-label="Toggle comments"
             aria-expanded={showComments}
           >
-            <ChatIcon className="h-4 w-4" />
+            <ChatIcon
+              className={`h-4 w-4 ${
+                showComments
+                  ? "[&_path]:fill-current [&_path]:stroke-current"
+                  : "[&_path]:fill-none [&_path]:stroke-current"
+              }`}
+            />
 
-            <span className="text-sm">{post._count?.comments}</span>
+            <span className="text-sm">{post._count.comments}</span>
           </button>
         </div>
 
@@ -164,45 +230,20 @@ function PostCard({ post }: PostCardProps) {
               {!post.comments || post.comments.length === 0 ? (
                 <p className="text-base-content/50 text-sm">No comments yet.</p>
               ) : (
-                post.comments.map((postComment) => {
-                  const commentAvatarLetter =
-                    postComment.author.name?.charAt(0).toUpperCase() || "U";
-
-                  return (
-                    <div
-                      key={postComment.id}
-                      className="flex items-start gap-3"
-                    >
-                      {postComment.author.image ? (
-                        <img
-                          src={postComment.author.image}
-                          alt={postComment.author.name}
-                          className="h-8 w-8 shrink-0 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="bg-primary text-primary-content flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm">
-                          {commentAvatarLetter}
-                        </div>
-                      )}
-
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-base-content text-sm font-semibold">
-                            {postComment.author.name}
-                          </span>
-
-                          <span className="text-base-content/50 text-xs">
-                            {formatTimeAgo(postComment.createdAt)}
-                          </span>
-                        </div>
-
-                        <p className="text-base-content/80 mt-1 text-sm">
-                          {postComment.content}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })
+                post.comments.map((postComment) => (
+                  <CommentItem
+                    key={postComment.id}
+                    comment={postComment}
+                    currentUserId={currentUserId}
+                    currentUserEmail={currentUserEmail}
+                    onNavigate={
+                      postComment.author?.id
+                        ? () => navigate(`/profile/${postComment.author.id}`)
+                        : undefined
+                    }
+                    onDelete={(commentId) => setCommentToDelete(commentId)}
+                  />
+                ))
               )}
             </div>
 
@@ -210,7 +251,7 @@ function PostCard({ post }: PostCardProps) {
               <div className="border-base-300 mt-4 border-t pt-4">
                 <div className="flex h-25 w-full items-start gap-4">
                   <div className="bg-primary text-primary-content flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg">
-                    U
+                    {currentUser?.name?.charAt(0).toUpperCase() || "U"}
                   </div>
 
                   <textarea
@@ -237,42 +278,113 @@ function PostCard({ post }: PostCardProps) {
         )}
       </article>
 
-      {isOwner && showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
-          <div className="bg-secondary-content border-base-300 w-full max-w-md rounded-xl border p-6 shadow-md md:p-5">
-            <div>
-              <h2 className="text-base-content text-lg font-semibold">
-                Delete Post
-              </h2>
+      {showDeletePostModal && (
+        <DeletePostModal
+          isPending={isDeletePending}
+          onCancel={() => setShowDeletePostModal(false)}
+          onDelete={handleDeletePost}
+        />
+      )}
 
-              <p className="text-base-content/60 mt-1 text-base">
-                This action cannot be undone
-              </p>
-            </div>
-
-            <div className="mt-6 flex justify-end gap-3 md:gap-2">
-              <button
-                type="button"
-                disabled={isDeletePending}
-                onClick={() => setShowDeleteModal(false)}
-                className="border-base-300 rounded-lg border px-4 py-2 text-sm disabled:opacity-50 md:px-3"
-              >
-                Cancel
-              </button>
-
-              <button
-                type="button"
-                disabled={isDeletePending}
-                onClick={handleDelete}
-                className="rounded-lg bg-red-500 px-4 py-2 text-sm text-black disabled:opacity-50 md:px-3"
-              >
-                {isDeletePending ? "Deleting..." : "Delete"}
-              </button>
-            </div>
-          </div>
-        </div>
+      {commentToDelete && (
+        <DeleteCommentModal
+          isPending={isDeleteCommentPending}
+          onCancel={() => setCommentToDelete(null)}
+          onDelete={handleDeleteComment}
+        />
       )}
     </>
+  );
+}
+
+type CommentItemProps = {
+  comment: PostCardProps["post"]["comments"][number];
+  currentUserId?: string;
+  currentUserEmail?: string;
+  onNavigate?: () => void;
+  onDelete: (commentId: string) => void;
+};
+
+function CommentItem({
+  comment,
+  currentUserId,
+  currentUserEmail,
+  onNavigate,
+  onDelete,
+}: CommentItemProps) {
+  const [imageError, setImageError] = useState(false);
+  const author = comment.author ?? {
+    id: "",
+    name: "Unknown user",
+    email: "",
+    image: null,
+  };
+
+  const avatarLetter = author.name?.charAt(0).toUpperCase() || "U";
+
+  const isCommentOwner =
+    author.id === currentUserId || author.email === currentUserEmail;
+  const isTemporaryComment = comment.id.startsWith("temp-");
+
+  return (
+    <div className="flex items-start gap-3">
+      <button
+        type="button"
+        onClick={onNavigate}
+        disabled={!onNavigate}
+        className="shrink-0 enabled:cursor-pointer"
+        aria-label={`View ${author.name}'s profile`}
+      >
+        {author.image && !imageError ? (
+          <img
+            src={author.image}
+            alt={author.name}
+            onError={() => setImageError(true)}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+        ) : (
+          <div className="bg-primary text-primary-content flex h-8 w-8 items-center justify-center rounded-full text-sm">
+            {avatarLetter}
+          </div>
+        )}
+      </button>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center">
+          <button
+            type="button"
+            onClick={onNavigate}
+            disabled={!onNavigate}
+            className="text-base-content text-sm font-semibold enabled:cursor-pointer"
+          >
+            {author.name}
+          </button>
+
+          <span className="text-base-content/50 ml-3 text-xs">
+            {author.email}
+          </span>
+
+          <span className="text-base-content/50 mx-3 text-xs">•</span>
+
+          <span className="text-base-content/50 text-xs">
+            {formatTimeAgo(comment.createdAt)}
+          </span>
+        </div>
+
+        <p className="text-base-content/80 mt-1 text-sm">{comment.content}</p>
+      </div>
+
+      {isCommentOwner && !isTemporaryComment && (
+        <button
+          type="button"
+          onClick={() => onDelete(comment.id)}
+          className="text-base-content/50 hover:text-error flex h-8 w-8 shrink-0 items-center justify-center rounded-md"
+          aria-label="Delete comment"
+        >
+          <TrashIcon className="h-4 w-4" />
+        </button>
+      )}
+    </div>
   );
 }
 

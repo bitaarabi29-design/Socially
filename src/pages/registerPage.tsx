@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 import { useRegister } from "../hooks/useRegister";
+import { useSession } from "../hooks/useSession";
 import { registerSchema } from "../schemas/form.schemas";
 import type { z } from "zod";
 
@@ -9,6 +11,8 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 function Register() {
   const registerMutation = useRegister();
+  const { data: session } = useSession();
+  console.log("session data:", session);
   const navigate = useNavigate();
 
   const {
@@ -20,6 +24,13 @@ function Register() {
   });
 
   const onSubmit = async (data: RegisterFormData) => {
+    if (session) {
+      toast.error("You already have an account", {
+        className:
+          "!bg-white/90 dark:!bg-black/80 backdrop-blur-3xl border border-black/20 dark:border-white/20 rounded-xl !text-black dark:!text-white text-[14px] px-4 py-3",
+      });
+      return;
+    }
     try {
       await registerMutation.mutateAsync(data);
       navigate("/");

@@ -4,6 +4,29 @@ export function Skeleton({ className = "" }: { className?: string }) {
   );
 }
 
+
+export function PostCardSkeleton() {
+  return (
+    <div className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
+      <div className="flex items-start gap-4">
+        <Skeleton className="h-10 w-10 shrink-0 rounded-full" />
+
+        <div className="flex min-w-0 flex-1 flex-col gap-3">
+          <Skeleton className="h-4 w-40" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-2/3" />
+        </div>
+      </div>
+
+      <div className="mt-5 flex gap-4">
+        <Skeleton className="h-8 w-14" />
+        <Skeleton className="h-8 w-14" />
+      </div>
+    </div>
+  );
+}
+
+
 export function RecommendedUserSkeleton() {
   return (
     <div className="border-base-300 bg-base-100 rounded-xl border p-6 shadow-sm md:p-4">
@@ -28,6 +51,7 @@ export function RecommendedUserSkeleton() {
     </div>
   );
 }
+
 
 export function NotificationCardSkeleton() {
   return (
@@ -80,6 +104,7 @@ export function NotificationPageSkeleton() {
     </div>
   );
 }
+
 
 export function SideProfileCardSkeleton() {
   return (
@@ -136,3 +161,5 @@ export function SideProfileCardSkeleton() {
     </div>
   );
 }
+
+

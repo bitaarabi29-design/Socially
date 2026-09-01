@@ -6,6 +6,8 @@ export type ButtonProps = {
   variant?: "primary" | "secondary" | "pure" | "teritiary";
   children?: React.ReactNode;
   disabled?: boolean;
-  icon?:React.ReactNode;
+  icon?: React.ReactNode;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  className?: string;
 };
