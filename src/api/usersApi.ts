@@ -2,12 +2,16 @@ import api from "../lib/axios";
 import type { user } from "../types/user.types";
 
 export const getUserProfile = async (id: string) => {
-  const response = await api.get(`/api/users/${id}`);
+  const response = await api.get(`/api/users/${id}`, {
+    params: { _t: Date.now() },
+  });
   return response.data.data;
 };
 
 export const getUserProfileByUsername = async (username: string) => {
-  const response = await api.get(`/api/users/${username}/profile`);
+  const response = await api.get(`/api/users/${username}/profile`, {
+    params: { _t: Date.now() },
+  });
   return response.data;
 };
 
