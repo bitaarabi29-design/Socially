@@ -8,6 +8,7 @@ export const useFollowUser = (userId: string) => {
     mutationFn: () => followUnfollowUser(userId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Profile"] });
+       queryClient.invalidateQueries({ queryKey: ["recommendedUsers"] });
     },
   });
 };
