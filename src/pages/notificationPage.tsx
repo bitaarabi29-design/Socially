@@ -19,6 +19,7 @@ function NotificationPage() {
 
   const { mutate: markAllAsRead, isPending: isMarkingLoading } =
     useMarkNotificationsAsRead();
+  console.log("notifications data:", data);
 
   const notificationItems: Array<SocialNotification> = Array.isArray(data)
     ? data
