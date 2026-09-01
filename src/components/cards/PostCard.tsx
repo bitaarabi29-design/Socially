@@ -134,27 +134,31 @@ function PostCard({ post }: PostCardProps) {
           </button>
 
           <div className="min-w-0 flex-1">
-            <div className="flex h-6 items-center">
+            <div className="flex min-w-0 items-center gap-2">
               <button
                 type="button"
                 onClick={handleProfileNavigation}
-                className="text-base-content cursor-pointer text-base font-semibold"
+                className="text-base-content shrink-0 cursor-pointer text-base font-semibold"
               >
                 {post.author.name}
               </button>
 
-              <span className="text-base-content/50 ml-3 text-xs">
+              <span className="text-base-content/50 truncate text-xs">
                 {post.author.email}
               </span>
 
-              <span className="text-base-content/50 mx-3 text-xs">•</span>
+              <span className="text-base-content/50 mx-1 shrink-0 text-xs">
+                •
+              </span>
 
-              <span className="text-base-content/50 text-xs">
+              <span className="text-base-content/50 shrink-0 text-xs">
                 {formatTimeAgo(post.createdAt)}
               </span>
             </div>
 
-            <p className="text-base-content mt-1 text-sm">{post.content}</p>
+            <p className="text-base-content mt-1 text-sm break-words">
+              {post.content}
+            </p>
 
             {postImageUrl && (
               <img
@@ -169,7 +173,7 @@ function PostCard({ post }: PostCardProps) {
             <button
               type="button"
               onClick={() => setShowDeletePostModal(true)}
-              className="text-base-content/60 hover:text-error cursor-pointer"
+              className="text-base-content/60 hover:text-error shrink-0 cursor-pointer"
               aria-label="Delete post"
             >
               <TrashIcon className="h-4 w-4" />
@@ -352,28 +356,30 @@ function CommentItem({
       </button>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-center">
+        <div className="flex min-w-0 items-center gap-2">
           <button
             type="button"
             onClick={onNavigate}
             disabled={!onNavigate}
-            className="text-base-content text-sm font-semibold enabled:cursor-pointer"
+            className="text-base-content shrink-0 text-sm font-semibold enabled:cursor-pointer"
           >
             {author.name}
           </button>
 
-          <span className="text-base-content/50 ml-3 text-xs">
+          <span className="text-base-content/50 truncate text-xs">
             {author.email}
           </span>
 
-          <span className="text-base-content/50 mx-3 text-xs">•</span>
+          <span className="text-base-content/50 mx-1 shrink-0 text-xs">•</span>
 
-          <span className="text-base-content/50 text-xs">
+          <span className="text-base-content/50 shrink-0 text-xs">
             {formatTimeAgo(comment.createdAt)}
           </span>
         </div>
 
-        <p className="text-base-content/80 mt-1 text-sm">{comment.content}</p>
+        <p className="text-base-content/80 mt-1 text-sm break-words">
+          {comment.content}
+        </p>
       </div>
 
       {isCommentOwner && !isTemporaryComment && (
