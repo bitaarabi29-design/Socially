@@ -2,15 +2,19 @@ import UserAvatar from "../ui/UserAvatar";
 import { useRecommendedUser } from "../../hooks/useRecommendedUser";
 import { RecommendedUserSkeleton } from "../ui/Skeleton";
 import { useFollowUser } from "../../hooks/useFollowUser";
+import { useNavigate } from "react-router-dom";
 
 function RecommendedUserItem({ user }: { user: any }) {
   const { mutate, isPending } = useFollowUser(user.id);
+  const navigate = useNavigate();
 
   return (
-    <div className="flex min-w-0 items-center gap-3">
-      <div className="flex min-w-0 items-center gap-3">
+    <div className="flex min-w-0 items-center justify-between gap-3">
+      <div
+        className="flex min-w-0 cursor-pointer items-center gap-2 md:gap-3"
+        onClick={() => navigate(`/profile/${user.id}`)}
+      >
         <UserAvatar name={user.name} image={user.image} className="h-10 w-10" />
-
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-base-content truncate text-sm">@{user.name}</p>
 
@@ -52,10 +56,8 @@ function RecommendedUserCard() {
           <RecommendedUserItem key={user.id} user={user} />
         ))}
       </div>
-      <div
-        
-        className="flex min-w-0 items-center justify-between"
-      ></div>
+
+      <div className="flex min-w-0 items-center justify-between"></div>
     </div>
   );
 }
