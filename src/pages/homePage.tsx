@@ -2,23 +2,23 @@ import AddPostCard from "../components/cards/AddPostCard";
 import PostCard from "../components/cards/PostCard";
 import RecommendedUserCard from "../components/cards/RecommendedUserCard";
 import Container from "../components/ui/Container";
-import { PostCardSkeleton } from "../components/ui/Skeleton";
+import { AddPostCardSkeleton, PostCardSkeleton } from "../components/ui/Skeleton";
 import { useAllPosts } from "../hooks/usePost";
 import { useSession } from "../hooks/useSession";
 
 function Home() {
-  const { data: posts, isPending, isError, error } = useAllPosts();
+  const { data: posts, isLoading, isError, error } = useAllPosts();
 
   const { data: session } = useSession();
 
-  const hasNoPosts = !isPending && !isError && posts?.length === 0;
+  const hasNoPosts = !isLoading && !isError && posts?.length === 0;
 
   return (
     <Container>
       <div className="col-span-3 flex flex-col gap-6">
-        <AddPostCard />
+        {isLoading ? <AddPostCardSkeleton /> : <AddPostCard />}
 
-        {isPending &&
+        {isLoading &&
           Array.from({ length: 3 }).map((_, index) => (
             <PostCardSkeleton key={index} />
           ))}
@@ -35,7 +35,7 @@ function Home() {
           </p>
         )}
 
-        {!isPending &&
+        {!isLoading &&
           !isError &&
           posts?.map((post) => <PostCard key={post.id} post={post} />)}
       </div>

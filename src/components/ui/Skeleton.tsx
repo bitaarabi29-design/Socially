@@ -25,6 +25,24 @@ export function PostCardSkeleton() {
   );
 }
 
+export function AddPostCardSkeleton() {
+  return (
+    <div className="border-base-300 bg-base-100 w-[550px] max-w-full rounded-xl border p-6 shadow-sm">
+      <div className="flex h-25 items-start gap-4">
+        <Skeleton className="h-10 w-10 shrink-0 rounded-full" />
+
+        <Skeleton className="h-full min-w-0 flex-1 rounded-md" />
+      </div>
+
+      <div className="border-base-300 mt-4 border-t pt-4">
+        <div className="flex justify-end">
+          <Skeleton className="h-10 w-20 rounded-md" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function RecommendedUserSkeleton() {
   return (
     <div className="border-base-300 bg-base-100 rounded-xl border p-6 shadow-sm md:p-4">
@@ -197,4 +215,3 @@ export function SideProfileCardSkeleton() {
     </div>
   );
 }
-
