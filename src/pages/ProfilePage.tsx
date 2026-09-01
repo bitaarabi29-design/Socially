@@ -103,7 +103,7 @@ function Profile() {
         </div>
 
         {section === "posts" && (
-          <div>
+          <div className="flex flex-col gap-4">
             {isPostsLoading &&
               Array.from({ length: 3 }).map((_, index) => (
                 <PostCardSkeleton key={index} />
@@ -124,7 +124,7 @@ function Profile() {
         )}
 
         {section === "likes" && (
-          <div>
+          <div className="flex flex-col gap-4">
             {isLikesLoading &&
               Array.from({ length: 3 }).map((_, index) => (
                 <PostCardSkeleton key={index} />
