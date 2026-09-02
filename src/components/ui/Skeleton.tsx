@@ -215,3 +215,22 @@ export function SideProfileCardSkeleton() {
     </div>
   );
 }
+
+export function PostsLikesTabsSkeleton() {
+  return (
+    <div className="border-base-300 flex gap-4 border-b px-6">
+      <Skeleton className="h-12 w-24 rounded-t-md" />
+      <Skeleton className="h-12 w-24 rounded-t-md" />
+    </div>
+  );
+}
+
+export function PostsLikesContentSkeleton() {
+  return (
+    <div className="flex flex-col gap-4">
+      {Array.from({ length: 3 }).map((_, index) => (
+        <PostCardSkeleton key={index} />
+      ))}
+    </div>
+  );
+}
